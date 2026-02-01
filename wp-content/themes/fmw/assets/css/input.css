@@ -155,6 +155,73 @@
         @apply block px-4 py-2;
     }
 
+    /* Mega Menu */
+    .main-navigation {
+        position: static;
+    }
+
+    .has-mega-menu {
+        position: static;
+    }
+
+    .mega-menu {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 65px;
+        background: #fff;
+        border-top: 1px solid #e5e5e5;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        z-index: 9998;
+    }
+
+    .admin-bar .mega-menu {
+        top: 97px;
+    }
+
+    .mega-menu-inner {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+    }
+
+    .mega-menu-title {
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #666;
+        margin: 0 0 1rem 0;
+    }
+
+    .mega-menu-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.25rem 3rem;
+    }
+
+    .mega-menu-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.625rem 0;
+        font-size: 0.9375rem;
+        color: #000;
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: all 0.15s ease;
+    }
+
+    .mega-menu-item:hover {
+        color: #666;
+    }
+
+    .mega-menu-count {
+        font-size: 0.75rem;
+        color: #bbb;
+        font-weight: 400;
+    }
+
     /* Header Actions */
     .header-actions {
         @apply flex items-center gap-2;
@@ -208,24 +275,32 @@
         @apply py-4;
     }
 
-    .mobile-navigation ul {
+    .mobile-menu-list {
         @apply list-none m-0 p-0;
     }
 
-    .mobile-navigation li {
+    .mobile-menu-list > li {
         @apply border-b border-neutral-100 last:border-0;
     }
 
-    .mobile-navigation a {
+    .mobile-menu-list > li > a {
         @apply block py-3 text-base text-black no-underline;
     }
 
-    .mobile-navigation .sub-menu {
-        @apply pl-4;
+    .mobile-menu-toggle {
+        @apply w-full flex items-center justify-between py-3 text-base text-black bg-transparent border-0 cursor-pointer;
     }
 
-    .mobile-navigation .sub-menu a {
-        @apply text-sm text-neutral-600;
+    .mobile-submenu {
+        @apply list-none m-0 p-0 pl-4 pb-2 overflow-hidden;
+    }
+
+    .mobile-submenu li {
+        @apply border-0;
+    }
+
+    .mobile-submenu a {
+        @apply block py-2 text-sm text-neutral-600 no-underline;
     }
 
     .mobile-account-link {
@@ -1764,4 +1839,47 @@
 
 .fmw-toast-content {
     @apply bg-black text-white text-sm px-6 py-4 rounded-lg shadow-lg max-w-sm text-center;
+}
+
+/**
+ * Genre Archive
+ */
+.genre-archive {
+    @apply py-8 md:py-12;
+}
+
+.genre-header {
+    @apply mb-8;
+}
+
+.genre-title {
+    @apply text-3xl md:text-4xl font-bold text-black mb-2;
+}
+
+.genre-description {
+    @apply text-neutral-600 mb-2;
+}
+
+.genre-count {
+    @apply text-sm text-neutral-500;
+}
+
+.genre-filters {
+    @apply flex flex-wrap gap-2 mb-8 pb-8 border-b border-neutral-200;
+}
+
+.genre-pill {
+    @apply inline-block px-4 py-2 text-sm font-medium text-neutral-600 bg-neutral-100 rounded-full no-underline hover:bg-neutral-200 transition-colors;
+}
+
+.genre-pill.is-active {
+    @apply bg-black text-white;
+}
+
+.genre-no-results {
+    @apply text-center py-16;
+}
+
+.genre-no-results p {
+    @apply text-neutral-600 mb-6;
 }

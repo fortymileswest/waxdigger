@@ -82,17 +82,56 @@
 
                     <!-- Desktop Navigation -->
                     <nav id="site-navigation" class="main-navigation hidden lg:block">
-                        <?php
-                        wp_nav_menu(
-                            array(
-                                'theme_location' => 'primary',
-                                'menu_id'        => 'primary-menu',
-                                'container'      => false,
-                                'fallback_cb'    => false,
-                                'depth'          => 2,
-                            )
-                        );
-                        ?>
+                        <ul id="primary-menu" class="menu">
+                            <li><a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>">Shop</a></li>
+                            <li
+                                class="menu-item-has-children has-mega-menu"
+                                x-data="{ open: false }"
+                                @mouseenter="open = true"
+                                @mouseleave="open = false"
+                            >
+                                <a href="#" @click.prevent>Genres</a>
+                                <div
+                                    class="mega-menu"
+                                    x-show="open"
+                                    x-cloak
+                                    x-transition:enter="transition ease-out duration-200"
+                                    x-transition:enter-start="opacity-0 -translate-y-2"
+                                    x-transition:enter-end="opacity-100 translate-y-0"
+                                    x-transition:leave="transition ease-in duration-150"
+                                    x-transition:leave-start="opacity-100 translate-y-0"
+                                    x-transition:leave-end="opacity-0 -translate-y-2"
+                                >
+                                    <div class="mega-menu-inner">
+                                        <p class="mega-menu-title">Browse by Genre</p>
+                                        <?php
+                                        $genres = get_terms( array(
+                                            'taxonomy'   => 'product_cat',
+                                            'hide_empty' => false,
+                                            'exclude'    => array( get_option( 'default_product_cat' ) ),
+                                            'orderby'    => 'name',
+                                            'order'      => 'ASC',
+                                        ) );
+
+                                        if ( ! empty( $genres ) && ! is_wp_error( $genres ) ) :
+                                        ?>
+                                            <div class="mega-menu-grid">
+                                                <?php foreach ( $genres as $genre ) : ?>
+                                                    <a href="<?php echo esc_url( get_term_link( $genre ) ); ?>" class="mega-menu-item">
+                                                        <span><?php echo esc_html( $genre->name ); ?></span>
+                                                        <?php if ( $genre->count > 0 ) : ?>
+                                                            <span class="mega-menu-count"><?php echo esc_html( $genre->count ); ?></span>
+                                                        <?php endif; ?>
+                                                    </a>
+                                                <?php endforeach; ?>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'about' ) ) ); ?>">About</a></li>
+                            <li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'contact' ) ) ); ?>">Contact</a></li>
+                        </ul>
                     </nav>
 
                     <!-- Header Actions -->
@@ -187,17 +226,49 @@
 
                 <!-- Mobile Navigation -->
                 <nav class="mobile-navigation">
-                    <?php
-                    wp_nav_menu(
-                        array(
-                            'theme_location' => 'primary',
-                            'menu_id'        => 'mobile-nav-menu',
-                            'container'      => false,
-                            'fallback_cb'    => false,
-                            'depth'          => 2,
-                        )
-                    );
-                    ?>
+                    <ul class="mobile-menu-list">
+                        <li><a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>">Shop</a></li>
+                        <li x-data="{ open: false }">
+                            <button type="button" class="mobile-menu-toggle" @click="open = !open">
+                                <span>Genres</span>
+                                <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <ul
+                                class="mobile-submenu"
+                                x-show="open"
+                                x-cloak
+                                x-transition:enter="transition ease-out duration-200"
+                                x-transition:enter-start="opacity-0"
+                                x-transition:enter-end="opacity-100"
+                                x-transition:leave="transition ease-in duration-150"
+                                x-transition:leave-start="opacity-100"
+                                x-transition:leave-end="opacity-0"
+                            >
+                                <?php
+                                $mobile_genres = get_terms( array(
+                                    'taxonomy'   => 'product_cat',
+                                    'hide_empty' => false,
+                                    'exclude'    => array( get_option( 'default_product_cat' ) ),
+                                ) );
+                                if ( ! empty( $mobile_genres ) && ! is_wp_error( $mobile_genres ) ) :
+                                    foreach ( $mobile_genres as $genre ) :
+                                ?>
+                                    <li>
+                                        <a href="<?php echo esc_url( get_term_link( $genre ) ); ?>">
+                                            <?php echo esc_html( $genre->name ); ?>
+                                        </a>
+                                    </li>
+                                <?php
+                                    endforeach;
+                                endif;
+                                ?>
+                            </ul>
+                        </li>
+                        <li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'about' ) ) ); ?>">About</a></li>
+                        <li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'contact' ) ) ); ?>">Contact</a></li>
+                    </ul>
                 </nav>
 
                 <!-- Mobile Account Link -->
