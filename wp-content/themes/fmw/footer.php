@@ -58,7 +58,7 @@
             <!-- Footer Bottom -->
             <div class="footer-bottom">
                 <p class="footer-copyright">&copy; <?php echo esc_html( date( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?></p>
-                <p class="footer-location">Bristol, UK</p>
+                <p class="footer-location">Made in the United Kingdom</p>
             </div>
         </div>
     </footer>
