@@ -11,10 +11,13 @@ do_action( 'woocommerce_before_cart' );
 ?>
 
 <div class="fmw-cart">
-    <form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
-        <?php do_action( 'woocommerce_before_cart_table' ); ?>
+    <div class="cart-content">
+        <h1 class="cart-page-title">Basket</h1>
 
-        <?php if ( WC()->cart->is_empty() ) : ?>
+        <form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
+            <?php do_action( 'woocommerce_before_cart_table' ); ?>
+
+            <?php if ( WC()->cart->is_empty() ) : ?>
             <div class="cart-empty">
                 <p>Your basket is empty.</p>
                 <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="cart-continue-btn">
@@ -73,46 +76,9 @@ do_action( 'woocommerce_before_cart' );
                                     <span class="cart-item-price"><?php echo $product_price; ?></span>
                                 </div>
 
-                                <!-- Quantity / Remove -->
+                                <!-- Quantity / Remove - Secondhand shop, each item unique, no qty controls -->
                                 <div class="cart-item-actions">
-                                    <?php
-                                    // If stock is 1 or less, only show remove button
-                                    if ( $manages_stock && $stock_qty <= 1 ) :
-                                    ?>
-                                        <span class="cart-item-qty-fixed">Qty: 1</span>
-                                    <?php else : ?>
-                                        <div class="cart-item-quantity">
-                                            <?php
-                                            $max_qty = $manages_stock ? $stock_qty : '';
-                                            if ( $_product->is_sold_individually() ) {
-                                                $min_qty = 1;
-                                                $max_qty = 1;
-                                            } else {
-                                                $min_qty = 0;
-                                            }
-
-                                            $input_id    = 'quantity_' . $cart_item_key;
-                                            $input_name  = "cart[{$cart_item_key}][qty]";
-                                            $input_value = $cart_item['quantity'];
-                                            ?>
-                                            <label class="sr-only" for="<?php echo esc_attr( $input_id ); ?>">Quantity</label>
-                                            <div class="qty-wrapper" x-data="{ qty: <?php echo esc_attr( $input_value ); ?> }">
-                                                <button type="button" class="qty-btn qty-minus" @click="qty = Math.max(<?php echo esc_attr( $min_qty ); ?>, qty - 1); $refs.input.value = qty" aria-label="Decrease quantity">−</button>
-                                                <input
-                                                    type="number"
-                                                    id="<?php echo esc_attr( $input_id ); ?>"
-                                                    class="qty-input"
-                                                    name="<?php echo esc_attr( $input_name ); ?>"
-                                                    value="<?php echo esc_attr( $input_value ); ?>"
-                                                    min="<?php echo esc_attr( $min_qty ); ?>"
-                                                    <?php if ( $max_qty ) : ?>max="<?php echo esc_attr( $max_qty ); ?>"<?php endif; ?>
-                                                    x-ref="input"
-                                                    @change="qty = parseInt($el.value) || 0"
-                                                >
-                                                <button type="button" class="qty-btn qty-plus" @click="qty = Math.min(<?php echo esc_attr( $max_qty ?: 99 ); ?>, qty + 1); $refs.input.value = qty" aria-label="Increase quantity">+</button>
-                                            </div>
-                                        </div>
-                                    <?php endif; ?>
+                                    <input type="hidden" name="cart[<?php echo esc_attr( $cart_item_key ); ?>][qty]" value="<?php echo esc_attr( $cart_item['quantity'] ); ?>">
 
                                     <!-- Remove Link -->
                                     <?php
@@ -153,8 +119,9 @@ do_action( 'woocommerce_before_cart' );
 
         <?php endif; ?>
 
-        <?php do_action( 'woocommerce_after_cart_table' ); ?>
-    </form>
+            <?php do_action( 'woocommerce_after_cart_table' ); ?>
+        </form>
+    </div>
 
     <?php if ( ! WC()->cart->is_empty() ) : ?>
         <!-- Cart Totals -->

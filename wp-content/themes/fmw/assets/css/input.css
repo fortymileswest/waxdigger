@@ -682,6 +682,14 @@
     /* Wrapped by WooCommerce container */
 }
 
+.cart-page-title {
+    @apply text-2xl md:text-3xl font-bold text-black mb-6;
+}
+
+.cart-content {
+    /* Left column on desktop */
+}
+
 /* Empty Cart */
 .cart-empty {
     @apply text-center py-16;
@@ -807,8 +815,9 @@
 }
 
 /* Checkout Button */
-.cart-checkout .checkout-button {
-    @apply w-full py-3 bg-black text-white text-sm font-medium text-center no-underline hover:bg-neutral-800 transition-colors block;
+.cart-checkout .checkout-button,
+.cart-checkout a {
+    @apply w-full px-6 py-3 bg-black text-white text-sm font-medium text-center no-underline hover:bg-neutral-800 transition-colors block;
 }
 
 .cart-continue {
