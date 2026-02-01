@@ -246,28 +246,28 @@
     }
 
     .has-mega-menu {
-        position: static;
+        position: relative;
+    }
+
+    .mega-menu-trigger {
+        position: relative;
     }
 
     .mega-menu {
-        position: fixed;
-        left: 0;
-        right: 0;
-        top: 65px;
-        background: #fff;
-        border-top: 1px solid #e5e5e5;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 100%;
+        padding-top: 0.75rem;
         z-index: 9998;
     }
 
-    .admin-bar .mega-menu {
-        top: 97px;
-    }
-
     .mega-menu-inner {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 2rem 1.5rem;
+        background: #fff;
+        border: 1px solid #e5e5e5;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        padding: 1.5rem 2rem;
+        white-space: nowrap;
     }
 
     .mega-menu-title {
@@ -281,8 +281,8 @@
 
     .mega-menu-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.25rem 3rem;
+        grid-template-columns: repeat(3, minmax(140px, auto));
+        gap: 0.25rem 2.5rem;
     }
 
     .mega-menu-item {

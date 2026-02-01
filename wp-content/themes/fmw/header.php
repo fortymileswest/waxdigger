@@ -86,11 +86,11 @@
                             <li><a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>">Shop</a></li>
                             <li
                                 class="menu-item-has-children has-mega-menu"
-                                x-data="{ open: false }"
-                                @mouseenter="open = true"
-                                @mouseleave="open = false"
+                                x-data="{ open: false, timeout: null }"
+                                @mouseenter="clearTimeout(timeout); open = true"
+                                @mouseleave="timeout = setTimeout(() => open = false, 100)"
                             >
-                                <a href="#" @click.prevent>Genres</a>
+                                <a href="#" @click.prevent class="mega-menu-trigger">Genres</a>
                                 <div
                                     class="mega-menu"
                                     x-show="open"
