@@ -136,11 +136,13 @@ $total_slides = count( $products );
 
                 <!-- Image -->
                 <div class="featured-slide-images">
-                    <?php if ( $image_id ) : ?>
-                        <?php echo wp_get_attachment_image( $image_id, 'large', false, array( 'class' => 'featured-slide-cover' ) ); ?>
-                    <?php else : ?>
-                        <div class="featured-slide-cover placeholder-cover"></div>
-                    <?php endif; ?>
+                    <a href="<?php echo esc_url( $permalink ); ?>" class="featured-slide-image-link">
+                        <?php if ( $image_id ) : ?>
+                            <?php echo wp_get_attachment_image( $image_id, 'large', false, array( 'class' => 'featured-slide-cover' ) ); ?>
+                        <?php else : ?>
+                            <div class="featured-slide-cover placeholder-cover"></div>
+                        <?php endif; ?>
+                    </a>
                 </div>
             </div>
             <?php endforeach; ?>

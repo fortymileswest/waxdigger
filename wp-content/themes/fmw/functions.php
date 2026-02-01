@@ -26,6 +26,7 @@ require_once FMW_DIR . '/inc/form-handler.php';
 if ( class_exists( 'WooCommerce' ) ) {
     require_once FMW_DIR . '/inc/woocommerce.php';
     require_once FMW_DIR . '/inc/ajax-auth.php';
+    require_once FMW_DIR . '/inc/ajax-cart.php';
     require_once FMW_DIR . '/inc/advanced-search.php';
 }
 

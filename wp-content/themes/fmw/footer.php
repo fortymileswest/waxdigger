@@ -74,6 +74,11 @@ if ( function_exists( 'WC' ) && ! is_user_logged_in() ) {
 if ( function_exists( 'WC' ) ) {
     fmw_component( 'search-modal' );
 }
+
+// Cart Drawer
+if ( function_exists( 'WC' ) ) {
+    fmw_component( 'cart-drawer' );
+}
 ?>
 
 <?php wp_footer(); ?>
