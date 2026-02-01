@@ -24,47 +24,7 @@
     <header
         id="masthead"
         class="site-header"
-        x-data="{
-            mobileMenuOpen: false,
-            sticky: false,
-            hidden: false,
-            lastY: 0,
-            hasScrolled: false
-        }"
-        x-init="
-            lastY = window.scrollY;
-            window.addEventListener('scroll', () => {
-                const y = window.scrollY;
-
-                // Become sticky after 50px
-                sticky = y > 50;
-
-                // Only start tracking after user has scrolled past 300px at least once
-                if (y > 300) hasScrolled = true;
-
-                // Hide when scrolling down, but only after scrolling past 300px
-                if (hasScrolled && y > 300 && y > lastY + 5) {
-                    hidden = true;
-                }
-
-                // Show when scrolling up
-                if (y < lastY - 5) {
-                    hidden = false;
-                }
-
-                // Always show near top
-                if (y < 150) {
-                    hidden = false;
-                    hasScrolled = false;
-                }
-
-                lastY = y;
-            }, { passive: true });
-        "
-        :class="{
-            'is-sticky': sticky,
-            'is-hidden': hidden
-        }"
+        x-data="{ mobileMenuOpen: false }"
     >
         <div class="header-inner">
             <div class="container mx-auto px-4">

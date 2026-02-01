@@ -1,0 +1,318 @@
+{
+    "key": "group_about_page",
+    "title": "About Page",
+    "fields": [
+        {
+            "key": "field_about_tab_hero",
+            "label": "Hero",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_about_hero_headline",
+            "label": "Headline",
+            "name": "hero_headline",
+            "type": "text",
+            "instructions": "Main headline for the hero section.",
+            "required": 1,
+            "default_value": "We dig records."
+        },
+        {
+            "key": "field_about_hero_subline",
+            "label": "Subline",
+            "name": "hero_subline",
+            "type": "textarea",
+            "instructions": "Supporting text below the headline.",
+            "required": 0,
+            "rows": 2
+        },
+        {
+            "key": "field_about_hero_image",
+            "label": "Hero Image",
+            "name": "hero_image",
+            "type": "image",
+            "instructions": "Background or featured image for the hero.",
+            "required": 0,
+            "return_format": "id",
+            "preview_size": "thumbnail",
+            "library": "all",
+            "min_size": "",
+            "max_size": "0.5MB",
+            "mime_types": "jpg,jpeg,png,webp"
+        },
+        {
+            "key": "field_about_tab_intro",
+            "label": "Intro",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_about_intro_lead",
+            "label": "Lead Text",
+            "name": "intro_lead",
+            "type": "textarea",
+            "instructions": "Large introductory statement.",
+            "required": 1,
+            "rows": 3
+        },
+        {
+            "key": "field_about_intro_body",
+            "label": "Body Text",
+            "name": "intro_body",
+            "type": "wysiwyg",
+            "instructions": "Main introduction content.",
+            "required": 0,
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0
+        },
+        {
+            "key": "field_about_intro_stat_1_number",
+            "label": "Stat 1 Number",
+            "name": "intro_stat_1_number",
+            "type": "text",
+            "instructions": "e.g. 10,000+",
+            "required": 0,
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_about_intro_stat_1_label",
+            "label": "Stat 1 Label",
+            "name": "intro_stat_1_label",
+            "type": "text",
+            "instructions": "e.g. Records Sold",
+            "required": 0,
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_about_intro_stat_2_number",
+            "label": "Stat 2 Number",
+            "name": "intro_stat_2_number",
+            "type": "text",
+            "required": 0,
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_about_intro_stat_2_label",
+            "label": "Stat 2 Label",
+            "name": "intro_stat_2_label",
+            "type": "text",
+            "required": 0,
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_about_tab_history",
+            "label": "History",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_about_history_title",
+            "label": "Section Title",
+            "name": "history_title",
+            "type": "text",
+            "required": 0,
+            "default_value": "Our Story"
+        },
+        {
+            "key": "field_about_history_milestones",
+            "label": "Milestones",
+            "name": "history_milestones",
+            "type": "repeater",
+            "instructions": "Add key moments in your history.",
+            "required": 0,
+            "min": 0,
+            "max": 10,
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_history_year",
+                    "label": "Year",
+                    "name": "year",
+                    "type": "text",
+                    "required": 1,
+                    "wrapper": {
+                        "width": "20"
+                    }
+                },
+                {
+                    "key": "field_history_title",
+                    "label": "Title",
+                    "name": "title",
+                    "type": "text",
+                    "required": 1,
+                    "wrapper": {
+                        "width": "80"
+                    }
+                },
+                {
+                    "key": "field_history_description",
+                    "label": "Description",
+                    "name": "description",
+                    "type": "textarea",
+                    "required": 0,
+                    "rows": 2
+                },
+                {
+                    "key": "field_history_image",
+                    "label": "Image",
+                    "name": "image",
+                    "type": "image",
+                    "required": 0,
+                    "return_format": "id",
+                    "preview_size": "thumbnail",
+                    "library": "all",
+                    "max_size": "0.5MB",
+                    "mime_types": "jpg,jpeg,png,webp"
+                }
+            ]
+        },
+        {
+            "key": "field_about_tab_values",
+            "label": "Values",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_about_values_title",
+            "label": "Section Title",
+            "name": "values_title",
+            "type": "text",
+            "required": 0,
+            "default_value": "What We Stand For"
+        },
+        {
+            "key": "field_about_values_intro",
+            "label": "Section Intro",
+            "name": "values_intro",
+            "type": "textarea",
+            "required": 0,
+            "rows": 2
+        },
+        {
+            "key": "field_about_values_items",
+            "label": "Values",
+            "name": "values_items",
+            "type": "repeater",
+            "instructions": "Add your core values.",
+            "required": 0,
+            "min": 0,
+            "max": 6,
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_value_number",
+                    "label": "Number",
+                    "name": "number",
+                    "type": "text",
+                    "instructions": "e.g. 01",
+                    "required": 0,
+                    "wrapper": {
+                        "width": "15"
+                    }
+                },
+                {
+                    "key": "field_value_title",
+                    "label": "Title",
+                    "name": "title",
+                    "type": "text",
+                    "required": 1,
+                    "wrapper": {
+                        "width": "85"
+                    }
+                },
+                {
+                    "key": "field_value_description",
+                    "label": "Description",
+                    "name": "description",
+                    "type": "textarea",
+                    "required": 0,
+                    "rows": 2
+                }
+            ]
+        },
+        {
+            "key": "field_about_tab_faq",
+            "label": "FAQ",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_about_faq_title",
+            "label": "Section Title",
+            "name": "faq_title",
+            "type": "text",
+            "required": 0,
+            "default_value": "Questions"
+        },
+        {
+            "key": "field_about_faq_items",
+            "label": "FAQs",
+            "name": "faq_items",
+            "type": "repeater",
+            "instructions": "Add frequently asked questions.",
+            "required": 0,
+            "min": 0,
+            "max": 20,
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_faq_question",
+                    "label": "Question",
+                    "name": "question",
+                    "type": "text",
+                    "required": 1
+                },
+                {
+                    "key": "field_faq_answer",
+                    "label": "Answer",
+                    "name": "answer",
+                    "type": "wysiwyg",
+                    "required": 1,
+                    "tabs": "all",
+                    "toolbar": "basic",
+                    "media_upload": 0
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page",
+                "operator": "==",
+                "value": "about"
+            }
+        ],
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-about.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [
+        "the_content"
+    ],
+    "active": true,
+    "description": "Fields for the About page sections."
+}

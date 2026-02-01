@@ -157,42 +157,14 @@
     padding: 0;
 }
 
-.site-header.is-sticky {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 9999;
-    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
-    transform: translateY(0);
-    opacity: 1;
-    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
-}
-
-.site-header.is-sticky.is-hidden {
-    transform: translateY(-100%);
-    opacity: 0;
-    transition: transform 0.3s ease-in, opacity 0.3s ease-in;
-}
-
 /* Account for WordPress admin bar when logged in */
 .admin-bar .site-header {
     margin-top: 32px;
 }
 
-.admin-bar .site-header.is-sticky {
-    margin-top: 0;
-    top: 32px;
-}
-
 @media screen and (max-width: 782px) {
     .admin-bar .site-header {
         margin-top: 46px;
-    }
-
-    .admin-bar .site-header.is-sticky {
-        margin-top: 0;
-        top: 46px;
     }
 }
 
@@ -2620,4 +2592,293 @@
 
 .criteria-item p {
     @apply text-sm text-neutral-700 leading-relaxed;
+}
+
+/* ==========================================================================
+   About Page
+   ========================================================================== */
+
+.about-page {
+    @apply bg-white;
+}
+
+/* Hero Section - Full width, asymmetric */
+.about-hero {
+    @apply relative min-h-[70vh] flex items-end pb-16 overflow-hidden;
+    background: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
+}
+
+.about-hero-content {
+    @apply container mx-auto px-4 relative z-10;
+}
+
+.about-hero-headline {
+    @apply text-6xl md:text-8xl lg:text-9xl font-black text-black leading-none tracking-tight m-0;
+}
+
+.about-hero-subline {
+    @apply text-xl md:text-2xl text-neutral-600 mt-6 max-w-xl;
+}
+
+.about-hero-image {
+    @apply absolute top-0 right-0 w-1/2 h-full;
+}
+
+.about-hero-img {
+    @apply w-full h-full object-cover;
+    clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+/* Intro Section - Two column with large lead */
+.about-intro {
+    @apply py-24 md:py-32 bg-white;
+}
+
+.about-intro-grid {
+    @apply grid md:grid-cols-2 gap-12 md:gap-20;
+}
+
+.about-intro-lead-wrap {
+    @apply flex flex-col;
+}
+
+.about-intro-lead {
+    @apply text-3xl md:text-4xl font-bold text-black leading-tight m-0;
+}
+
+.about-intro-stats {
+    @apply flex gap-12 mt-12 pt-12 border-t border-neutral-200;
+}
+
+.about-stat {
+    @apply flex flex-col;
+}
+
+.about-stat-number {
+    @apply text-5xl md:text-6xl font-black text-black leading-none;
+}
+
+.about-stat-label {
+    @apply text-sm text-neutral-500 uppercase tracking-wider mt-2;
+}
+
+.about-intro-body {
+    @apply text-lg text-neutral-600 leading-relaxed;
+}
+
+.about-intro-body p {
+    @apply mb-6 last:mb-0;
+}
+
+/* Section Title */
+.about-section-title {
+    @apply text-xs font-medium uppercase tracking-[0.2em] text-neutral-400 mb-12 m-0;
+}
+
+/* History Section - Staggered timeline */
+.about-history {
+    @apply py-24 md:py-32;
+    background: #0a0a0a;
+}
+
+.about-history .about-section-title {
+    @apply text-neutral-500;
+}
+
+.about-timeline {
+    @apply relative;
+}
+
+.about-milestone {
+    @apply relative grid md:grid-cols-12 gap-6 md:gap-8 py-12 border-b border-neutral-800;
+}
+
+.about-milestone:last-child {
+    @apply border-b-0;
+}
+
+.about-milestone-year {
+    @apply md:col-span-2 text-4xl md:text-5xl font-black text-neutral-700;
+}
+
+.about-milestone-content {
+    @apply md:col-span-5;
+}
+
+.about-milestone-title {
+    @apply text-2xl md:text-3xl font-bold text-white m-0 mb-3;
+}
+
+.about-milestone-desc {
+    @apply text-neutral-400 leading-relaxed m-0;
+}
+
+.about-milestone-image {
+    @apply md:col-span-5;
+}
+
+.about-milestone-img {
+    @apply w-full h-48 md:h-64 object-cover grayscale hover:grayscale-0 transition-all duration-500;
+}
+
+.about-milestone.is-right .about-milestone-content {
+    @apply md:col-start-4;
+}
+
+.about-milestone.is-right .about-milestone-image {
+    @apply md:col-start-9;
+}
+
+/* Values Section - Offset grid */
+.about-values {
+    @apply py-24 md:py-32 bg-white;
+}
+
+.about-values-header {
+    @apply max-w-2xl mb-16;
+}
+
+.about-values-intro {
+    @apply text-xl text-neutral-600 m-0;
+}
+
+.about-values-grid {
+    @apply grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16;
+}
+
+.about-value {
+    @apply relative pl-0;
+}
+
+.about-value:nth-child(even) {
+    @apply md:mt-16;
+}
+
+.about-value-number {
+    @apply block text-8xl font-black text-neutral-100 leading-none absolute -top-8 -left-2;
+    z-index: 0;
+}
+
+.about-value-title {
+    @apply relative text-2xl font-bold text-black m-0 mb-4;
+    z-index: 1;
+}
+
+.about-value-desc {
+    @apply relative text-neutral-600 leading-relaxed m-0;
+    z-index: 1;
+}
+
+/* FAQ Section - Bold numbered accordion */
+.about-faq {
+    @apply py-24 md:py-32;
+    background: #fafafa;
+}
+
+.about-faq-list {
+    @apply max-w-3xl;
+}
+
+.about-faq-item {
+    @apply border-b border-neutral-300;
+}
+
+.about-faq-trigger {
+    @apply w-full flex items-center gap-6 py-6 text-left bg-transparent border-0 cursor-pointer transition-colors;
+}
+
+.about-faq-trigger:hover {
+    @apply bg-white;
+}
+
+.about-faq-trigger.is-open {
+    @apply bg-white;
+}
+
+.about-faq-index {
+    @apply text-3xl font-black text-neutral-300 w-12 flex-shrink-0;
+}
+
+.about-faq-trigger.is-open .about-faq-index {
+    @apply text-black;
+}
+
+.about-faq-question {
+    @apply flex-1 text-lg font-medium text-black;
+}
+
+.about-faq-icon {
+    @apply text-2xl text-neutral-400 transition-transform duration-300;
+}
+
+.about-faq-trigger.is-open .about-faq-icon {
+    @apply text-black;
+}
+
+.about-faq-answer {
+    @apply overflow-hidden;
+}
+
+.about-faq-answer-inner {
+    @apply pb-8 pr-12 text-neutral-600 leading-relaxed;
+    padding-left: 4.5rem;
+}
+
+.about-faq-answer-inner p {
+    @apply m-0 mb-4 last:mb-0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .about-hero {
+        @apply min-h-[50vh] pt-24;
+    }
+
+    .about-hero-headline {
+        @apply text-5xl;
+    }
+
+    .about-hero-image {
+        @apply absolute inset-0 w-full opacity-20;
+    }
+
+    .about-hero-img {
+        clip-path: none;
+    }
+
+    .about-intro-stats {
+        @apply flex-col gap-6;
+    }
+
+    .about-milestone {
+        @apply grid-cols-1;
+    }
+
+    .about-milestone-year {
+        @apply text-3xl;
+    }
+
+    .about-value:nth-child(even) {
+        @apply mt-0;
+    }
+
+    .about-value-number {
+        @apply text-6xl -top-4;
+    }
+
+    .about-faq-trigger {
+        @apply gap-4 py-5;
+    }
+
+    .about-faq-index {
+        @apply text-xl w-8;
+    }
+
+    .about-faq-question {
+        @apply text-base;
+    }
+
+    .about-faq-answer-inner {
+        @apply pl-12 pr-4;
+    }
 }
