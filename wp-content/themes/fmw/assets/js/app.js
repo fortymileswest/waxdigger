@@ -122,7 +122,7 @@
     }
 
     /**
-     * Custom Cursor with Trail
+     * Custom Cursor with Ring
      */
     function initCustomCursor() {
         // Only on non-touch devices
@@ -130,67 +130,49 @@
             return;
         }
 
-        // Create cursor elements
+        // Create cursor dot
         const cursor = document.createElement('div');
         cursor.className = 'custom-cursor';
         document.body.appendChild(cursor);
 
-        // Create trail elements
-        const trailCount = 5;
-        const trails = [];
-        for (let i = 0; i < trailCount; i++) {
-            const trail = document.createElement('div');
-            trail.className = 'cursor-trail';
-            trail.style.opacity = (1 - (i / trailCount)) * 0.3;
-            document.body.appendChild(trail);
-            trails.push({ el: trail, x: 0, y: 0 });
-        }
+        // Create cursor ring
+        const ring = document.createElement('div');
+        ring.className = 'cursor-ring';
+        document.body.appendChild(ring);
 
         let mouseX = 0;
         let mouseY = 0;
-        let cursorX = 0;
-        let cursorY = 0;
-        let isHovering = false;
+        let ringX = 0;
+        let ringY = 0;
 
         document.addEventListener('mousemove', function (e) {
             mouseX = e.clientX;
             mouseY = e.clientY;
+
+            // Dot follows instantly
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
         });
 
         // Hover effect on interactive elements
         document.querySelectorAll('a, button, input, select, textarea, [role="button"]').forEach(function (el) {
             el.addEventListener('mouseenter', function () {
-                isHovering = true;
                 cursor.classList.add('cursor-hover');
+                ring.classList.add('ring-hover');
             });
             el.addEventListener('mouseleave', function () {
-                isHovering = false;
                 cursor.classList.remove('cursor-hover');
+                ring.classList.remove('ring-hover');
             });
         });
 
-        // Animation loop
+        // Ring animation - slightly delayed follow
         function animate() {
-            // Smooth cursor follow
-            cursorX += (mouseX - cursorX) * 0.15;
-            cursorY += (mouseY - cursorY) * 0.15;
+            ringX += (mouseX - ringX) * 0.25;
+            ringY += (mouseY - ringY) * 0.25;
 
-            cursor.style.left = cursorX + 'px';
-            cursor.style.top = cursorY + 'px';
-
-            // Trail animation
-            let prevX = cursorX;
-            let prevY = cursorY;
-
-            trails.forEach(function (trail, index) {
-                const speed = 0.15 - (index * 0.02);
-                trail.x += (prevX - trail.x) * speed;
-                trail.y += (prevY - trail.y) * speed;
-                trail.el.style.left = trail.x + 'px';
-                trail.el.style.top = trail.y + 'px';
-                prevX = trail.x;
-                prevY = trail.y;
-            });
+            ring.style.left = ringX + 'px';
+            ring.style.top = ringY + 'px';
 
             requestAnimationFrame(animate);
         }

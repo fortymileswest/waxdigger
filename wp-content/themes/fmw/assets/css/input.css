@@ -54,38 +54,43 @@
     /* Custom Cursor */
     .custom-cursor {
         position: fixed;
-        width: 8px;
-        height: 8px;
+        width: 6px;
+        height: 6px;
         background-color: #000;
         border-radius: 50%;
         pointer-events: none;
         z-index: 99999;
         transform: translate(-50%, -50%);
-        transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+        transition: transform 0.15s ease, opacity 0.15s ease;
     }
 
     .custom-cursor.cursor-hover {
-        width: 24px;
-        height: 24px;
-        background-color: rgba(0, 0, 0, 0.15);
-        mix-blend-mode: difference;
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0.5;
     }
 
-    .cursor-trail {
+    .cursor-ring {
         position: fixed;
-        width: 4px;
-        height: 4px;
-        background-color: #000;
+        width: 32px;
+        height: 32px;
+        border: 1px solid rgba(0, 0, 0, 0.4);
         border-radius: 50%;
         pointer-events: none;
         z-index: 99998;
         transform: translate(-50%, -50%);
+        transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
+    }
+
+    .cursor-ring.ring-hover {
+        width: 48px;
+        height: 48px;
+        border-color: rgba(0, 0, 0, 0.2);
     }
 
     /* Hide custom cursor on touch devices */
     @media (hover: none) and (pointer: coarse) {
         .custom-cursor,
-        .cursor-trail {
+        .cursor-ring {
             display: none !important;
         }
     }
