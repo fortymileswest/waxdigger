@@ -73,8 +73,11 @@ get_header();
 				class="contact-tab-content"
 				x-show="activeTab === 'customers'"
 				x-transition:enter="transition ease-out duration-300"
-				x-transition:enter-start="opacity-0"
-				x-transition:enter-end="opacity-100"
+				x-transition:enter-start="opacity-0 translate-y-2"
+				x-transition:enter-end="opacity-100 translate-y-0"
+				x-transition:leave="transition ease-in duration-200"
+				x-transition:leave-start="opacity-100 translate-y-0"
+				x-transition:leave-end="opacity-0 translate-y-2"
 			>
 				<div class="contact-grid">
 					<!-- Contact Form -->
@@ -201,9 +204,12 @@ get_header();
 										class="faq-answer"
 										x-show="openFaq === 1"
 										x-cloak
-										x-transition:enter="transition ease-out duration-200"
-										x-transition:enter-start="opacity-0"
-										x-transition:enter-end="opacity-100"
+										x-transition:enter="transition ease-out duration-300"
+										x-transition:enter-start="opacity-0 -translate-y-1"
+										x-transition:enter-end="opacity-100 translate-y-0"
+										x-transition:leave="transition ease-in duration-200"
+										x-transition:leave-start="opacity-100 translate-y-0"
+										x-transition:leave-end="opacity-0 -translate-y-1"
 									>
 										<p>UK orders are dispatched within 1-2 working days and typically arrive within 3-5 days. International shipping takes 5-14 days depending on destination.</p>
 									</div>
@@ -225,9 +231,12 @@ get_header();
 										class="faq-answer"
 										x-show="openFaq === 2"
 										x-cloak
-										x-transition:enter="transition ease-out duration-200"
-										x-transition:enter-start="opacity-0"
-										x-transition:enter-end="opacity-100"
+										x-transition:enter="transition ease-out duration-300"
+										x-transition:enter-start="opacity-0 -translate-y-1"
+										x-transition:enter-end="opacity-100 translate-y-0"
+										x-transition:leave="transition ease-in duration-200"
+										x-transition:leave-start="opacity-100 translate-y-0"
+										x-transition:leave-end="opacity-0 -translate-y-1"
 									>
 										<p>If your record arrives damaged or isn't as described, we'll happily refund or replace it. Just get in touch within 14 days of delivery.</p>
 									</div>
@@ -249,9 +258,12 @@ get_header();
 										class="faq-answer"
 										x-show="openFaq === 3"
 										x-cloak
-										x-transition:enter="transition ease-out duration-200"
-										x-transition:enter-start="opacity-0"
-										x-transition:enter-end="opacity-100"
+										x-transition:enter="transition ease-out duration-300"
+										x-transition:enter-start="opacity-0 -translate-y-1"
+										x-transition:enter-end="opacity-100 translate-y-0"
+										x-transition:leave="transition ease-in duration-200"
+										x-transition:leave-start="opacity-100 translate-y-0"
+										x-transition:leave-end="opacity-0 -translate-y-1"
 									>
 										<p>We use the standard Goldmine grading system. Each listing shows the condition of both the vinyl and sleeve. We're always conservative with our grades.</p>
 									</div>
@@ -273,9 +285,12 @@ get_header();
 										class="faq-answer"
 										x-show="openFaq === 4"
 										x-cloak
-										x-transition:enter="transition ease-out duration-200"
-										x-transition:enter-start="opacity-0"
-										x-transition:enter-end="opacity-100"
+										x-transition:enter="transition ease-out duration-300"
+										x-transition:enter-start="opacity-0 -translate-y-1"
+										x-transition:enter-end="opacity-100 translate-y-0"
+										x-transition:leave="transition ease-in duration-200"
+										x-transition:leave-start="opacity-100 translate-y-0"
+										x-transition:leave-end="opacity-0 -translate-y-1"
 									>
 										<p>Yes! We ship worldwide. Shipping costs are calculated at checkout based on your location and order weight.</p>
 									</div>
@@ -292,8 +307,11 @@ get_header();
 				x-show="activeTab === 'suppliers'"
 				x-cloak
 				x-transition:enter="transition ease-out duration-300"
-				x-transition:enter-start="opacity-0"
-				x-transition:enter-end="opacity-100"
+				x-transition:enter-start="opacity-0 translate-y-2"
+				x-transition:enter-end="opacity-100 translate-y-0"
+				x-transition:leave="transition ease-in duration-200"
+				x-transition:leave-start="opacity-100 translate-y-0"
+				x-transition:leave-end="opacity-0 translate-y-2"
 			>
 				<div class="contact-grid">
 					<!-- Supplier Form -->
