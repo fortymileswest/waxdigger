@@ -140,7 +140,7 @@ function fmw_acf_auto_sync() {
         if ( ! $existing ) {
             // Group doesn't exist - needs import
             $sync[ $key ] = $json;
-        } else {
+        } elseif ( ! empty( $existing['modified'] ) ) {
             // Check if JSON is newer (compare modified times)
             $json_modified = filemtime( $file );
             $db_modified   = strtotime( $existing['modified'] );
