@@ -587,11 +587,11 @@
 
     /* Share */
     .product-share {
-        @apply pt-2;
+        @apply pt-4;
     }
 
     .share-button {
-        @apply text-sm text-neutral-500 underline underline-offset-2 bg-transparent border-0 cursor-pointer hover:text-black transition-colors;
+        @apply text-xs text-neutral-500 bg-neutral-100 border border-neutral-200 rounded px-3 py-1.5 cursor-pointer hover:bg-neutral-200 hover:text-neutral-700 transition-colors;
     }
 
     /* Description */
