@@ -15,7 +15,7 @@
 
     /* Focus styles for accessibility */
     :focus-visible {
-        @apply outline-2 outline-offset-2 outline-primary;
+        @apply outline-2 outline-offset-2 outline-black;
     }
 
     /* Skip link */
@@ -38,6 +38,17 @@
     .sr-only {
         @apply absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0;
         clip: rect(0, 0, 0, 0);
+    }
+
+    /* Global Button Style - Black bg, white text */
+    .btn,
+    button[type="submit"],
+    input[type="submit"] {
+        @apply inline-block px-6 py-3 bg-black text-white text-sm font-medium no-underline border-0 cursor-pointer hover:bg-neutral-800 transition-colors;
+    }
+
+    .btn-outline {
+        @apply bg-transparent text-black border border-black hover:bg-black hover:text-white;
     }
 }
 
@@ -270,7 +281,7 @@
     }
 
     .featured-slide-label {
-        @apply text-xl md:text-2xl lg:text-[28px] font-normal text-cyan-600 mb-2 leading-tight;
+        @apply text-xl md:text-2xl lg:text-[28px] font-normal text-neutral-500 mb-2 leading-tight;
     }
 
     .featured-slide-details {
@@ -496,7 +507,7 @@
     }
 
     .product-label {
-        @apply text-cyan-600;
+        @apply text-neutral-500;
     }
 
     /* Format Section */
@@ -767,7 +778,7 @@
 }
 
 .cart-update-btn {
-    @apply px-4 py-2 text-sm text-neutral-600 border border-neutral-300 bg-transparent cursor-pointer hover:bg-neutral-100 transition-colors;
+    @apply px-4 py-2 text-sm font-medium bg-black text-white border-0 cursor-pointer hover:bg-neutral-800 transition-colors;
 }
 
 /* Cart Totals */
