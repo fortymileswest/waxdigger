@@ -2650,9 +2650,14 @@
     @apply text-xs font-normal uppercase tracking-[0.15em] text-neutral-400 mb-10 m-0;
 }
 
-/* History Section - Clean timeline */
+/* History Section - Dark timeline */
 .about-history {
-    @apply py-16 md:py-20 bg-neutral-50;
+    @apply py-16 md:py-20;
+    background: #0a0a0a;
+}
+
+.about-history .about-section-title {
+    @apply text-neutral-500;
 }
 
 .about-timeline {
@@ -2660,7 +2665,7 @@
 }
 
 .about-milestone {
-    @apply relative grid md:grid-cols-12 gap-4 md:gap-6 py-8 border-b border-neutral-200;
+    @apply relative grid md:grid-cols-12 gap-4 md:gap-6 py-8 border-b border-neutral-800;
 }
 
 .about-milestone:last-child {
@@ -2668,7 +2673,7 @@
 }
 
 .about-milestone-year {
-    @apply md:col-span-2 text-sm font-normal text-neutral-400;
+    @apply md:col-span-2 text-sm font-normal text-neutral-500;
 }
 
 .about-milestone-content {
@@ -2676,11 +2681,11 @@
 }
 
 .about-milestone-title {
-    @apply text-base font-medium text-neutral-800 m-0 mb-2;
+    @apply text-base font-medium text-white m-0 mb-2;
 }
 
 .about-milestone-desc {
-    @apply text-sm text-neutral-500 leading-relaxed m-0 font-light;
+    @apply text-sm text-neutral-400 leading-relaxed m-0 font-light;
 }
 
 .about-milestone-image {
