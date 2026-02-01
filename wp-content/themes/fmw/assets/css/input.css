@@ -1910,7 +1910,7 @@
 }
 
 .collection-cta-inner {
-    @apply flex flex-col md:flex-row items-center gap-6 md:gap-8 bg-gradient-to-r from-amber-400 to-orange-500 text-black px-8 py-8 md:py-6 rounded-lg shadow-xl;
+    @apply flex flex-col md:flex-row items-center gap-6 md:gap-8 bg-gradient-to-r from-neutral-200 to-neutral-100 text-black px-8 py-8 md:py-6 shadow-lg;
 }
 
 .collection-cta-icons {
@@ -1965,11 +1965,17 @@
 }
 
 .contact-tab {
-    @apply px-6 py-3 text-sm font-medium text-neutral-500 bg-transparent border border-neutral-200 rounded-full cursor-pointer transition-all hover:border-black hover:text-black;
+    @apply px-6 py-3 text-sm font-medium text-neutral-500 bg-transparent border border-neutral-200 rounded-full cursor-pointer hover:border-black hover:text-black;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .contact-tab.is-active {
     @apply bg-black text-white border-black;
+    transform: scale(1.02);
+}
+
+.contact-tab-content {
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 /* Grid */
@@ -2081,7 +2087,16 @@
 }
 
 .faq-question {
-    @apply w-full flex items-center justify-between py-4 text-left text-sm font-medium text-black bg-transparent border-0 cursor-pointer;
+    @apply w-full flex items-center justify-between py-4 text-left text-sm font-medium text-neutral-700 bg-transparent border-0 cursor-pointer;
+    transition: color 0.25s ease, background-color 0.25s ease;
+}
+
+.faq-question:hover {
+    @apply text-black;
+}
+
+.faq-question.is-open {
+    @apply text-black font-bold;
 }
 
 .faq-question span {
@@ -2089,15 +2104,16 @@
 }
 
 .faq-icon {
-    @apply w-4 h-4 text-neutral-400 transition-transform flex-shrink-0;
+    @apply w-4 h-4 text-neutral-400 flex-shrink-0;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.25s ease;
 }
 
 .faq-question.is-open .faq-icon {
-    @apply rotate-180;
+    @apply rotate-180 text-black;
 }
 
 .faq-answer {
-    @apply pb-4 text-sm text-neutral-600 leading-relaxed;
+    @apply pb-4 text-sm text-neutral-600 leading-relaxed overflow-hidden;
 }
 
 .faq-answer p {
