@@ -2589,9 +2589,10 @@
     @apply bg-white;
 }
 
-/* Hero Section - Clean and minimal */
+/* Hero Section - Dark with light elements */
 .about-hero {
-    @apply relative py-16 md:py-24 overflow-hidden bg-white;
+    @apply relative py-20 md:py-28 overflow-hidden;
+    background: #0a0a0a;
 }
 
 .about-hero-content {
@@ -2599,11 +2600,11 @@
 }
 
 .about-hero-headline {
-    @apply text-2xl md:text-3xl font-medium text-neutral-900 leading-tight tracking-tight m-0;
+    @apply text-2xl md:text-3xl font-medium text-white leading-tight tracking-tight m-0;
 }
 
 .about-hero-subline {
-    @apply text-base md:text-lg text-neutral-500 mt-4 font-light;
+    @apply text-base md:text-lg text-neutral-400 mt-4 font-light;
 }
 
 .about-hero-image {
