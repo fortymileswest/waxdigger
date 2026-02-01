@@ -88,24 +88,28 @@
      * Page Transitions - Simple Fade
      */
     function initPageTransitions() {
-        // Disable browser scroll restoration to prevent jump
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
-
         const main = document.getElementById('main');
-        if (main) {
-            main.classList.add('page-transition');
-        }
+        if (!main) return;
 
-        document.querySelectorAll('a').forEach(function (link) {
+        // Trigger enter animation immediately
+        requestAnimationFrame(function() {
+            main.classList.add('is-loaded');
+        });
+
+        // Handle link clicks for exit animation
+        document.addEventListener('click', function(e) {
+            const link = e.target.closest('a');
+            if (!link) return;
+
             const href = link.getAttribute('href');
 
-            // Skip external links, anchor links, and special links
+            // Skip links that shouldn't transition
             if (
                 !href ||
-                link.hostname !== window.location.hostname ||
                 href.startsWith('#') ||
+                href.startsWith('mailto:') ||
+                href.startsWith('tel:') ||
+                link.hostname !== window.location.hostname ||
                 link.getAttribute('target') === '_blank' ||
                 link.classList.contains('no-transition') ||
                 link.closest('[x-data]')
@@ -113,21 +117,17 @@
                 return;
             }
 
-            link.addEventListener('click', function (e) {
-                // Don't transition for same page
-                if (href === window.location.href || href === window.location.pathname) return;
+            // Don't transition for same page
+            if (href === window.location.href || href === window.location.pathname) return;
 
-                e.preventDefault();
+            e.preventDefault();
 
-                if (main) {
-                    main.classList.remove('page-transition');
-                    main.classList.add('page-transition-exit');
-                }
+            main.classList.remove('is-loaded');
+            main.classList.add('is-exiting');
 
-                setTimeout(function () {
-                    window.location.href = href;
-                }, 200);
-            });
+            setTimeout(function() {
+                window.location.href = href;
+            }, 150);
         });
     }
 

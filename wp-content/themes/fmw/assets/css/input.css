@@ -20,13 +20,17 @@
         scroll-behavior: smooth;
     }
 
-    /* Page Transitions - opacity only, no layout shift */
-    .page-transition {
-        animation: pageEnter 0.3s ease-out forwards;
+    /* Page Transitions */
+    .site-main {
+        opacity: 0;
     }
 
-    .page-transition-exit {
-        animation: pageExit 0.2s ease-in forwards;
+    .site-main.is-loaded {
+        animation: pageEnter 0.25s ease-out forwards;
+    }
+
+    .site-main.is-exiting {
+        animation: pageExit 0.15s ease-in forwards;
     }
 
     @keyframes pageEnter {
