@@ -85,21 +85,12 @@
     }
 
     /**
-     * Page Transitions - Fade to Black
+     * Page Transitions - Simple Fade
      */
     function initPageTransitions() {
-        // Create overlay element
-        const overlay = document.createElement('div');
-        overlay.className = 'page-transition-overlay';
-        document.body.appendChild(overlay);
-
-        // Check if we're entering from a transition
-        if (sessionStorage.getItem('pageTransition')) {
-            sessionStorage.removeItem('pageTransition');
-            overlay.style.opacity = '1';
-            requestAnimationFrame(function() {
-                overlay.classList.add('is-entering');
-            });
+        const main = document.getElementById('main');
+        if (main) {
+            main.classList.add('page-transition');
         }
 
         document.querySelectorAll('a').forEach(function (link) {
@@ -122,15 +113,14 @@
 
                 e.preventDefault();
 
-                // Set flag for next page
-                sessionStorage.setItem('pageTransition', '1');
-
-                // Fade to black
-                overlay.classList.add('is-active');
+                if (main) {
+                    main.classList.remove('page-transition');
+                    main.classList.add('page-transition-exit');
+                }
 
                 setTimeout(function () {
                     window.location.href = href;
-                }, 400);
+                }, 200);
             });
         });
     }
