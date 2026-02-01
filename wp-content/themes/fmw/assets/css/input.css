@@ -2696,9 +2696,9 @@
     @apply md:col-start-3;
 }
 
-/* Values Section - Clean grid */
+/* Values Section - Bordered cards */
 .about-values {
-    @apply py-16 md:py-20 bg-white border-t border-neutral-100;
+    @apply py-16 md:py-20 bg-white;
 }
 
 .about-values-header {
@@ -2710,27 +2710,23 @@
 }
 
 .about-values-grid {
-    @apply grid md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10;
+    @apply grid md:grid-cols-2 lg:grid-cols-3 gap-4;
 }
 
 .about-value {
-    @apply relative;
-}
-
-.about-value:nth-child(even) {
-    @apply md:mt-0;
+    @apply relative p-6 border border-neutral-200 hover:border-neutral-400 transition-colors;
 }
 
 .about-value-number {
-    @apply block text-xs font-normal text-neutral-300 mb-3;
+    @apply block text-xs font-medium text-neutral-400 mb-4 uppercase tracking-wider;
 }
 
 .about-value-title {
-    @apply text-base font-medium text-neutral-800 m-0 mb-2;
+    @apply text-base font-medium text-neutral-900 m-0 mb-2;
 }
 
 .about-value-desc {
-    @apply text-sm text-neutral-500 leading-relaxed m-0 font-light;
+    @apply text-sm text-neutral-500 leading-relaxed m-0;
 }
 
 /* FAQ Section - Clean accordion */
