@@ -21,8 +21,8 @@ $current_user = wp_get_current_user();
 			<?php do_action( 'woocommerce_account_navigation' ); ?>
 		</aside>
 
-		<main class="account-content">
+		<div class="account-content">
 			<?php do_action( 'woocommerce_account_content' ); ?>
-		</main>
+		</div>
 	</div>
 </div>

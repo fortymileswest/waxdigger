@@ -10,8 +10,7 @@
 get_header();
 ?>
 
-<main id="main" class="site-main">
-    <div class="container mx-auto px-4 py-8">
+<div class="container mx-auto px-4 py-8">
         <header class="archive-header">
             <?php
             the_archive_title( '<h1 class="archive-title">', '</h1>' );
@@ -53,8 +52,7 @@ get_header();
         <?php else : ?>
             <p><?php esc_html_e( 'No posts found.', 'fmw' ); ?></p>
         <?php endif; ?>
-    </div>
-</main>
+</div>
 
 <?php
 get_footer();

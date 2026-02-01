@@ -23,8 +23,7 @@ $args = array(
 $products = new WP_Query( $args );
 ?>
 
-<main class="site-main">
-    <div class="shop-page">
+<div class="shop-page">
         <div class="container mx-auto px-4">
 
             <!-- Page Header -->
@@ -92,7 +91,7 @@ $products = new WP_Query( $args );
 
         </div>
     </div>
-</main>
+</div>
 
 <?php
 get_footer();
