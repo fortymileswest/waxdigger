@@ -20,39 +20,23 @@
         scroll-behavior: smooth;
     }
 
-    /* Page Transitions */
-    .site-main {
-        will-change: opacity, transform;
-    }
-
+    /* Page Transitions - opacity only, no layout shift */
     .page-transition {
-        animation: pageEnter 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+        animation: pageEnter 0.3s ease-out forwards;
     }
 
     .page-transition-exit {
-        animation: pageExit 0.3s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+        animation: pageExit 0.2s ease-in forwards;
     }
 
     @keyframes pageEnter {
-        from {
-            opacity: 0;
-            transform: translateY(8px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        from { opacity: 0; }
+        to { opacity: 1; }
     }
 
     @keyframes pageExit {
-        from {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        to {
-            opacity: 0;
-            transform: translateY(-8px);
-        }
+        from { opacity: 1; }
+        to { opacity: 0; }
     }
 
     /* Custom Cursor */
@@ -1974,7 +1958,7 @@
 }
 
 .genre-pill {
-    @apply inline-block px-4 py-2 text-sm font-medium text-neutral-600 bg-neutral-100 rounded-full no-underline hover:bg-neutral-200 transition-colors;
+    @apply inline-block px-4 py-2 text-sm font-medium text-neutral-600 bg-neutral-100 no-underline hover:bg-neutral-200 transition-colors;
 }
 
 .genre-pill.is-active {
@@ -2413,7 +2397,7 @@
 }
 
 .collection-cta-btn {
-    @apply flex-shrink-0 px-6 py-3 bg-black text-white text-sm font-medium rounded-full border-0 cursor-pointer hover:bg-neutral-800 transition-colors whitespace-nowrap;
+    @apply flex-shrink-0 px-6 py-3 bg-black text-white text-sm font-medium border-0 cursor-pointer hover:bg-neutral-800 transition-colors whitespace-nowrap no-underline;
 }
 
 /* Tabs */
@@ -2426,13 +2410,12 @@
 }
 
 .contact-tab {
-    @apply px-6 py-3 text-sm font-medium text-neutral-500 bg-transparent border border-neutral-200 rounded-full cursor-pointer hover:border-black hover:text-black;
+    @apply px-6 py-3 text-sm font-medium text-neutral-500 bg-transparent border border-neutral-200 cursor-pointer hover:border-black hover:text-black;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .contact-tab.is-active {
     @apply bg-black text-white border-black;
-    transform: scale(1.02);
 }
 
 .contact-tab-content {
@@ -2602,22 +2585,21 @@
     @apply bg-white;
 }
 
-/* Hero Section - Full width, asymmetric */
+/* Hero Section - Clean and minimal */
 .about-hero {
-    @apply relative min-h-[70vh] flex items-end pb-16 overflow-hidden;
-    background: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
+    @apply relative py-16 md:py-24 overflow-hidden bg-white;
 }
 
 .about-hero-content {
-    @apply container mx-auto px-4 relative z-10;
+    @apply container mx-auto px-4 relative z-10 max-w-3xl;
 }
 
 .about-hero-headline {
-    @apply text-6xl md:text-8xl lg:text-9xl font-black text-black leading-none tracking-tight m-0;
+    @apply text-2xl md:text-3xl font-medium text-neutral-900 leading-tight tracking-tight m-0;
 }
 
 .about-hero-subline {
-    @apply text-xl md:text-2xl text-neutral-600 mt-6 max-w-xl;
+    @apply text-base md:text-lg text-neutral-500 mt-4 font-light;
 }
 
 .about-hero-image {
@@ -2629,13 +2611,13 @@
     clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
 }
 
-/* Intro Section - Two column with large lead */
+/* Intro Section - Clean and light */
 .about-intro {
-    @apply py-24 md:py-32 bg-white;
+    @apply py-16 md:py-20 bg-white border-t border-neutral-100;
 }
 
 .about-intro-grid {
-    @apply grid md:grid-cols-2 gap-12 md:gap-20;
+    @apply grid md:grid-cols-2 gap-10 md:gap-16 max-w-5xl mx-auto;
 }
 
 .about-intro-lead-wrap {
@@ -2643,54 +2625,37 @@
 }
 
 .about-intro-lead {
-    @apply text-3xl md:text-4xl font-bold text-black leading-tight m-0;
+    @apply text-lg md:text-xl font-normal text-neutral-700 leading-relaxed m-0;
 }
 
 .about-intro-stats {
-    @apply flex gap-12 mt-12 pt-12 border-t border-neutral-200;
-}
-
-.about-stat {
-    @apply flex flex-col;
-}
-
-.about-stat-number {
-    @apply text-5xl md:text-6xl font-black text-black leading-none;
-}
-
-.about-stat-label {
-    @apply text-sm text-neutral-500 uppercase tracking-wider mt-2;
+    @apply hidden;
 }
 
 .about-intro-body {
-    @apply text-lg text-neutral-600 leading-relaxed;
+    @apply text-base text-neutral-500 leading-relaxed font-light;
 }
 
 .about-intro-body p {
-    @apply mb-6 last:mb-0;
+    @apply mb-5 last:mb-0;
 }
 
 /* Section Title */
 .about-section-title {
-    @apply text-xs font-medium uppercase tracking-[0.2em] text-neutral-400 mb-12 m-0;
+    @apply text-xs font-normal uppercase tracking-[0.15em] text-neutral-400 mb-10 m-0;
 }
 
-/* History Section - Staggered timeline */
+/* History Section - Clean timeline */
 .about-history {
-    @apply py-24 md:py-32;
-    background: #0a0a0a;
-}
-
-.about-history .about-section-title {
-    @apply text-neutral-500;
+    @apply py-16 md:py-20 bg-neutral-50;
 }
 
 .about-timeline {
-    @apply relative;
+    @apply relative max-w-3xl;
 }
 
 .about-milestone {
-    @apply relative grid md:grid-cols-12 gap-6 md:gap-8 py-12 border-b border-neutral-800;
+    @apply relative grid md:grid-cols-12 gap-4 md:gap-6 py-8 border-b border-neutral-200;
 }
 
 .about-milestone:last-child {
@@ -2698,121 +2663,109 @@
 }
 
 .about-milestone-year {
-    @apply md:col-span-2 text-4xl md:text-5xl font-black text-neutral-700;
+    @apply md:col-span-2 text-sm font-normal text-neutral-400;
 }
 
 .about-milestone-content {
-    @apply md:col-span-5;
+    @apply md:col-span-10;
 }
 
 .about-milestone-title {
-    @apply text-2xl md:text-3xl font-bold text-white m-0 mb-3;
+    @apply text-base font-medium text-neutral-800 m-0 mb-2;
 }
 
 .about-milestone-desc {
-    @apply text-neutral-400 leading-relaxed m-0;
+    @apply text-sm text-neutral-500 leading-relaxed m-0 font-light;
 }
 
 .about-milestone-image {
-    @apply md:col-span-5;
-}
-
-.about-milestone-img {
-    @apply w-full h-48 md:h-64 object-cover grayscale hover:grayscale-0 transition-all duration-500;
+    @apply hidden;
 }
 
 .about-milestone.is-right .about-milestone-content {
-    @apply md:col-start-4;
+    @apply md:col-start-3;
 }
 
-.about-milestone.is-right .about-milestone-image {
-    @apply md:col-start-9;
-}
-
-/* Values Section - Offset grid */
+/* Values Section - Clean grid */
 .about-values {
-    @apply py-24 md:py-32 bg-white;
+    @apply py-16 md:py-20 bg-white border-t border-neutral-100;
 }
 
 .about-values-header {
-    @apply max-w-2xl mb-16;
+    @apply max-w-2xl mb-12;
 }
 
 .about-values-intro {
-    @apply text-xl text-neutral-600 m-0;
+    @apply text-base text-neutral-500 m-0 font-light;
 }
 
 .about-values-grid {
-    @apply grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16;
+    @apply grid md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10;
 }
 
 .about-value {
-    @apply relative pl-0;
+    @apply relative;
 }
 
 .about-value:nth-child(even) {
-    @apply md:mt-16;
+    @apply md:mt-0;
 }
 
 .about-value-number {
-    @apply block text-8xl font-black text-neutral-100 leading-none absolute -top-8 -left-2;
-    z-index: 0;
+    @apply block text-xs font-normal text-neutral-300 mb-3;
 }
 
 .about-value-title {
-    @apply relative text-2xl font-bold text-black m-0 mb-4;
-    z-index: 1;
+    @apply text-base font-medium text-neutral-800 m-0 mb-2;
 }
 
 .about-value-desc {
-    @apply relative text-neutral-600 leading-relaxed m-0;
-    z-index: 1;
+    @apply text-sm text-neutral-500 leading-relaxed m-0 font-light;
 }
 
-/* FAQ Section - Bold numbered accordion */
+/* FAQ Section - Clean accordion */
 .about-faq {
-    @apply py-24 md:py-32;
-    background: #fafafa;
+    @apply py-16 md:py-20 bg-neutral-50;
 }
 
 .about-faq-list {
-    @apply max-w-3xl;
+    @apply max-w-2xl;
 }
 
 .about-faq-item {
-    @apply border-b border-neutral-300;
+    @apply border-b border-neutral-200;
 }
 
 .about-faq-trigger {
-    @apply w-full flex items-center gap-6 py-6 text-left bg-transparent border-0 cursor-pointer transition-colors;
+    @apply w-full flex items-center gap-4 py-5 text-left bg-transparent border-0 cursor-pointer transition-colors;
 }
 
-.about-faq-trigger:hover {
-    @apply bg-white;
+.about-faq-trigger:hover .about-faq-question {
+    @apply text-neutral-900;
 }
 
 .about-faq-trigger.is-open {
-    @apply bg-white;
+    @apply bg-transparent;
 }
 
 .about-faq-index {
-    @apply text-3xl font-black text-neutral-300 w-12 flex-shrink-0;
+    @apply text-xs font-normal text-neutral-300 w-6 flex-shrink-0;
 }
 
 .about-faq-trigger.is-open .about-faq-index {
-    @apply text-black;
+    @apply text-neutral-500;
 }
 
 .about-faq-question {
-    @apply flex-1 text-lg font-medium text-black;
+    @apply flex-1 text-sm font-medium text-neutral-700 transition-colors;
 }
 
 .about-faq-icon {
-    @apply text-2xl text-neutral-400 transition-transform duration-300;
+    @apply text-lg text-neutral-300 transition-transform duration-300;
 }
 
 .about-faq-trigger.is-open .about-faq-icon {
-    @apply text-black;
+    @apply text-neutral-500;
 }
 
 .about-faq-answer {
@@ -2820,65 +2773,29 @@
 }
 
 .about-faq-answer-inner {
-    @apply pb-8 pr-12 text-neutral-600 leading-relaxed;
-    padding-left: 4.5rem;
+    @apply pb-6 text-sm text-neutral-500 leading-relaxed font-light;
+    padding-left: 2.5rem;
 }
 
 .about-faq-answer-inner p {
-    @apply m-0 mb-4 last:mb-0;
+    @apply m-0 mb-3 last:mb-0;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .about-hero {
-        @apply min-h-[50vh] pt-24;
-    }
-
-    .about-hero-headline {
-        @apply text-5xl;
+        @apply py-12;
     }
 
     .about-hero-image {
-        @apply absolute inset-0 w-full opacity-20;
-    }
-
-    .about-hero-img {
-        clip-path: none;
-    }
-
-    .about-intro-stats {
-        @apply flex-col gap-6;
+        @apply hidden;
     }
 
     .about-milestone {
         @apply grid-cols-1;
     }
 
-    .about-milestone-year {
-        @apply text-3xl;
-    }
-
-    .about-value:nth-child(even) {
-        @apply mt-0;
-    }
-
-    .about-value-number {
-        @apply text-6xl -top-4;
-    }
-
-    .about-faq-trigger {
-        @apply gap-4 py-5;
-    }
-
-    .about-faq-index {
-        @apply text-xl w-8;
-    }
-
-    .about-faq-question {
-        @apply text-base;
-    }
-
     .about-faq-answer-inner {
-        @apply pl-12 pr-4;
+        padding-left: 2.5rem;
     }
 }

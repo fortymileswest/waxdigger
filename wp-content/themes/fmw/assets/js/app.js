@@ -88,28 +88,34 @@
      * Page Transitions - Simple Fade
      */
     function initPageTransitions() {
+        // Disable browser scroll restoration to prevent jump
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+
         const main = document.getElementById('main');
         if (main) {
             main.classList.add('page-transition');
         }
 
         document.querySelectorAll('a').forEach(function (link) {
+            const href = link.getAttribute('href');
+
             // Skip external links, anchor links, and special links
             if (
+                !href ||
                 link.hostname !== window.location.hostname ||
-                link.getAttribute('href').startsWith('#') ||
+                href.startsWith('#') ||
                 link.getAttribute('target') === '_blank' ||
                 link.classList.contains('no-transition') ||
-                link.closest('[x-data]') // Skip Alpine-controlled links
+                link.closest('[x-data]')
             ) {
                 return;
             }
 
             link.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-
                 // Don't transition for same page
-                if (!href || href === window.location.href) return;
+                if (href === window.location.href || href === window.location.pathname) return;
 
                 e.preventDefault();
 
@@ -120,7 +126,7 @@
 
                 setTimeout(function () {
                     window.location.href = href;
-                }, 300);
+                }, 200);
             });
         });
     }

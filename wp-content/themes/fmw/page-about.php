@@ -92,7 +92,7 @@ $faq_items = get_field( 'faq_items' );
 	<?php endif; ?>
 
 	<?php // History Section ?>
-	<?php if ( $history_milestones ) : ?>
+	<?php if ( $history_milestones && is_array( $history_milestones ) ) : ?>
 	<section class="about-history">
 		<div class="container mx-auto px-4">
 			<?php if ( $history_title ) : ?>
@@ -121,7 +121,7 @@ $faq_items = get_field( 'faq_items' );
 	<?php endif; ?>
 
 	<?php // Values Section ?>
-	<?php if ( $values_items ) : ?>
+	<?php if ( $values_items && is_array( $values_items ) ) : ?>
 	<section class="about-values">
 		<div class="container mx-auto px-4">
 			<div class="about-values-header">
@@ -150,7 +150,7 @@ $faq_items = get_field( 'faq_items' );
 	<?php endif; ?>
 
 	<?php // FAQ Section ?>
-	<?php if ( $faq_items ) : ?>
+	<?php if ( $faq_items && is_array( $faq_items ) ) : ?>
 	<section class="about-faq">
 		<div class="container mx-auto px-4">
 			<?php if ( $faq_title ) : ?>
@@ -185,6 +185,29 @@ $faq_items = get_field( 'faq_items' );
 		</div>
 	</section>
 	<?php endif; ?>
+
+	<?php // Collection CTA ?>
+	<section class="collection-cta">
+		<div class="container mx-auto px-4">
+			<div class="collection-cta-inner">
+				<div class="collection-cta-icons">
+					<span class="collection-cta-icon collection-cta-icon-van">
+						<?php fmw_icon( 'van', 'w-10 h-10' ); ?>
+					</span>
+					<span class="collection-cta-icon collection-cta-icon-cash">
+						<?php fmw_icon( 'cash', 'w-8 h-8' ); ?>
+					</span>
+				</div>
+				<div class="collection-cta-content">
+					<h2 class="collection-cta-title">We Buy Record Collections</h2>
+					<p class="collection-cta-text">Got vinyl to sell? We pay top prices for quality collections and can <strong>collect anywhere in the UK</strong>. Cash paid on the spot.</p>
+				</div>
+				<a href="<?php echo esc_url( get_permalink( get_page_by_path( 'contact' ) ) ); ?>" class="collection-cta-btn">
+					Get a Quote
+				</a>
+			</div>
+		</div>
+	</section>
 
 </article>
 
