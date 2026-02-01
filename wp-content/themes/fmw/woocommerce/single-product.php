@@ -139,6 +139,17 @@ while ( have_posts() ) :
                         <span class="product-price"><?php echo $price; ?></span>
 
                         <?php if ( $product->is_in_stock() ) : ?>
+                            <?php $stock_qty = $product->get_stock_quantity(); ?>
+                            <span class="product-stock in-stock">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <?php if ( $stock_qty && $stock_qty > 0 ) : ?>
+                                    <?php echo esc_html( $stock_qty ); ?> in stock
+                                <?php else : ?>
+                                    In stock
+                                <?php endif; ?>
+                            </span>
                             <form class="cart" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $permalink ) ); ?>" method="post" enctype="multipart/form-data">
                                 <?php do_action( 'woocommerce_before_add_to_cart_button' ); ?>
                                 <button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product_id ); ?>" class="product-add-to-cart">
