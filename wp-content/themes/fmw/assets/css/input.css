@@ -1883,3 +1883,236 @@
 .genre-no-results p {
     @apply text-neutral-600 mb-6;
 }
+
+/**
+ * Contact Page
+ */
+.contact-page {
+    @apply pb-16;
+}
+
+/* Hero */
+.contact-hero {
+    @apply py-16 md:py-24 bg-black text-white text-center;
+}
+
+.contact-hero-title {
+    @apply text-4xl md:text-5xl font-bold mb-4;
+}
+
+.contact-hero-subtitle {
+    @apply text-lg text-neutral-400 max-w-xl mx-auto;
+}
+
+/* Collection CTA */
+.collection-cta {
+    @apply -mt-8 relative z-10 mb-8;
+}
+
+.collection-cta-inner {
+    @apply flex flex-col md:flex-row items-center gap-6 md:gap-8 bg-gradient-to-r from-amber-400 to-orange-500 text-black px-8 py-8 md:py-6 rounded-lg shadow-xl;
+}
+
+.collection-cta-icons {
+    @apply relative flex-shrink-0;
+}
+
+.collection-cta-icon {
+    @apply inline-flex items-center justify-center rounded-full;
+}
+
+.collection-cta-icon-van {
+    @apply w-16 h-16 bg-black text-white;
+    animation: bounce-gentle 2s ease-in-out infinite;
+}
+
+.collection-cta-icon-cash {
+    @apply absolute -bottom-1 -right-1 w-10 h-10 bg-white text-black border-2 border-black;
+}
+
+@keyframes bounce-gentle {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(4px); }
+}
+
+.collection-cta-content {
+    @apply flex-1 text-center md:text-left;
+}
+
+.collection-cta-title {
+    @apply text-xl md:text-2xl font-bold mb-1;
+}
+
+.collection-cta-text {
+    @apply text-sm md:text-base opacity-90;
+}
+
+.collection-cta-text strong {
+    @apply font-bold;
+}
+
+.collection-cta-btn {
+    @apply flex-shrink-0 px-6 py-3 bg-black text-white text-sm font-medium rounded-full border-0 cursor-pointer hover:bg-neutral-800 transition-colors whitespace-nowrap;
+}
+
+/* Tabs */
+.contact-main {
+    @apply py-12;
+}
+
+.contact-tabs {
+    @apply flex justify-center gap-2 mb-12;
+}
+
+.contact-tab {
+    @apply px-6 py-3 text-sm font-medium text-neutral-500 bg-transparent border border-neutral-200 rounded-full cursor-pointer transition-all hover:border-black hover:text-black;
+}
+
+.contact-tab.is-active {
+    @apply bg-black text-white border-black;
+}
+
+/* Grid */
+.contact-grid {
+    @apply grid md:grid-cols-2 gap-12 lg:gap-16;
+}
+
+.contact-section-title {
+    @apply text-xl font-bold text-black mb-6;
+}
+
+/* Form Column */
+.contact-form-column {
+    @apply max-w-lg;
+}
+
+.contact-form-intro {
+    @apply text-neutral-600 mb-6;
+}
+
+/* Form Styles */
+.contact-form {
+    @apply space-y-5;
+}
+
+.form-group {
+    @apply space-y-2;
+}
+
+.form-group label {
+    @apply block text-sm font-medium text-black;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    @apply w-full px-4 py-3 text-sm bg-white border border-neutral-300 rounded-none outline-none transition-colors focus:border-black;
+}
+
+.form-group textarea {
+    @apply resize-none;
+}
+
+.form-group select {
+    @apply appearance-none bg-no-repeat bg-right cursor-pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23999'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-size: 1.25rem;
+    background-position: right 0.75rem center;
+    padding-right: 2.5rem;
+}
+
+.contact-submit {
+    @apply w-full px-6 py-4 bg-black text-white text-sm font-medium border-0 cursor-pointer hover:bg-neutral-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.form-message {
+    @apply text-sm p-4 rounded;
+}
+
+.form-message.is-success {
+    @apply bg-green-50 text-green-800;
+}
+
+.form-message.is-error {
+    @apply bg-red-50 text-red-800;
+}
+
+/* Contact Details */
+.contact-details {
+    @apply mb-10;
+}
+
+.contact-detail-item {
+    @apply mb-6;
+}
+
+.contact-detail-item h3 {
+    @apply text-xs font-medium uppercase tracking-wider text-neutral-500 mb-1;
+}
+
+.contact-detail-item p,
+.contact-detail-item a {
+    @apply text-black;
+}
+
+.contact-detail-item a {
+    @apply underline underline-offset-2 hover:no-underline;
+}
+
+.contact-social {
+    @apply flex gap-4;
+}
+
+.contact-social a {
+    @apply text-black hover:text-neutral-600 transition-colors;
+}
+
+/* FAQ */
+.contact-faq {
+    @apply border-t border-neutral-200 pt-8;
+}
+
+.faq-list {
+    @apply space-y-0 divide-y divide-neutral-200;
+}
+
+.faq-item {
+    @apply py-0;
+}
+
+.faq-question {
+    @apply w-full flex items-center justify-between py-4 text-left text-sm font-medium text-black bg-transparent border-0 cursor-pointer;
+}
+
+.faq-question span {
+    @apply pr-4;
+}
+
+.faq-icon {
+    @apply w-4 h-4 text-neutral-400 transition-transform flex-shrink-0;
+}
+
+.faq-question.is-open .faq-icon {
+    @apply rotate-180;
+}
+
+.faq-answer {
+    @apply pb-4 text-sm text-neutral-600 leading-relaxed;
+}
+
+.faq-answer p {
+    @apply m-0;
+}
+
+/* Supplier Criteria */
+.supplier-criteria {
+    @apply space-y-6;
+}
+
+.criteria-item h3 {
+    @apply text-xs font-medium uppercase tracking-wider text-neutral-500 mb-1;
+}
+
+.criteria-item p {
+    @apply text-sm text-neutral-700 leading-relaxed;
+}
