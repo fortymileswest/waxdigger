@@ -6,41 +6,96 @@
             "key": "field_product_artist",
             "label": "Artist",
             "name": "artist",
+            "aria-label": "",
             "type": "text",
             "instructions": "Artist or band name.",
-            "required": 0
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_product_label",
             "label": "Record Label",
             "name": "label",
+            "aria-label": "",
             "type": "text",
             "instructions": "Record label name.",
-            "required": 0
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_product_country",
             "label": "Country",
             "name": "country",
+            "aria-label": "",
             "type": "text",
             "instructions": "Country of release.",
-            "required": 0
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_product_year",
             "label": "Year",
             "name": "year",
+            "aria-label": "",
             "type": "text",
             "instructions": "Release year.",
-            "required": 0
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_product_format_size",
             "label": "Format Size",
             "name": "format_size",
+            "aria-label": "",
             "type": "select",
             "instructions": "Vinyl size.",
             "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "choices": {
                 "12\"": "12\"",
                 "10\"": "10\"",
@@ -49,30 +104,57 @@
             },
             "default_value": "12\"",
             "allow_null": 1,
-            "return_format": "value"
+            "return_format": "value",
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
         },
         {
             "key": "field_product_speed",
             "label": "Speed",
             "name": "speed",
+            "aria-label": "",
             "type": "select",
             "instructions": "Playback speed.",
             "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "choices": {
                 "33": "33 RPM",
                 "45": "45 RPM",
                 "78": "78 RPM"
             },
             "allow_null": 1,
-            "return_format": "value"
+            "return_format": "value",
+            "multiple": 0,
+            "default_value": false,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
         },
         {
             "key": "field_product_edition",
-            "label": "Edition / Notes",
+            "label": "Edition \/ Notes",
             "name": "edition",
+            "aria-label": "",
             "type": "checkbox",
             "instructions": "Special edition details.",
             "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "choices": {
                 "white_label": "White Label",
                 "promo": "Promo",
@@ -83,15 +165,27 @@
                 "mono": "Mono"
             },
             "return_format": "value",
-            "layout": "horizontal"
+            "layout": "horizontal",
+            "default_value": [],
+            "allow_custom": 0,
+            "save_custom": 0,
+            "toggle": 0,
+            "custom_choice_button_text": "Add new choice"
         },
         {
             "key": "field_product_media_condition",
             "label": "Media Condition",
             "name": "media_condition",
+            "aria-label": "",
             "type": "select",
             "instructions": "Condition of the vinyl.",
             "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "choices": {
                 "M": "Mint (M)",
                 "NM": "Near Mint (NM or M-)",
@@ -103,15 +197,29 @@
                 "P": "Poor (P)"
             },
             "allow_null": 1,
-            "return_format": "value"
+            "return_format": "value",
+            "multiple": 0,
+            "default_value": false,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
         },
         {
             "key": "field_product_sleeve_condition",
             "label": "Sleeve Condition",
             "name": "sleeve_condition",
+            "aria-label": "",
             "type": "select",
             "instructions": "Condition of the sleeve.",
             "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "choices": {
                 "M": "Mint (M)",
                 "NM": "Near Mint (NM or M-)",
@@ -125,35 +233,74 @@
                 "none": "No Sleeve"
             },
             "allow_null": 1,
-            "return_format": "value"
+            "return_format": "value",
+            "multiple": 0,
+            "default_value": false,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
         },
         {
             "key": "field_product_videos",
             "label": "YouTube Videos",
             "name": "youtube_videos",
+            "aria-label": "",
             "type": "repeater",
             "instructions": "Add YouTube video links for this release.",
             "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "min": 0,
             "max": 10,
             "layout": "table",
+            "rows_per_page": 20,
+            "button_label": "Add Row",
+            "collapsed": "",
             "sub_fields": [
                 {
                     "key": "field_product_video_url",
                     "label": "YouTube URL",
                     "name": "url",
+                    "aria-label": "",
                     "type": "url",
                     "instructions": "",
                     "required": 1,
-                    "placeholder": "https://www.youtube.com/watch?v=..."
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "placeholder": "https:\/\/www.youtube.com\/watch?v=...",
+                    "default_value": "",
+                    "parent_repeater": "field_product_videos"
                 },
                 {
                     "key": "field_product_video_title",
                     "label": "Title",
                     "name": "title",
+                    "aria-label": "",
                     "type": "text",
                     "instructions": "Track or video title (optional)",
-                    "required": 0
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_product_videos"
                 }
             ]
         }
@@ -174,5 +321,8 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "Custom fields for vinyl records."
+    "description": "Custom fields for vinyl records.",
+    "show_in_rest": false,
+    "display_title": "",
+    "modified": 1769983632
 }

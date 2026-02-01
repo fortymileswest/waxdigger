@@ -100,6 +100,15 @@ Do create:
 
 ## ACF Patterns
 
+### Field Group Conventions
+
+When creating ACF field groups:
+
+- **Tabs:** Always use vertical tabs (`"placement": "left"`)
+- **Images:** Max 0.5MB, formats: jpg, jpeg, png, webp only
+- **Image preview:** Use smallest size (`"preview_size": "thumbnail"`)
+- **Auto-sync:** Field groups auto-sync from JSON on admin load
+
 ### Flexible Content (Page Sections)
 
 ```php

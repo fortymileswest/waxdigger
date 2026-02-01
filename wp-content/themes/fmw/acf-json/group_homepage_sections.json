@@ -6,9 +6,16 @@
             "key": "field_sections",
             "label": "Sections",
             "name": "sections",
+            "aria-label": "",
             "type": "flexible_content",
             "instructions": "Add and arrange homepage sections.",
             "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "layouts": {
                 "layout_featured_releases": {
                     "key": "layout_featured_releases",
@@ -20,55 +27,113 @@
                             "key": "field_featured_slides",
                             "label": "Slides",
                             "name": "slides",
+                            "aria-label": "",
                             "type": "repeater",
                             "instructions": "Add featured products to the slider.",
                             "required": 1,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
                             "min": 1,
                             "max": 10,
                             "layout": "block",
+                            "rows_per_page": 20,
+                            "button_label": "Add Row",
+                            "collapsed": "",
                             "sub_fields": [
                                 {
                                     "key": "field_slide_product",
                                     "label": "Product",
                                     "name": "product",
+                                    "aria-label": "",
                                     "type": "post_object",
                                     "instructions": "Select the featured record.",
                                     "required": 1,
-                                    "post_type": ["product"],
+                                    "conditional_logic": false,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "post_type": [
+                                        "product"
+                                    ],
                                     "allow_null": 0,
                                     "multiple": 0,
                                     "return_format": "id",
-                                    "ui": 1
+                                    "ui": 1,
+                                    "taxonomy": [],
+                                    "bidirectional_target": [],
+                                    "parent_repeater": "field_featured_slides"
                                 },
                                 {
                                     "key": "field_slide_eyebrow",
                                     "label": "Eyebrow Text",
                                     "name": "eyebrow",
+                                    "aria-label": "",
                                     "type": "text",
                                     "instructions": "Small text above the title (e.g., \"Record of the Month:\").",
                                     "required": 0,
+                                    "conditional_logic": false,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
                                     "default_value": "Record of the Month:",
-                                    "placeholder": "Record of the Month:"
+                                    "placeholder": "Record of the Month:",
+                                    "maxlength": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "parent_repeater": "field_featured_slides"
                                 },
                                 {
                                     "key": "field_slide_details",
                                     "label": "Details",
                                     "name": "details",
+                                    "aria-label": "",
                                     "type": "repeater",
                                     "instructions": "Bullet point details (e.g., \"Limited edition\", \"180g vinyl\").",
                                     "required": 0,
+                                    "conditional_logic": false,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
                                     "min": 0,
                                     "max": 5,
                                     "layout": "table",
+                                    "rows_per_page": 20,
+                                    "button_label": "Add Row",
+                                    "collapsed": "",
                                     "sub_fields": [
                                         {
                                             "key": "field_slide_detail_item",
                                             "label": "Detail",
                                             "name": "detail",
+                                            "aria-label": "",
                                             "type": "text",
-                                            "required": 1
+                                            "instructions": "",
+                                            "required": 1,
+                                            "conditional_logic": false,
+                                            "wrapper": {
+                                                "width": "",
+                                                "class": "",
+                                                "id": ""
+                                            },
+                                            "default_value": "",
+                                            "maxlength": "",
+                                            "placeholder": "",
+                                            "prepend": "",
+                                            "append": "",
+                                            "parent_repeater": "field_slide_details"
                                         }
-                                    ]
+                                    ],
+                                    "parent_repeater": "field_featured_slides"
                                 }
                             ]
                         }
@@ -98,5 +163,8 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "Flexible content sections for the homepage."
+    "description": "Flexible content sections for the homepage.",
+    "show_in_rest": false,
+    "display_title": "",
+    "modified": 1769983632
 }
