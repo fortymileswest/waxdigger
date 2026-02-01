@@ -1,8 +1,8 @@
 <?php
 /**
- * Product Category Archive Template
+ * Genre Archive Template
  *
- * Custom template for displaying products by genre/category.
+ * Custom template for displaying products by genre.
  *
  * @package FMW
  */
@@ -15,7 +15,7 @@ $current_term = get_queried_object();
 $term_name    = $current_term->name;
 $term_desc    = $current_term->description;
 
-// Get products in this category
+// Get products in this genre
 $args = array(
 	'post_type'      => 'product',
 	'posts_per_page' => -1,
@@ -24,7 +24,7 @@ $args = array(
 	'order'          => 'DESC',
 	'tax_query'      => array(
 		array(
-			'taxonomy' => 'product_cat',
+			'taxonomy' => 'genre',
 			'field'    => 'term_id',
 			'terms'    => $current_term->term_id,
 		),
@@ -33,11 +33,10 @@ $args = array(
 
 $products = new WP_Query( $args );
 
-// Get all genre categories for filter
+// Get all genres for filter
 $genres = get_terms( array(
-	'taxonomy'   => 'product_cat',
+	'taxonomy'   => 'genre',
 	'hide_empty' => true,
-	'exclude'    => array( get_option( 'default_product_cat' ) ),
 ) );
 ?>
 

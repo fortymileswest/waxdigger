@@ -120,3 +120,35 @@ function fmw_cleanup_head() {
     remove_action( 'wp_print_styles', 'print_emoji_styles' );
 }
 add_action( 'init', 'fmw_cleanup_head' );
+
+/**
+ * Register Genre taxonomy for products
+ */
+function fmw_register_genre_taxonomy() {
+    $labels = array(
+        'name'              => _x( 'Genres', 'taxonomy general name', 'fmw' ),
+        'singular_name'     => _x( 'Genre', 'taxonomy singular name', 'fmw' ),
+        'search_items'      => __( 'Search Genres', 'fmw' ),
+        'all_items'         => __( 'All Genres', 'fmw' ),
+        'parent_item'       => __( 'Parent Genre', 'fmw' ),
+        'parent_item_colon' => __( 'Parent Genre:', 'fmw' ),
+        'edit_item'         => __( 'Edit Genre', 'fmw' ),
+        'update_item'       => __( 'Update Genre', 'fmw' ),
+        'add_new_item'      => __( 'Add New Genre', 'fmw' ),
+        'new_item_name'     => __( 'New Genre Name', 'fmw' ),
+        'menu_name'         => __( 'Genres', 'fmw' ),
+    );
+
+    $args = array(
+        'hierarchical'      => true,
+        'labels'            => $labels,
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'show_in_rest'      => true,
+        'query_var'         => true,
+        'rewrite'           => array( 'slug' => 'genre', 'with_front' => false ),
+    );
+
+    register_taxonomy( 'genre', array( 'product' ), $args );
+}
+add_action( 'init', 'fmw_register_genre_taxonomy' );

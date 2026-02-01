@@ -106,9 +106,8 @@
                                         <p class="mega-menu-title">Browse by Genre</p>
                                         <?php
                                         $genres = get_terms( array(
-                                            'taxonomy'   => 'product_cat',
+                                            'taxonomy'   => 'genre',
                                             'hide_empty' => false,
-                                            'exclude'    => array( get_option( 'default_product_cat' ) ),
                                             'orderby'    => 'name',
                                             'order'      => 'ASC',
                                         ) );
