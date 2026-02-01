@@ -8,6 +8,13 @@
  * Minimal structural styles only. No decorative design.
  */
 @layer base {
+    /* Reset html/body margin */
+    html,
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
     /* Smooth scrolling */
     html {
         scroll-behavior: smooth;
@@ -67,6 +74,8 @@
     background-color: #fff;
     border-bottom: 1px solid #e5e5e5;
     z-index: 100;
+    margin: 0;
+    padding: 0;
 }
 
 .site-header.is-sticky {
@@ -448,11 +457,18 @@
  */
 @layer components {
     .single-product {
-        @apply pt-6 pb-8 md:pt-8 md:pb-12;
+        @apply py-8 md:py-12;
     }
 
     .product-layout {
-        @apply grid gap-8 md:grid-cols-2 lg:gap-12 mb-12;
+        @apply grid gap-8 md:gap-10 lg:gap-12 mb-12;
+        grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 768px) {
+        .product-layout {
+            grid-template-columns: 2fr 3fr;
+        }
     }
 
     /* Product Images */
@@ -596,9 +612,120 @@
         @apply mt-2 text-sm text-neutral-600;
     }
 
-    /* Related Products */
+    /* YouTube Videos Accordion */
+    .product-videos-accordion {
+        @apply mt-6 border border-neutral-200 rounded-lg p-4;
+    }
+
+    .product-videos-title {
+        @apply text-sm font-medium text-neutral-500 uppercase tracking-wider mb-3;
+    }
+
+    .product-videos-list {
+        @apply space-y-0 divide-y divide-neutral-100;
+    }
+
+    .product-video-item {
+        @apply py-0;
+    }
+
+    .product-video-toggle {
+        @apply w-full flex items-center gap-3 py-3 text-left bg-transparent border-0 cursor-pointer hover:bg-neutral-50 transition-colors -mx-2 px-2 rounded;
+    }
+
+    .product-video-toggle.is-active {
+        @apply bg-neutral-50;
+    }
+
+    .product-video-play-icon {
+        @apply flex-shrink-0 w-8 h-8 flex items-center justify-center bg-black text-white rounded-full;
+    }
+
+    .product-video-toggle.is-active .product-video-play-icon {
+        @apply bg-neutral-700;
+    }
+
+    .product-video-name {
+        @apply text-sm font-medium text-black;
+    }
+
+    .product-video-player {
+        @apply overflow-hidden origin-top;
+    }
+
+    .product-video-player iframe {
+        @apply w-full aspect-video mt-3 mb-2 rounded opacity-0;
+        animation: fadeInVideo 0.4s ease-out 0.2s forwards;
+    }
+
+    @keyframes fadeInVideo {
+        from {
+            opacity: 0;
+            transform: scale(0.98);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    /* Related Products Slider */
     .product-related {
-        @apply border-t border-neutral-200 pt-8;
+        @apply mt-12 border-t border-neutral-200 pt-8;
+    }
+
+    .product-related-header {
+        @apply flex items-center justify-between mb-6;
+    }
+
+    .product-related-header .product-section-title {
+        @apply mb-0;
+    }
+
+    .product-slider-nav {
+        @apply flex gap-2;
+    }
+
+    .product-slider-btn {
+        @apply w-10 h-10 flex items-center justify-center border border-neutral-300 text-neutral-600 hover:bg-black hover:text-white hover:border-black transition-colors;
+    }
+
+    .product-slider {
+        @apply flex gap-4 overflow-x-auto scroll-smooth pb-4;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .product-slider::-webkit-scrollbar {
+        display: none;
+    }
+
+    .product-slide {
+        @apply flex-none w-[calc(50%-0.5rem)] md:w-[calc(33.333%-0.75rem)] lg:w-[calc(16.666%-0.833rem)];
+    }
+
+    .product-slide .product-card-image {
+        @apply aspect-square bg-neutral-100;
+    }
+
+    .product-slide .product-card-img {
+        @apply w-full h-full object-cover;
+    }
+
+    .product-slide .product-card-info {
+        @apply pt-3;
+    }
+
+    .product-slide .product-card-title {
+        @apply text-sm font-medium text-black truncate;
+    }
+
+    .product-slide .product-card-label {
+        @apply text-xs text-neutral-500 truncate mt-1;
+    }
+
+    .product-slide .product-card-price {
+        @apply text-sm font-medium text-black mt-1;
     }
 }
 
@@ -668,7 +795,7 @@
  * Sticky Footer Layout
  */
 #page {
-    @apply min-h-screen flex flex-col;
+    @apply min-h-screen flex flex-col m-0 p-0;
 }
 
 .site-main {
@@ -678,16 +805,26 @@
 /**
  * Custom Cart Page
  */
-.fmw-cart {
-    /* Wrapped by WooCommerce container */
+.fmw-cart-wrapper {
+    @apply py-8 md:py-12;
 }
 
 .cart-page-title {
     @apply text-2xl md:text-3xl font-bold text-black mb-6;
 }
 
+.fmw-cart {
+    /* Two column layout container */
+}
+
 .cart-content {
     /* Left column on desktop */
+}
+
+/* Hide duplicate titles from WooCommerce */
+.woocommerce-cart .entry-title,
+.woocommerce-cart .page-title {
+    display: none;
 }
 
 /* Empty Cart */
@@ -791,7 +928,7 @@
 
 /* Cart Totals */
 .cart-totals {
-    @apply p-6 bg-neutral-50 border border-neutral-200 max-w-md ml-auto;
+    @apply p-6 bg-neutral-50 border border-neutral-200;
 }
 
 .cart-totals-title {
@@ -827,14 +964,674 @@
 /* Responsive */
 @media (min-width: 768px) {
     .fmw-cart {
-        @apply grid grid-cols-3 gap-8;
+        display: flex;
+        gap: 2rem;
+        align-items: flex-start;
     }
 
-    .woocommerce-cart-form {
-        @apply col-span-2;
+    .cart-content {
+        flex: 1;
+        min-width: 0;
     }
 
     .cart-totals {
-        @apply col-span-1 self-start sticky top-24;
+        flex-shrink: 0;
+        width: 320px;
+        position: sticky;
+        top: 6rem;
     }
+}
+
+@media (min-width: 1024px) {
+    .fmw-cart {
+        gap: 3rem;
+    }
+
+    .cart-totals {
+        width: 360px;
+    }
+}
+
+/**
+ * Custom Checkout Page
+ */
+.fmw-checkout-wrapper {
+    @apply py-8 md:py-12;
+}
+
+.checkout-page-title {
+    @apply text-2xl md:text-3xl font-bold text-black mb-6;
+}
+
+/* Hide duplicate titles from WooCommerce */
+.woocommerce-checkout .entry-title,
+.woocommerce-checkout .page-title {
+    display: none;
+}
+
+/* Two column layout */
+.checkout-columns {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .checkout-columns {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .checkout-details {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .checkout-order-review {
+        flex-shrink: 0;
+        width: 360px;
+        position: sticky;
+        top: 6rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .checkout-columns {
+        gap: 3rem;
+    }
+
+    .checkout-order-review {
+        width: 400px;
+    }
+}
+
+/* Checkout Sections */
+.checkout-section {
+    @apply mb-8;
+}
+
+.checkout-section:last-child {
+    @apply mb-0;
+}
+
+/* Section Titles */
+.checkout-section-title,
+.woocommerce-billing-fields h3,
+.woocommerce-shipping-fields h3,
+.woocommerce-additional-fields h3 {
+    @apply text-lg font-bold text-black mb-4 pb-2 border-b border-neutral-200;
+}
+
+/* Form Fields */
+.woocommerce-checkout .form-row {
+    @apply mb-4;
+}
+
+.woocommerce-checkout .form-row label {
+    @apply block text-sm font-medium text-black mb-1;
+}
+
+.woocommerce-checkout .form-row label .required {
+    @apply text-red-500;
+}
+
+.woocommerce-checkout .form-row input[type="text"],
+.woocommerce-checkout .form-row input[type="email"],
+.woocommerce-checkout .form-row input[type="tel"],
+.woocommerce-checkout .form-row input[type="password"],
+.woocommerce-checkout .form-row select,
+.woocommerce-checkout .form-row textarea {
+    @apply w-full px-4 py-3 text-sm bg-white border border-neutral-300 outline-none focus:border-black transition-colors;
+}
+
+.woocommerce-checkout .form-row textarea {
+    @apply min-h-24 resize-y;
+}
+
+.woocommerce-checkout .form-row-wide {
+    @apply w-full;
+}
+
+.woocommerce-checkout .form-row-first,
+.woocommerce-checkout .form-row-last {
+    @apply w-full;
+}
+
+@media (min-width: 640px) {
+    .woocommerce-checkout .form-row-first,
+    .woocommerce-checkout .form-row-last {
+        @apply inline-block w-[calc(50%-0.5rem)];
+    }
+
+    .woocommerce-checkout .form-row-first {
+        @apply mr-2;
+    }
+
+    .woocommerce-checkout .form-row-last {
+        @apply ml-2;
+    }
+}
+
+/* Select2 overrides */
+.woocommerce-checkout .select2-container {
+    @apply w-full;
+}
+
+.woocommerce-checkout .select2-container--default .select2-selection--single {
+    @apply h-auto px-4 py-3 text-sm bg-white border border-neutral-300 rounded-none;
+}
+
+.woocommerce-checkout .select2-container--default .select2-selection--single .select2-selection__rendered {
+    @apply leading-normal p-0 text-black;
+}
+
+.woocommerce-checkout .select2-container--default .select2-selection--single .select2-selection__arrow {
+    @apply h-full top-0;
+}
+
+/* Checkbox */
+.woocommerce-checkout .woocommerce-form__label-for-checkbox {
+    @apply flex items-start gap-2 text-sm text-neutral-600;
+}
+
+.woocommerce-checkout .woocommerce-form__label-for-checkbox input[type="checkbox"] {
+    @apply mt-0.5;
+}
+
+/* Order Review Panel */
+.checkout-order-review {
+    @apply p-6 bg-neutral-50 border border-neutral-200;
+}
+
+/* Order Items */
+.checkout-order-items {
+    @apply space-y-4 mb-6 pb-6 border-b border-neutral-200;
+}
+
+.checkout-order-item {
+    @apply flex gap-3;
+}
+
+.checkout-order-item-image {
+    @apply flex-shrink-0 w-14 h-14;
+}
+
+.checkout-order-item-image img {
+    @apply w-full h-full object-cover;
+}
+
+.checkout-order-item-details {
+    @apply flex-1 min-w-0;
+}
+
+.checkout-order-item-name {
+    @apply block text-sm font-medium text-black truncate;
+}
+
+.checkout-order-item-label {
+    @apply block text-xs text-neutral-500;
+}
+
+.checkout-order-item-total {
+    @apply flex-shrink-0 text-sm font-medium text-black;
+}
+
+/* Order Totals */
+.checkout-order-totals {
+    @apply space-y-3;
+}
+
+.checkout-totals-row {
+    @apply flex justify-between text-sm;
+}
+
+.checkout-totals-row.checkout-total {
+    @apply pt-3 mt-3 border-t border-neutral-300 font-bold text-base;
+}
+
+.checkout-discount {
+    @apply text-green-600;
+}
+
+/* Payment Section */
+.checkout-payment {
+    @apply mt-6 pt-6 border-t border-neutral-200;
+}
+
+.checkout-payment-title {
+    @apply text-base font-bold text-black mb-4;
+}
+
+.checkout-payment-methods {
+    @apply space-y-3 mb-6;
+}
+
+/* Payment Method Radio */
+.wc_payment_methods,
+.payment_methods {
+    @apply list-none m-0 p-0 space-y-3;
+}
+
+.wc_payment_method {
+    @apply p-4 border border-neutral-200 bg-white;
+}
+
+.wc_payment_method label {
+    @apply flex items-center gap-2 text-sm font-medium text-black cursor-pointer;
+}
+
+.wc_payment_method .payment_box {
+    @apply mt-3 pt-3 border-t border-neutral-100 text-sm text-neutral-600;
+}
+
+/* Place Order */
+.checkout-place-order {
+    @apply mt-6;
+}
+
+.checkout-submit-btn {
+    @apply w-full px-6 py-4 bg-black text-white text-sm font-medium text-center border-0 cursor-pointer hover:bg-neutral-800 transition-colors;
+}
+
+/* Terms */
+.woocommerce-terms-and-conditions-wrapper {
+    @apply mb-4 text-sm text-neutral-600;
+}
+
+.woocommerce-terms-and-conditions-wrapper a {
+    @apply text-black underline hover:no-underline;
+}
+
+/* Validation */
+.woocommerce-checkout .woocommerce-invalid input,
+.woocommerce-checkout .woocommerce-invalid select {
+    @apply border-red-500;
+}
+
+.woocommerce-checkout .woocommerce-error {
+    @apply mb-6 p-4 bg-red-50 border border-red-200 text-red-700 text-sm list-none;
+}
+
+.woocommerce-checkout .woocommerce-message {
+    @apply mb-6 p-4 bg-green-50 border border-green-200 text-green-700 text-sm;
+}
+
+/* Returning Customer Login */
+.woocommerce-form-login-toggle,
+.woocommerce-form-coupon-toggle {
+    @apply mb-6 p-4 bg-neutral-50 border border-neutral-200 text-sm;
+}
+
+.woocommerce-form-login-toggle .woocommerce-info,
+.woocommerce-form-coupon-toggle .woocommerce-info {
+    @apply m-0 p-0 bg-transparent border-0;
+}
+
+.woocommerce-form-login,
+.woocommerce-form-coupon {
+    @apply mb-6 p-4 bg-neutral-50 border border-neutral-200;
+}
+
+/* Shipping Methods in Order Review */
+.woocommerce-shipping-methods {
+    @apply list-none m-0 p-0 space-y-2;
+}
+
+.woocommerce-shipping-methods li {
+    @apply flex items-center gap-2 text-sm;
+}
+
+.woocommerce-shipping-methods label {
+    @apply cursor-pointer;
+}
+
+/**
+ * Login Modal - Dark theme
+ */
+.login-modal {
+    @apply fixed inset-0 z-[9999] flex items-center justify-center p-4;
+}
+
+.login-modal-backdrop {
+    @apply fixed inset-0 bg-black/80;
+}
+
+.login-modal-panel {
+    @apply relative w-full max-w-md bg-neutral-900 p-8 md:p-10;
+}
+
+.login-modal-close {
+    @apply absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-neutral-400 hover:text-white transition-colors bg-transparent border-0 cursor-pointer;
+}
+
+.login-modal-close .icon {
+    @apply w-5 h-5;
+}
+
+.login-modal-content {
+    /* Content wrapper */
+}
+
+.login-modal-title {
+    @apply text-2xl font-bold text-white mb-1;
+}
+
+.login-modal-subtitle {
+    @apply text-neutral-400 mb-8;
+}
+
+/* Form Fields */
+.login-modal-form {
+    @apply space-y-5;
+}
+
+.login-field {
+    @apply space-y-2;
+}
+
+.login-field label {
+    @apply block text-sm font-medium text-neutral-300;
+}
+
+.login-field input {
+    @apply w-full px-4 py-3 text-sm text-white bg-neutral-800 border border-neutral-700 outline-none focus:border-white transition-colors placeholder-neutral-500;
+}
+
+/* Options Row */
+.login-options {
+    @apply flex items-center justify-between;
+}
+
+.login-remember {
+    @apply flex items-center gap-2 text-sm text-neutral-300 cursor-pointer;
+}
+
+.login-remember input[type="checkbox"] {
+    @apply w-4 h-4 accent-white;
+}
+
+.login-forgot {
+    @apply text-sm text-neutral-400 hover:text-white transition-colors;
+}
+
+/* Error Message */
+.login-error {
+    @apply p-3 bg-red-900/50 border border-red-800 text-red-300 text-sm;
+}
+
+/* Submit Button */
+.login-submit {
+    @apply w-full px-6 py-4 bg-white text-black text-sm font-medium border-0 cursor-pointer hover:bg-neutral-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+/* Switch Login/Register */
+.login-switch {
+    @apply mt-8 pt-6 border-t border-neutral-800 text-center text-sm text-neutral-400;
+}
+
+.login-switch-btn {
+    @apply text-white underline underline-offset-2 hover:no-underline bg-transparent border-0 cursor-pointer;
+}
+
+/**
+ * Search Modal - Dark theme
+ */
+.search-modal {
+    @apply fixed inset-0 z-[9999] flex items-start justify-center pt-16 md:pt-24 px-4;
+}
+
+.search-modal-backdrop {
+    @apply fixed inset-0 bg-black/80;
+}
+
+.search-modal-panel {
+    @apply relative w-full max-w-2xl bg-neutral-900 p-6 md:p-8;
+}
+
+.search-modal-close {
+    @apply absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-neutral-400 hover:text-white transition-colors bg-transparent border-0 cursor-pointer;
+}
+
+.search-modal-close .icon {
+    @apply w-5 h-5;
+}
+
+.search-modal-content {
+    /* Content wrapper */
+}
+
+.search-modal-title {
+    @apply text-2xl font-bold text-white mb-6;
+}
+
+/* Main Search Field */
+.search-main-field {
+    @apply flex;
+}
+
+.search-main-input {
+    @apply flex-1 px-4 py-4 text-base text-white bg-neutral-800 border border-neutral-700 border-r-0 outline-none focus:border-white transition-colors placeholder-neutral-500;
+}
+
+.search-main-submit {
+    @apply flex items-center justify-center w-14 bg-white text-black border-0 cursor-pointer hover:bg-neutral-200 transition-colors;
+}
+
+.search-main-submit .icon {
+    @apply w-5 h-5;
+}
+
+/* Advanced Toggle */
+.search-advanced-toggle {
+    @apply flex items-center gap-2 mt-4 text-sm text-neutral-400 hover:text-white transition-colors bg-transparent border-0 cursor-pointer;
+}
+
+/* Advanced Filters */
+.search-advanced {
+    @apply mt-6 pt-6 border-t border-neutral-800;
+}
+
+.search-filters-grid {
+    @apply grid grid-cols-2 md:grid-cols-3 gap-4;
+}
+
+.search-field {
+    @apply space-y-2;
+}
+
+.search-field label {
+    @apply block text-xs font-medium text-neutral-400 uppercase tracking-wider;
+}
+
+.search-field input,
+.search-field select {
+    @apply w-full px-3 py-2.5 text-sm text-white bg-neutral-800 border border-neutral-700 outline-none focus:border-white transition-colors;
+}
+
+.search-field input::placeholder {
+    @apply text-neutral-500;
+}
+
+.search-field select {
+    @apply appearance-none cursor-pointer;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+}
+
+.search-field select option {
+    @apply bg-neutral-800 text-white;
+}
+
+/* Price Range */
+.search-price-range {
+    @apply mt-4 space-y-2;
+}
+
+.search-price-range label {
+    @apply block text-xs font-medium text-neutral-400 uppercase tracking-wider;
+}
+
+.search-price-inputs {
+    @apply flex items-center gap-2;
+}
+
+.search-price-inputs input {
+    @apply flex-1 px-3 py-2.5 text-sm text-white bg-neutral-800 border border-neutral-700 outline-none focus:border-white transition-colors;
+}
+
+.search-price-inputs input::placeholder {
+    @apply text-neutral-500;
+}
+
+.search-price-separator {
+    @apply text-neutral-500 text-sm;
+}
+
+/* Submit Button */
+.search-submit-btn {
+    @apply w-full mt-6 px-6 py-4 bg-white text-black text-sm font-medium border-0 cursor-pointer hover:bg-neutral-200 transition-colors;
+}
+
+/* Quick Links */
+.search-quick-links {
+    @apply mt-6 pt-6 border-t border-neutral-800 flex items-center gap-3 text-sm;
+}
+
+.search-quick-label {
+    @apply text-neutral-500;
+}
+
+.search-quick-links a {
+    @apply text-neutral-400 hover:text-white transition-colors;
+}
+
+/* Mobile Search Button in Menu */
+.mobile-search-btn {
+    @apply flex items-center gap-3 w-full py-4 text-base text-black bg-transparent border-0 border-b border-neutral-100 cursor-pointer text-left;
+}
+
+.mobile-search-btn .icon {
+    @apply w-5 h-5;
+}
+
+/* Active Search Filters */
+.active-search-filters {
+    @apply mb-6 p-4 bg-neutral-100 text-sm text-neutral-600;
+}
+
+.active-search-filters .filters-label {
+    @apply font-medium text-black;
+}
+
+.active-search-filters .clear-filters {
+    @apply ml-2 text-neutral-500 underline hover:text-black transition-colors;
+}
+
+/**
+ * Search Results Page
+ */
+.search-results-page {
+    @apply py-8 md:py-12;
+}
+
+.search-header {
+    @apply mb-6;
+}
+
+.search-title {
+    @apply text-2xl md:text-3xl font-bold text-black mb-2;
+}
+
+.search-count {
+    @apply text-neutral-500;
+}
+
+/* Search Again Button */
+.search-again {
+    @apply mb-8;
+}
+
+.search-again-btn {
+    @apply inline-flex items-center gap-2 px-4 py-2 text-sm text-neutral-600 bg-neutral-100 border-0 cursor-pointer hover:bg-neutral-200 transition-colors;
+}
+
+.search-again-btn .icon {
+    @apply w-4 h-4;
+}
+
+/* Product Card Badge (Sold, etc) */
+.product-card-badge {
+    @apply absolute top-2 left-2 px-2 py-1 text-xs font-medium bg-black text-white;
+}
+
+/* Search Pagination */
+.search-pagination {
+    @apply flex items-center justify-center gap-2 mt-12 pt-8 border-t border-neutral-200;
+}
+
+.search-pagination a,
+.search-pagination span {
+    @apply px-4 py-2 text-sm;
+}
+
+.search-pagination a {
+    @apply text-neutral-600 hover:text-black transition-colors;
+}
+
+.search-pagination span.current {
+    @apply bg-black text-white;
+}
+
+.search-pagination .prev,
+.search-pagination .next {
+    @apply font-medium;
+}
+
+/* Non-product Results */
+.search-results-list {
+    @apply space-y-6;
+}
+
+.search-result-item {
+    @apply pb-6 border-b border-neutral-200;
+}
+
+.search-result-title {
+    @apply text-lg font-bold text-black mb-2;
+}
+
+.search-result-title a {
+    @apply text-inherit no-underline hover:underline;
+}
+
+.search-result-excerpt {
+    @apply text-neutral-600;
+}
+
+/* No Results */
+.search-no-results {
+    @apply text-center py-16;
+}
+
+.search-no-results h2 {
+    @apply text-2xl font-bold text-black mb-2;
+}
+
+.search-no-results > p {
+    @apply text-neutral-600 mb-8;
+}
+
+.search-suggestions {
+    @apply max-w-xs mx-auto text-left mb-8;
+}
+
+.search-suggestions h3 {
+    @apply text-sm font-bold text-black mb-2;
+}
+
+.search-suggestions ul {
+    @apply list-disc list-inside text-sm text-neutral-600 space-y-1;
 }

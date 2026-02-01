@@ -10,11 +10,12 @@ defined( 'ABSPATH' ) || exit;
 do_action( 'woocommerce_before_cart' );
 ?>
 
-<div class="fmw-cart">
-    <div class="cart-content">
-        <h1 class="cart-page-title">Basket</h1>
+<div class="fmw-cart-wrapper">
+    <h1 class="cart-page-title">Basket</h1>
 
-        <form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
+    <div class="fmw-cart">
+        <div class="cart-content">
+            <form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
             <?php do_action( 'woocommerce_before_cart_table' ); ?>
 
             <?php if ( WC()->cart->is_empty() ) : ?>
@@ -193,5 +194,6 @@ do_action( 'woocommerce_before_cart' );
         </div>
     <?php endif; ?>
 
-    <?php do_action( 'woocommerce_after_cart' ); ?>
+        <?php do_action( 'woocommerce_after_cart' ); ?>
+    </div>
 </div>

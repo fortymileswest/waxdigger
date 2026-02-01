@@ -64,6 +64,18 @@
     </footer>
 </div><!-- #page -->
 
+<?php
+// Login Modal (only for non-logged-in users)
+if ( function_exists( 'WC' ) && ! is_user_logged_in() ) {
+    fmw_component( 'login-modal' );
+}
+
+// Search Modal
+if ( function_exists( 'WC' ) ) {
+    fmw_component( 'search-modal' );
+}
+?>
+
 <?php wp_footer(); ?>
 
 </body>

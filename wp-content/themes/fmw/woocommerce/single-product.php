@@ -164,71 +164,155 @@ while ( have_posts() ) :
                             <?php echo wp_kses_post( $product->get_description() ); ?>
                         </div>
                     <?php endif; ?>
+
+                    <!-- YouTube Videos Accordion -->
+                    <?php if ( ! empty( $youtube_videos ) ) :
+                        // Pre-process videos to get valid ones
+                        $valid_videos = array();
+                        foreach ( $youtube_videos as $index => $video ) {
+                            $video_url = $video['url'] ?? '';
+                            $video_title = $video['title'] ?? '';
+                            preg_match( '/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]+)/', $video_url, $matches );
+                            $video_id = $matches[1] ?? '';
+                            if ( $video_id ) {
+                                $valid_videos[] = array(
+                                    'id'    => $video_id,
+                                    'title' => $video_title ?: 'Track ' . ( count( $valid_videos ) + 1 ),
+                                );
+                            }
+                        }
+                    ?>
+                        <?php if ( ! empty( $valid_videos ) ) : ?>
+                            <div
+                                class="product-videos-accordion"
+                                x-data="{
+                                    activeVideo: null,
+                                    videos: <?php echo esc_attr( json_encode( $valid_videos ) ); ?>,
+                                    play(index) {
+                                        if (this.activeVideo === index) {
+                                            this.activeVideo = null;
+                                        } else {
+                                            this.activeVideo = index;
+                                        }
+                                    },
+                                    getEmbedUrl(videoId) {
+                                        return 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
+                                    }
+                                }"
+                            >
+                                <h4 class="product-videos-title">Listen</h4>
+                                <div class="product-videos-list">
+                                    <?php foreach ( $valid_videos as $index => $video ) : ?>
+                                        <div class="product-video-item">
+                                            <button
+                                                type="button"
+                                                class="product-video-toggle"
+                                                @click="play(<?php echo $index; ?>)"
+                                                :class="{ 'is-active': activeVideo === <?php echo $index; ?> }"
+                                            >
+                                                <span class="product-video-play-icon">
+                                                    <svg x-show="activeVideo !== <?php echo $index; ?>" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                                        <path d="M8 5v14l11-7z"/>
+                                                    </svg>
+                                                    <svg x-show="activeVideo === <?php echo $index; ?>" x-cloak class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                                        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                                                    </svg>
+                                                </span>
+                                                <span class="product-video-name"><?php echo esc_html( $video['title'] ); ?></span>
+                                            </button>
+                                            <div
+                                                class="product-video-player"
+                                                x-show="activeVideo === <?php echo $index; ?>"
+                                                x-cloak
+                                                x-transition:enter="transition-all ease-out duration-500"
+                                                x-transition:enter-start="opacity-0 transform -translate-y-2 scale-y-95"
+                                                x-transition:enter-end="opacity-100 transform translate-y-0 scale-y-100"
+                                                x-transition:leave="transition-all ease-in duration-300"
+                                                x-transition:leave-start="opacity-100 transform translate-y-0 scale-y-100"
+                                                x-transition:leave-end="opacity-0 transform -translate-y-2 scale-y-95"
+                                            >
+                                                <template x-if="activeVideo === <?php echo $index; ?>">
+                                                    <iframe
+                                                        :src="getEmbedUrl('<?php echo esc_attr( $video['id'] ); ?>')"
+                                                        frameborder="0"
+                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                        allowfullscreen
+                                                    ></iframe>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    <?php endif; ?>
                 </div>
             </div>
 
-            <!-- YouTube Videos -->
-            <?php if ( ! empty( $youtube_videos ) ) : ?>
-                <div class="product-videos">
-                    <h3 class="product-section-title">Videos</h3>
-                    <div class="product-videos-grid">
-                        <?php foreach ( $youtube_videos as $video ) :
-                            $video_url = $video['url'] ?? '';
-                            $video_title = $video['title'] ?? '';
-
-                            // Extract YouTube ID
-                            preg_match( '/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]+)/', $video_url, $matches );
-                            $video_id = $matches[1] ?? '';
-
-                            if ( ! $video_id ) continue;
-                        ?>
-                            <div class="product-video">
-                                <div class="product-video-embed">
-                                    <iframe
-                                        src="https://www.youtube.com/embed/<?php echo esc_attr( $video_id ); ?>"
-                                        frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowfullscreen
-                                    ></iframe>
-                                </div>
-                                <?php if ( $video_title ) : ?>
-                                    <p class="product-video-title"><?php echo esc_html( $video_title ); ?></p>
-                                <?php endif; ?>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-            <?php endif; ?>
-
             <!-- Related Products -->
             <?php
-            $related_args = array(
-                'post_type'      => 'product',
-                'posts_per_page' => 6,
-                'post__not_in'   => array( $product_id ),
-                'orderby'        => 'rand',
-            );
+            $related_title = 'You may also like';
+            $related_products = null;
 
-            // Try to get products from same label
+            // Try to get products from same label first
             if ( $label ) {
-                $related_args['meta_query'] = array(
-                    array(
-                        'key'     => 'label',
-                        'value'   => $label,
-                        'compare' => '=',
+                $label_args = array(
+                    'post_type'      => 'product',
+                    'posts_per_page' => 24,
+                    'post__not_in'   => array( $product_id ),
+                    'orderby'        => 'rand',
+                    'meta_query'     => array(
+                        array(
+                            'key'     => 'label',
+                            'value'   => $label,
+                            'compare' => '=',
+                        ),
                     ),
                 );
+                $related_products = new WP_Query( $label_args );
+
+                if ( $related_products->have_posts() ) {
+                    $related_title = 'More from ' . esc_html( $label );
+                }
             }
 
-            $related_products = new WP_Query( $related_args );
+            // Fallback to random products if no label match
+            if ( ! $related_products || ! $related_products->have_posts() ) {
+                $random_args = array(
+                    'post_type'      => 'product',
+                    'posts_per_page' => 24,
+                    'post__not_in'   => array( $product_id ),
+                    'orderby'        => 'rand',
+                );
+                $related_products = new WP_Query( $random_args );
+                $related_title = 'You may also like';
+            }
 
             if ( $related_products->have_posts() ) :
             ?>
-                <div class="product-related">
-                    <h3 class="product-section-title">
-                        <?php echo $label ? 'More from ' . esc_html( $label ) : 'You may also like'; ?>
-                    </h3>
-                    <div class="products-grid">
+                <div class="product-related" x-data="{ scrollContainer: null }" x-init="scrollContainer = $refs.slider">
+                    <div class="product-related-header">
+                        <h3 class="product-section-title"><?php echo $related_title; ?></h3>
+                        <div class="product-slider-nav">
+                            <button
+                                type="button"
+                                class="product-slider-btn"
+                                @click="scrollContainer.scrollBy({ left: -280, behavior: 'smooth' })"
+                                aria-label="Previous"
+                            >
+                                <?php fmw_icon( 'chevron-left', 'w-5 h-5' ); ?>
+                            </button>
+                            <button
+                                type="button"
+                                class="product-slider-btn"
+                                @click="scrollContainer.scrollBy({ left: 280, behavior: 'smooth' })"
+                                aria-label="Next"
+                            >
+                                <?php fmw_icon( 'chevron-right', 'w-5 h-5' ); ?>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-slider" x-ref="slider">
                         <?php while ( $related_products->have_posts() ) : $related_products->the_post();
                             global $product;
                             $rel_id    = $product->get_id();
@@ -238,7 +322,7 @@ while ( have_posts() ) :
                             $rel_img   = $product->get_image_id();
                             $rel_label = get_field( 'label', $rel_id );
                         ?>
-                            <article class="product-card">
+                            <article class="product-slide">
                                 <a href="<?php echo esc_url( $rel_link ); ?>" class="product-card-link">
                                     <div class="product-card-image">
                                         <?php if ( $rel_img ) : ?>

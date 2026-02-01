@@ -26,7 +26,6 @@
         class="site-header"
         x-data="{
             mobileMenuOpen: false,
-            searchOpen: false,
             sticky: false,
             hidden: false,
             lastY: 0,
@@ -102,22 +101,32 @@
                         <button
                             type="button"
                             class="header-action hidden md:flex"
-                            @click="searchOpen = !searchOpen"
-                            :aria-expanded="searchOpen"
-                            aria-label="<?php esc_attr_e( 'Toggle search', 'fmw' ); ?>"
+                            @click="$dispatch('search-modal')"
+                            aria-label="<?php esc_attr_e( 'Search records', 'fmw' ); ?>"
                         >
                             <?php fmw_icon( 'search', 'icon' ); ?>
                         </button>
 
                         <!-- Account -->
                         <?php if ( function_exists( 'wc_get_page_permalink' ) ) : ?>
-                            <a
-                                href="<?php echo esc_url( wc_get_page_permalink( 'myaccount' ) ); ?>"
-                                class="header-action hidden md:flex"
-                                aria-label="<?php esc_attr_e( 'My account', 'fmw' ); ?>"
-                            >
-                                <?php fmw_icon( 'user', 'icon' ); ?>
-                            </a>
+                            <?php if ( is_user_logged_in() ) : ?>
+                                <a
+                                    href="<?php echo esc_url( wc_get_page_permalink( 'myaccount' ) ); ?>"
+                                    class="header-action hidden md:flex"
+                                    aria-label="<?php esc_attr_e( 'My account', 'fmw' ); ?>"
+                                >
+                                    <?php fmw_icon( 'user', 'icon' ); ?>
+                                </a>
+                            <?php else : ?>
+                                <button
+                                    type="button"
+                                    class="header-action hidden md:flex"
+                                    @click="$dispatch('login-modal')"
+                                    aria-label="<?php esc_attr_e( 'Sign in', 'fmw' ); ?>"
+                                >
+                                    <?php fmw_icon( 'user', 'icon' ); ?>
+                                </button>
+                            <?php endif; ?>
                         <?php endif; ?>
 
                         <!-- Cart -->
@@ -149,39 +158,6 @@
                     </div>
                 </div>
 
-                <!-- Search Bar (Desktop) -->
-                <div
-                    class="search-bar hidden md:block"
-                    x-show="searchOpen"
-                    x-cloak
-                    x-transition:enter="transition ease-out duration-200"
-                    x-transition:enter-start="opacity-0 -translate-y-2"
-                    x-transition:enter-end="opacity-100 translate-y-0"
-                    x-transition:leave="transition ease-in duration-150"
-                    x-transition:leave-start="opacity-100 translate-y-0"
-                    x-transition:leave-end="opacity-0 -translate-y-2"
-                    @click.away="searchOpen = false"
-                >
-                    <form role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="search-form">
-                        <label class="sr-only" for="desktop-search"><?php esc_html_e( 'Search records', 'fmw' ); ?></label>
-                        <input
-                            type="search"
-                            id="desktop-search"
-                            class="search-input"
-                            placeholder="<?php esc_attr_e( 'Search artists, albums, labels...', 'fmw' ); ?>"
-                            name="s"
-                            value="<?php echo esc_attr( get_search_query() ); ?>"
-                            x-ref="searchInput"
-                            @keydown.escape="searchOpen = false"
-                        >
-                        <?php if ( function_exists( 'WC' ) ) : ?>
-                            <input type="hidden" name="post_type" value="product">
-                        <?php endif; ?>
-                        <button type="submit" class="search-submit" aria-label="<?php esc_attr_e( 'Search', 'fmw' ); ?>">
-                            <?php fmw_icon( 'search', 'icon' ); ?>
-                        </button>
-                    </form>
-                </div>
             </div>
         </div>
 
@@ -200,23 +176,14 @@
         >
             <div class="container mx-auto px-4">
                 <!-- Mobile Search -->
-                <form role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="mobile-search-form">
-                    <label class="sr-only" for="mobile-search"><?php esc_html_e( 'Search records', 'fmw' ); ?></label>
-                    <input
-                        type="search"
-                        id="mobile-search"
-                        class="search-input"
-                        placeholder="<?php esc_attr_e( 'Search...', 'fmw' ); ?>"
-                        name="s"
-                        value="<?php echo esc_attr( get_search_query() ); ?>"
-                    >
-                    <?php if ( function_exists( 'WC' ) ) : ?>
-                        <input type="hidden" name="post_type" value="product">
-                    <?php endif; ?>
-                    <button type="submit" class="search-submit" aria-label="<?php esc_attr_e( 'Search', 'fmw' ); ?>">
-                        <?php fmw_icon( 'search', 'icon' ); ?>
-                    </button>
-                </form>
+                <button
+                    type="button"
+                    class="mobile-search-btn"
+                    @click="$dispatch('search-modal'); mobileMenuOpen = false"
+                >
+                    <?php fmw_icon( 'search', 'icon' ); ?>
+                    <span>Search Store</span>
+                </button>
 
                 <!-- Mobile Navigation -->
                 <nav class="mobile-navigation">
@@ -235,10 +202,17 @@
 
                 <!-- Mobile Account Link -->
                 <?php if ( function_exists( 'wc_get_page_permalink' ) ) : ?>
-                    <a href="<?php echo esc_url( wc_get_page_permalink( 'myaccount' ) ); ?>" class="mobile-account-link">
-                        <?php fmw_icon( 'user', 'icon' ); ?>
-                        <?php esc_html_e( 'My Account', 'fmw' ); ?>
-                    </a>
+                    <?php if ( is_user_logged_in() ) : ?>
+                        <a href="<?php echo esc_url( wc_get_page_permalink( 'myaccount' ) ); ?>" class="mobile-account-link">
+                            <?php fmw_icon( 'user', 'icon' ); ?>
+                            <?php esc_html_e( 'My Account', 'fmw' ); ?>
+                        </a>
+                    <?php else : ?>
+                        <button type="button" class="mobile-account-link" @click="$dispatch('login-modal'); mobileMenuOpen = false">
+                            <?php fmw_icon( 'user', 'icon' ); ?>
+                            <?php esc_html_e( 'Sign In', 'fmw' ); ?>
+                        </button>
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
         </div>
