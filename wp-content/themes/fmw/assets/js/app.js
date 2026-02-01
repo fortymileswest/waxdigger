@@ -85,9 +85,23 @@
     }
 
     /**
-     * Page Transitions
+     * Page Transitions - Fade to Black
      */
     function initPageTransitions() {
+        // Create overlay element
+        const overlay = document.createElement('div');
+        overlay.className = 'page-transition-overlay';
+        document.body.appendChild(overlay);
+
+        // Check if we're entering from a transition
+        if (sessionStorage.getItem('pageTransition')) {
+            sessionStorage.removeItem('pageTransition');
+            overlay.style.opacity = '1';
+            requestAnimationFrame(function() {
+                overlay.classList.add('is-entering');
+            });
+        }
+
         document.querySelectorAll('a').forEach(function (link) {
             // Skip external links, anchor links, and special links
             if (
@@ -102,21 +116,21 @@
 
             link.addEventListener('click', function (e) {
                 const href = this.getAttribute('href');
-                const main = document.getElementById('main');
 
-                // Don't transition for same page or form submissions
+                // Don't transition for same page
                 if (!href || href === window.location.href) return;
 
                 e.preventDefault();
 
-                if (main) {
-                    main.classList.remove('page-transition');
-                    main.classList.add('page-transition-exit');
-                }
+                // Set flag for next page
+                sessionStorage.setItem('pageTransition', '1');
+
+                // Fade to black
+                overlay.classList.add('is-active');
 
                 setTimeout(function () {
                     window.location.href = href;
-                }, 250);
+                }, 400);
             });
         });
     }

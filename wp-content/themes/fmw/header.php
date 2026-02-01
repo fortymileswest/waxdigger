@@ -289,4 +289,4 @@
         </div>
     </header>
 
-    <main id="main" class="site-main page-transition">
+    <main id="main" class="site-main">

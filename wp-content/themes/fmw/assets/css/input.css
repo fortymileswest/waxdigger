@@ -21,33 +21,30 @@
     }
 
     /* Page Transitions */
-    .page-transition {
-        animation: pageEnter 0.4s ease-out forwards;
+    .page-transition-overlay {
+        position: fixed;
+        inset: 0;
+        background-color: #000;
+        z-index: 99999;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .page-transition-exit {
-        animation: pageExit 0.25s ease-in forwards;
+    .page-transition-overlay.is-active {
+        opacity: 1;
     }
 
-    @keyframes pageEnter {
-        from {
-            opacity: 0;
-            transform: translateY(8px);
-        }
-        to {
+    .page-transition-overlay.is-entering {
+        animation: overlayFadeOut 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    @keyframes overlayFadeOut {
+        0% {
             opacity: 1;
-            transform: translateY(0);
         }
-    }
-
-    @keyframes pageExit {
-        from {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        to {
+        100% {
             opacity: 0;
-            transform: translateY(-8px);
         }
     }
 
