@@ -285,6 +285,18 @@
         box-shadow: 0 10px 40px rgba(0,0,0,0.1);
         padding: 1.5rem 2rem;
         white-space: nowrap;
+        animation: megaMenuSlideDown 0.3s ease-out;
+    }
+
+    @keyframes megaMenuSlideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-8px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     .mega-menu-title {

@@ -96,12 +96,11 @@
                                     x-show="open"
                                     x-cloak
                                     x-transition:enter="transition ease-out duration-300"
-                                    x-transition:enter-start="opacity-0 -translate-y-4 scale-y-95"
-                                    x-transition:enter-end="opacity-100 translate-y-0 scale-y-100"
+                                    x-transition:enter-start="opacity-0"
+                                    x-transition:enter-end="opacity-100"
                                     x-transition:leave="transition ease-in duration-200"
-                                    x-transition:leave-start="opacity-100 translate-y-0 scale-y-100"
-                                    x-transition:leave-end="opacity-0 -translate-y-2 scale-y-95"
-                                    style="transform-origin: top center;"
+                                    x-transition:leave-start="opacity-100"
+                                    x-transition:leave-end="opacity-0"
                                 >
                                     <div class="mega-menu-inner">
                                         <p class="mega-menu-title">Browse by Genre</p>
