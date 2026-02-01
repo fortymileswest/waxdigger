@@ -97,12 +97,22 @@
 }
 
 /* Account for WordPress admin bar when logged in */
+.admin-bar .site-header {
+    margin-top: 32px;
+}
+
 .admin-bar .site-header.is-sticky {
+    margin-top: 0;
     top: 32px;
 }
 
 @media screen and (max-width: 782px) {
+    .admin-bar .site-header {
+        margin-top: 46px;
+    }
+
     .admin-bar .site-header.is-sticky {
+        margin-top: 0;
         top: 46px;
     }
 }
