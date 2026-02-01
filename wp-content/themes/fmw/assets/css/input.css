@@ -229,7 +229,7 @@
         display: inline-block;
     }
 
-    .main-navigation a::after {
+    .main-navigation > ul > li > a::after {
         content: '';
         position: absolute;
         left: 0;
@@ -240,7 +240,7 @@
         transition: width 0.25s ease;
     }
 
-    .main-navigation a:hover::after {
+    .main-navigation > ul > li > a:hover::after {
         width: 100%;
     }
 
