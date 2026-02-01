@@ -1,0 +1,102 @@
+{
+    "key": "group_homepage_sections",
+    "title": "Homepage Sections",
+    "fields": [
+        {
+            "key": "field_sections",
+            "label": "Sections",
+            "name": "sections",
+            "type": "flexible_content",
+            "instructions": "Add and arrange homepage sections.",
+            "required": 0,
+            "layouts": {
+                "layout_featured_releases": {
+                    "key": "layout_featured_releases",
+                    "name": "featured_releases",
+                    "label": "Featured Releases Slider",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_featured_slides",
+                            "label": "Slides",
+                            "name": "slides",
+                            "type": "repeater",
+                            "instructions": "Add featured products to the slider.",
+                            "required": 1,
+                            "min": 1,
+                            "max": 10,
+                            "layout": "block",
+                            "sub_fields": [
+                                {
+                                    "key": "field_slide_product",
+                                    "label": "Product",
+                                    "name": "product",
+                                    "type": "post_object",
+                                    "instructions": "Select the featured record.",
+                                    "required": 1,
+                                    "post_type": ["product"],
+                                    "allow_null": 0,
+                                    "multiple": 0,
+                                    "return_format": "id",
+                                    "ui": 1
+                                },
+                                {
+                                    "key": "field_slide_eyebrow",
+                                    "label": "Eyebrow Text",
+                                    "name": "eyebrow",
+                                    "type": "text",
+                                    "instructions": "Small text above the title (e.g., \"Record of the Month:\").",
+                                    "required": 0,
+                                    "default_value": "Record of the Month:",
+                                    "placeholder": "Record of the Month:"
+                                },
+                                {
+                                    "key": "field_slide_details",
+                                    "label": "Details",
+                                    "name": "details",
+                                    "type": "repeater",
+                                    "instructions": "Bullet point details (e.g., \"Limited edition\", \"180g vinyl\").",
+                                    "required": 0,
+                                    "min": 0,
+                                    "max": 5,
+                                    "layout": "table",
+                                    "sub_fields": [
+                                        {
+                                            "key": "field_slide_detail_item",
+                                            "label": "Detail",
+                                            "name": "detail",
+                                            "type": "text",
+                                            "required": 1
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                }
+            },
+            "button_label": "Add Section",
+            "min": "",
+            "max": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_type",
+                "operator": "==",
+                "value": "front_page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Flexible content sections for the homepage."
+}

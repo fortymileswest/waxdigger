@@ -1,0 +1,69 @@
+# WordPress Core
+*.php
+!wp-content/**/*.php
+wp-admin/
+wp-includes/
+wp-content/index.php
+wp-content/upgrade/
+wp-content/uploads/
+
+# WordPress Config
+wp-config.php
+wp-config-local.php
+
+# Plugins (managed separately)
+wp-content/plugins/*
+!wp-content/plugins/.gitkeep
+
+# MU-Plugins (managed separately)
+wp-content/mu-plugins/*
+!wp-content/mu-plugins/.gitkeep
+
+# Languages
+wp-content/languages/
+
+# Cache and backups
+wp-content/cache/
+wp-content/backup*/
+wp-content/w3tc-config/
+
+# Debug log
+wp-content/debug.log
+
+# DDEV
+.ddev/.gitignore
+.ddev/db_snapshots/
+.ddev/.sso-*
+.ddev/sequelpro.spf
+.ddev/.webimageBuild/
+.ddev/.homeadditions/
+.ddev/xhprof/
+.ddev/.ddev-docker-compose-*
+.ddev/docker-compose.*.yaml
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Misc
+*.log
+*.sql
+*.sql.gz
+*.tar.gz
+*.zip

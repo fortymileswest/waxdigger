@@ -1,0 +1,13 @@
+{
+    "name": "fmw-theme",
+    "version": "1.0.0",
+    "description": "Forty Miles West WordPress Theme",
+    "scripts": {
+        "css": "npx tailwindcss -i ./assets/css/input.css -o ./assets/css/output.css --minify",
+        "css:watch": "npx tailwindcss -i ./assets/css/input.css -o ./assets/css/output.css --watch",
+        "css:dev": "npx tailwindcss -i ./assets/css/input.css -o ./assets/css/output.css"
+    },
+    "devDependencies": {
+        "tailwindcss": "^3.4.17"
+    }
+}

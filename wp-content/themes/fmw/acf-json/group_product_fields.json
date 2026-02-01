@@ -1,0 +1,178 @@
+{
+    "key": "group_product_fields",
+    "title": "Record Details",
+    "fields": [
+        {
+            "key": "field_product_artist",
+            "label": "Artist",
+            "name": "artist",
+            "type": "text",
+            "instructions": "Artist or band name.",
+            "required": 0
+        },
+        {
+            "key": "field_product_label",
+            "label": "Record Label",
+            "name": "label",
+            "type": "text",
+            "instructions": "Record label name.",
+            "required": 0
+        },
+        {
+            "key": "field_product_country",
+            "label": "Country",
+            "name": "country",
+            "type": "text",
+            "instructions": "Country of release.",
+            "required": 0
+        },
+        {
+            "key": "field_product_year",
+            "label": "Year",
+            "name": "year",
+            "type": "text",
+            "instructions": "Release year.",
+            "required": 0
+        },
+        {
+            "key": "field_product_format_size",
+            "label": "Format Size",
+            "name": "format_size",
+            "type": "select",
+            "instructions": "Vinyl size.",
+            "required": 0,
+            "choices": {
+                "12\"": "12\"",
+                "10\"": "10\"",
+                "7\"": "7\"",
+                "LP": "LP"
+            },
+            "default_value": "12\"",
+            "allow_null": 1,
+            "return_format": "value"
+        },
+        {
+            "key": "field_product_speed",
+            "label": "Speed",
+            "name": "speed",
+            "type": "select",
+            "instructions": "Playback speed.",
+            "required": 0,
+            "choices": {
+                "33": "33 RPM",
+                "45": "45 RPM",
+                "78": "78 RPM"
+            },
+            "allow_null": 1,
+            "return_format": "value"
+        },
+        {
+            "key": "field_product_edition",
+            "label": "Edition / Notes",
+            "name": "edition",
+            "type": "checkbox",
+            "instructions": "Special edition details.",
+            "required": 0,
+            "choices": {
+                "white_label": "White Label",
+                "promo": "Promo",
+                "limited_edition": "Limited Edition",
+                "ep": "EP",
+                "single": "Single",
+                "stereo": "Stereo",
+                "mono": "Mono"
+            },
+            "return_format": "value",
+            "layout": "horizontal"
+        },
+        {
+            "key": "field_product_media_condition",
+            "label": "Media Condition",
+            "name": "media_condition",
+            "type": "select",
+            "instructions": "Condition of the vinyl.",
+            "required": 0,
+            "choices": {
+                "M": "Mint (M)",
+                "NM": "Near Mint (NM or M-)",
+                "VG+": "Very Good Plus (VG+)",
+                "VG": "Very Good (VG)",
+                "G+": "Good Plus (G+)",
+                "G": "Good (G)",
+                "F": "Fair (F)",
+                "P": "Poor (P)"
+            },
+            "allow_null": 1,
+            "return_format": "value"
+        },
+        {
+            "key": "field_product_sleeve_condition",
+            "label": "Sleeve Condition",
+            "name": "sleeve_condition",
+            "type": "select",
+            "instructions": "Condition of the sleeve.",
+            "required": 0,
+            "choices": {
+                "M": "Mint (M)",
+                "NM": "Near Mint (NM or M-)",
+                "VG+": "Very Good Plus (VG+)",
+                "VG": "Very Good (VG)",
+                "G+": "Good Plus (G+)",
+                "G": "Good (G)",
+                "F": "Fair (F)",
+                "P": "Poor (P)",
+                "generic": "Generic",
+                "none": "No Sleeve"
+            },
+            "allow_null": 1,
+            "return_format": "value"
+        },
+        {
+            "key": "field_product_videos",
+            "label": "YouTube Videos",
+            "name": "youtube_videos",
+            "type": "repeater",
+            "instructions": "Add YouTube video links for this release.",
+            "required": 0,
+            "min": 0,
+            "max": 10,
+            "layout": "table",
+            "sub_fields": [
+                {
+                    "key": "field_product_video_url",
+                    "label": "YouTube URL",
+                    "name": "url",
+                    "type": "url",
+                    "instructions": "",
+                    "required": 1,
+                    "placeholder": "https://www.youtube.com/watch?v=..."
+                },
+                {
+                    "key": "field_product_video_title",
+                    "label": "Title",
+                    "name": "title",
+                    "type": "text",
+                    "instructions": "Track or video title (optional)",
+                    "required": 0
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "product"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Custom fields for vinyl records."
+}
