@@ -120,7 +120,7 @@
 
                 setTimeout(function () {
                     window.location.href = href;
-                }, 200);
+                }, 300);
             });
         });
     }
