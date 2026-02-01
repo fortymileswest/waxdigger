@@ -179,6 +179,13 @@ Forms use AJAX with nonce verification:
 
 ## TODO
 
+- [ ] **Sticky Header Hide/Show** — Fix scroll behaviour
+  - Header should hide on scroll down (only after scrolling 300px+)
+  - Header should show on scroll up with fade animation
+  - Currently has jitter issue on initial scroll/near top of page
+  - CSS transitions are in place (input.css), logic is in header.php Alpine x-init
+  - Needs debugging to prevent flicker when first scrolling down
+
 - [ ] **YouTube Scraper** — Build WP-CLI command to auto-fetch YouTube videos for products
   - User needs YouTube Data API key from https://console.cloud.google.com/
   - Enable "YouTube Data API v3", create API key under Credentials

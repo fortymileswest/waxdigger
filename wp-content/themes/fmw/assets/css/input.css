@@ -67,12 +67,24 @@
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
     transform: translateY(0);
     opacity: 1;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
 }
 
 .site-header.is-sticky.is-hidden {
     transform: translateY(-100%);
     opacity: 0;
+    transition: transform 0.3s ease-in, opacity 0.3s ease-in;
+}
+
+/* Account for WordPress admin bar when logged in */
+.admin-bar .site-header.is-sticky {
+    top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+    .admin-bar .site-header.is-sticky {
+        top: 46px;
+    }
 }
 
 @layer components {
@@ -425,7 +437,7 @@
  */
 @layer components {
     .single-product {
-        @apply py-8 md:py-12;
+        @apply pt-6 pb-8 md:pt-8 md:pb-12;
     }
 
     .product-layout {
