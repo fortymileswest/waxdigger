@@ -224,7 +224,24 @@
     }
 
     .main-navigation a {
-        @apply text-sm font-medium text-black no-underline hover:text-neutral-600 transition-colors;
+        @apply text-sm font-medium text-black no-underline transition-colors;
+        position: relative;
+        display: inline-block;
+    }
+
+    .main-navigation a::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        width: 0;
+        height: 1px;
+        background-color: currentColor;
+        transition: width 0.25s ease;
+    }
+
+    .main-navigation a:hover::after {
+        width: 100%;
     }
 
     /* Dropdown support */
@@ -293,12 +310,27 @@
         font-size: 0.9375rem;
         color: #000;
         text-decoration: none;
-        border-bottom: 1px solid transparent;
-        transition: all 0.15s ease;
+        transition: color 0.15s ease;
+        position: relative;
     }
 
-    .mega-menu-item:hover {
-        color: #666;
+    .mega-menu-item span:first-child {
+        position: relative;
+    }
+
+    .mega-menu-item span:first-child::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        width: 0;
+        height: 1px;
+        background-color: currentColor;
+        transition: width 0.25s ease;
+    }
+
+    .mega-menu-item:hover span:first-child::after {
+        width: 100%;
     }
 
     .mega-menu-count {
