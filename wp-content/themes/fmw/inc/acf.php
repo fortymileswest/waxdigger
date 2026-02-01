@@ -93,3 +93,76 @@ function fmw_get_sub_field( $field_name, $default = '' ) {
 function fmw_get_option( $field_name, $default = '' ) {
     return fmw_get_field( $field_name, 'option', $default );
 }
+
+/**
+ * Auto-sync ACF JSON field groups on admin load
+ *
+ * Automatically imports any field groups from JSON that are
+ * newer than the database version or don't exist yet.
+ */
+function fmw_acf_auto_sync() {
+    // Only run in admin and if ACF is active
+    if ( ! is_admin() || ! function_exists( 'acf_get_field_group' ) ) {
+        return;
+    }
+
+    // Don't run during AJAX requests
+    if ( wp_doing_ajax() ) {
+        return;
+    }
+
+    // Get sync-able field groups
+    $groups = acf_get_field_groups();
+    $sync   = array();
+
+    // Check JSON folder for field groups
+    $json_path = FMW_DIR . '/acf-json';
+    if ( ! is_dir( $json_path ) ) {
+        return;
+    }
+
+    $files = glob( $json_path . '/*.json' );
+    if ( empty( $files ) ) {
+        return;
+    }
+
+    foreach ( $files as $file ) {
+        $json = json_decode( file_get_contents( $file ), true );
+        if ( ! is_array( $json ) || ! isset( $json['key'] ) ) {
+            continue;
+        }
+
+        $key = $json['key'];
+
+        // Check if this group exists in DB
+        $existing = acf_get_field_group( $key );
+
+        if ( ! $existing ) {
+            // Group doesn't exist - needs import
+            $sync[ $key ] = $json;
+        } else {
+            // Check if JSON is newer (compare modified times)
+            $json_modified = filemtime( $file );
+            $db_modified   = strtotime( $existing['modified'] );
+
+            if ( $json_modified > $db_modified ) {
+                $sync[ $key ] = $json;
+            }
+        }
+    }
+
+    // Import any groups that need syncing
+    if ( ! empty( $sync ) ) {
+        foreach ( $sync as $key => $field_group ) {
+            // Import the field group
+            $field_group['ID'] = 0;
+            $result = acf_import_field_group( $field_group );
+        }
+
+        // Clear ACF cache
+        if ( function_exists( 'acf_reset_cache' ) ) {
+            acf_reset_cache();
+        }
+    }
+}
+add_action( 'admin_init', 'fmw_acf_auto_sync' );
