@@ -145,10 +145,15 @@
         cursor.className = 'custom-cursor';
         document.body.appendChild(cursor);
 
-        // Create cursor ring
+        // Create cursor ring (dark)
         const ring = document.createElement('div');
         ring.className = 'cursor-ring';
         document.body.appendChild(ring);
+
+        // Create cursor ring (white/light)
+        const ringWhite = document.createElement('div');
+        ringWhite.className = 'cursor-ring-white';
+        document.body.appendChild(ringWhite);
 
         let mouseX = 0;
         let mouseY = 0;
@@ -188,10 +193,12 @@
             el.addEventListener('mouseenter', function () {
                 cursor.classList.add('cursor-hover');
                 ring.classList.add('ring-hover');
+                ringWhite.classList.add('ring-hover');
             });
             el.addEventListener('mouseleave', function () {
                 cursor.classList.remove('cursor-hover');
                 ring.classList.remove('ring-hover');
+                ringWhite.classList.remove('ring-hover');
             });
         });
 
@@ -202,6 +209,8 @@
 
             ring.style.left = ringX + 'px';
             ring.style.top = ringY + 'px';
+            ringWhite.style.left = ringX + 'px';
+            ringWhite.style.top = ringY + 'px';
 
             requestAnimationFrame(animate);
         }
