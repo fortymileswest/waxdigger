@@ -46,7 +46,7 @@ $products = new WP_Query( $args );
 
                         // ACF fields
                         $artist          = get_field( 'artist', $product_id );
-                        $label           = get_field( 'label', $product_id );
+                        $label           = fmw_get_product_label( $product_id );
                         $format_size     = get_field( 'format_size', $product_id );
                         $media_condition = get_field( 'media_condition', $product_id );
                     ?>

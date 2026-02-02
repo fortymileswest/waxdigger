@@ -35,4 +35,5 @@ if ( class_exists( 'WooCommerce' ) ) {
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
     require_once FMW_DIR . '/inc/import-records.php';
     require_once FMW_DIR . '/inc/discogs-scraper.php';
+    require_once FMW_DIR . '/inc/migrate-labels.php';
 }

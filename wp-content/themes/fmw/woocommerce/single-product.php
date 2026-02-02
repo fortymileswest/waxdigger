@@ -25,7 +25,7 @@ while ( have_posts() ) :
 
     // ACF fields
     $artist          = get_field( 'artist', $product_id );
-    $label           = get_field( 'label', $product_id );
+    $label           = fmw_get_product_label( $product_id );
     $year            = get_field( 'year', $product_id );
     $country         = get_field( 'country', $product_id );
     $format_size     = get_field( 'format_size', $product_id );
@@ -266,17 +266,18 @@ while ( have_posts() ) :
             $related_products = null;
 
             // Try to get products from same label first
-            if ( $label ) {
+            $label_term = fmw_get_product_label_term( $product_id );
+            if ( $label_term ) {
                 $label_args = array(
                     'post_type'      => 'product',
                     'posts_per_page' => 24,
                     'post__not_in'   => array( $product_id ),
                     'orderby'        => 'rand',
-                    'meta_query'     => array(
+                    'tax_query'      => array(
                         array(
-                            'key'     => 'label',
-                            'value'   => $label,
-                            'compare' => '=',
+                            'taxonomy' => 'record_label',
+                            'field'    => 'term_id',
+                            'terms'    => $label_term->term_id,
                         ),
                     ),
                 );
@@ -331,7 +332,7 @@ while ( have_posts() ) :
                             $rel_price = $product->get_price_html();
                             $rel_link  = $product->get_permalink();
                             $rel_img   = $product->get_image_id();
-                            $rel_label = get_field( 'label', $rel_id );
+                            $rel_label = fmw_get_product_label( $rel_id );
                         ?>
                             <article class="product-slide">
                                 <a href="<?php echo esc_url( $rel_link ); ?>" class="product-card-link">

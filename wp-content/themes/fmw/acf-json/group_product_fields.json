@@ -23,26 +23,6 @@
             "append": ""
         },
         {
-            "key": "field_product_label",
-            "label": "Record Label",
-            "name": "label",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "Record label name.",
-            "required": 0,
-            "conditional_logic": false,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
             "key": "field_product_country",
             "label": "Country",
             "name": "country",

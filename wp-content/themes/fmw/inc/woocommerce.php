@@ -106,3 +106,75 @@ function fmw_woocommerce_breadcrumb_defaults( $defaults ) {
     return $defaults;
 }
 add_filter( 'woocommerce_breadcrumb_defaults', 'fmw_woocommerce_breadcrumb_defaults' );
+
+/**
+ * Register Record Label taxonomy for products
+ */
+function fmw_register_record_label_taxonomy() {
+	$labels = array(
+		'name'              => __( 'Record Labels', 'fmw' ),
+		'singular_name'     => __( 'Record Label', 'fmw' ),
+		'search_items'      => __( 'Search Labels', 'fmw' ),
+		'all_items'         => __( 'All Labels', 'fmw' ),
+		'parent_item'       => __( 'Parent Label', 'fmw' ),
+		'parent_item_colon' => __( 'Parent Label:', 'fmw' ),
+		'edit_item'         => __( 'Edit Label', 'fmw' ),
+		'update_item'       => __( 'Update Label', 'fmw' ),
+		'add_new_item'      => __( 'Add New Label', 'fmw' ),
+		'new_item_name'     => __( 'New Label Name', 'fmw' ),
+		'menu_name'         => __( 'Labels', 'fmw' ),
+	);
+
+	$args = array(
+		'hierarchical'      => false,
+		'labels'            => $labels,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'show_in_rest'      => true,
+		'query_var'         => true,
+		'rewrite'           => array( 'slug' => 'label', 'with_front' => false ),
+	);
+
+	register_taxonomy( 'record_label', array( 'product' ), $args );
+}
+add_action( 'init', 'fmw_register_record_label_taxonomy' );
+
+/**
+ * Get product's record label name
+ *
+ * @param int $product_id Product ID.
+ * @return string|false Label name or false if not set.
+ */
+function fmw_get_product_label( $product_id = null ) {
+	if ( null === $product_id ) {
+		$product_id = get_the_ID();
+	}
+
+	$terms = get_the_terms( $product_id, 'record_label' );
+
+	if ( $terms && ! is_wp_error( $terms ) ) {
+		return $terms[0]->name;
+	}
+
+	return false;
+}
+
+/**
+ * Get product's record label term object
+ *
+ * @param int $product_id Product ID.
+ * @return WP_Term|false Term object or false if not set.
+ */
+function fmw_get_product_label_term( $product_id = null ) {
+	if ( null === $product_id ) {
+		$product_id = get_the_ID();
+	}
+
+	$terms = get_the_terms( $product_id, 'record_label' );
+
+	if ( $terms && ! is_wp_error( $terms ) ) {
+		return $terms[0];
+	}
+
+	return false;
+}

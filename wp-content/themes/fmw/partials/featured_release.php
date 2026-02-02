@@ -81,7 +81,7 @@ $gallery_ids = $product->get_gallery_image_ids();
 
 // ACF fields from product
 $artist = get_field( 'artist', $product_id );
-$label  = get_field( 'label', $product_id );
+$label  = fmw_get_product_label( $product_id );
 
 // Display title
 $display_title = $artist ? $artist . ' - ' . $title : $title;

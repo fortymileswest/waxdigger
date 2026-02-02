@@ -97,7 +97,7 @@ $total_slides = count( $products );
                 $image_id     = $product ? $product->get_image_id() : null;
 
                 // ACF fields from product
-                $label = $product_id ? get_field( 'label', $product_id ) : 'Label';
+                $label = $product_id ? fmw_get_product_label( $product_id ) : 'Label';
 
                 // Product name already includes "Artist - Title" from import
                 $display_title = $title;
