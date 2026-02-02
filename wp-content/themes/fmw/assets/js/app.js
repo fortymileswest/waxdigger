@@ -155,6 +155,16 @@
         let ringX = 0;
         let ringY = 0;
 
+        // Dark section selectors
+        const darkSections = '.about-hero, .about-history, [data-cursor-light]';
+
+        // Check if element or its parents are dark sections
+        function isOverDarkSection(x, y) {
+            const element = document.elementFromPoint(x, y);
+            if (!element) return false;
+            return element.closest(darkSections) !== null;
+        }
+
         document.addEventListener('mousemove', function (e) {
             mouseX = e.clientX;
             mouseY = e.clientY;
@@ -162,6 +172,15 @@
             // Dot follows instantly
             cursor.style.left = mouseX + 'px';
             cursor.style.top = mouseY + 'px';
+
+            // Check for dark sections and toggle light mode
+            if (isOverDarkSection(mouseX, mouseY)) {
+                cursor.classList.add('cursor-light');
+                ring.classList.add('ring-light');
+            } else {
+                cursor.classList.remove('cursor-light');
+                ring.classList.remove('ring-light');
+            }
         });
 
         // Hover effect on interactive elements

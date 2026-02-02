@@ -23,7 +23,7 @@
                 <div class="footer-column">
                     <h4 class="footer-heading">Shop</h4>
                     <ul class="footer-links">
-                        <li><a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>">All Records</a></li>
+                        <li><a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>">All Products</a></li>
                         <li><a href="<?php echo esc_url( home_url( '/?orderby=date' ) ); ?>">New Arrivals</a></li>
                     </ul>
                 </div>
@@ -34,7 +34,26 @@
                     <ul class="footer-links">
                         <li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'about' ) ) ); ?>">About</a></li>
                         <li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'contact' ) ) ); ?>">Contact</a></li>
-                        <li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'refund-and-returns-policy' ) ) ); ?>">Returns</a></li>
+                    </ul>
+                </div>
+
+                <!-- Policies -->
+                <div class="footer-column">
+                    <h4 class="footer-heading">Policies</h4>
+                    <ul class="footer-links">
+                        <?php
+                        $policies = get_posts(
+                            array(
+                                'post_type'      => 'policy',
+                                'posts_per_page' => -1,
+                                'orderby'        => 'menu_order',
+                                'order'          => 'ASC',
+                            )
+                        );
+                        foreach ( $policies as $policy ) :
+                            ?>
+                            <li><a href="<?php echo esc_url( get_permalink( $policy ) ); ?>"><?php echo esc_html( $policy->post_title ); ?></a></li>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
 
@@ -78,6 +97,11 @@ if ( function_exists( 'WC' ) ) {
 // Cart Drawer
 if ( function_exists( 'WC' ) ) {
     fmw_component( 'cart-drawer' );
+}
+
+// Exit Intent Popup (non-logged-in users only)
+if ( function_exists( 'WC' ) && ! is_user_logged_in() ) {
+    fmw_component( 'exit-popup' );
 }
 ?>
 

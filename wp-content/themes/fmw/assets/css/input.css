@@ -53,7 +53,7 @@
         pointer-events: none;
         z-index: 99999;
         transform: translate(-50%, -50%);
-        transition: transform 0.15s ease, opacity 0.15s ease;
+        transition: transform 0.15s ease, opacity 0.15s ease, background-color 0.3s ease;
     }
 
     .custom-cursor.cursor-hover {
@@ -61,22 +61,34 @@
         opacity: 0.5;
     }
 
+    .custom-cursor.cursor-light {
+        background-color: #fff;
+    }
+
     .cursor-ring {
         position: fixed;
         width: 32px;
         height: 32px;
-        border: 1px solid rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(0, 0, 0, 0.25);
         border-radius: 50%;
         pointer-events: none;
         z-index: 99998;
         transform: translate(-50%, -50%);
-        transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
+        transition: width 0.2s ease, height 0.2s ease, border-color 0.3s ease;
     }
 
     .cursor-ring.ring-hover {
         width: 48px;
         height: 48px;
         border-color: rgba(0, 0, 0, 0.2);
+    }
+
+    .cursor-ring.ring-light {
+        border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .cursor-ring.ring-light.ring-hover {
+        border-color: rgba(255, 255, 255, 0.3);
     }
 
     /* Hide custom cursor on touch devices */
@@ -922,7 +934,7 @@
     }
 
     .footer-main {
-        @apply grid grid-cols-2 md:grid-cols-4 gap-8 py-12 border-b border-neutral-800;
+        @apply grid grid-cols-2 md:grid-cols-5 gap-8 py-12 border-b border-neutral-800;
     }
 
     /* Brand */
@@ -2804,4 +2816,141 @@
     .about-faq-answer-inner {
         padding-left: 2.5rem;
     }
+}
+
+/* ==========================================================================
+   Policy Pages
+   ========================================================================== */
+
+.policy-page {
+    @apply min-h-screen;
+}
+
+.policy-hero {
+    @apply py-16 md:py-20 border-b border-neutral-200;
+}
+
+.policy-hero-inner {
+    @apply max-w-2xl mx-auto px-6;
+}
+
+.policy-title {
+    @apply text-2xl md:text-3xl font-bold text-black m-0 mb-4 tracking-tight;
+}
+
+.policy-meta {
+    @apply flex items-center gap-2 text-sm text-neutral-500;
+}
+
+.policy-meta-item {
+    @apply font-light;
+}
+
+.policy-meta-divider {
+    @apply text-neutral-300;
+}
+
+.policy-content-wrapper {
+    @apply py-12 md:py-16;
+}
+
+.policy-content {
+    @apply max-w-2xl mx-auto px-6;
+}
+
+.policy-content h2 {
+    @apply text-lg font-semibold text-black mt-10 mb-4 first:mt-0;
+}
+
+.policy-content h3 {
+    @apply text-base font-semibold text-black mt-8 mb-3;
+}
+
+.policy-content p {
+    @apply text-sm text-neutral-600 leading-relaxed mb-4 font-light;
+}
+
+.policy-content ul,
+.policy-content ol {
+    @apply text-sm text-neutral-600 leading-relaxed mb-4 pl-5 font-light;
+}
+
+.policy-content li {
+    @apply mb-2;
+}
+
+.policy-content a {
+    @apply text-black underline hover:no-underline;
+}
+
+.policy-content strong {
+    @apply font-medium text-black;
+}
+
+/* ==========================================================================
+   Exit Intent Popup
+   ========================================================================== */
+
+.exit-popup {
+    @apply fixed inset-0 z-50 flex items-center justify-center p-4;
+}
+
+.exit-popup-backdrop {
+    @apply absolute inset-0 bg-black/60;
+}
+
+.exit-popup-content {
+    @apply relative bg-white w-full max-w-md p-8 md:p-10;
+}
+
+.exit-popup-close {
+    @apply absolute top-4 right-4 p-2 text-neutral-400 hover:text-black transition-colors;
+}
+
+.exit-popup-form-wrapper {
+    @apply text-center;
+}
+
+.exit-popup-title {
+    @apply text-xl md:text-2xl font-bold text-black mb-3 tracking-tight;
+}
+
+.exit-popup-text {
+    @apply text-sm text-neutral-600 mb-6 font-light;
+}
+
+.exit-popup-form {
+    @apply mb-4;
+}
+
+.exit-popup-input-wrapper {
+    @apply flex border border-neutral-300 focus-within:border-black transition-colors;
+}
+
+.exit-popup-input {
+    @apply flex-1 px-4 py-3 text-sm bg-transparent border-0 outline-none placeholder:text-neutral-400;
+}
+
+.exit-popup-submit {
+    @apply px-5 py-3 bg-black text-white text-sm font-medium hover:bg-neutral-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.exit-popup-error {
+    @apply text-xs text-red-600 mt-2 text-left;
+}
+
+.exit-popup-disclaimer {
+    @apply text-xs text-neutral-400 font-light;
+}
+
+.exit-popup-success {
+    @apply text-center;
+}
+
+.exit-popup-code {
+    @apply inline-block px-6 py-3 bg-neutral-100 text-lg font-mono font-bold tracking-widest my-4;
+}
+
+.exit-popup-shop-btn {
+    @apply mt-4 px-6 py-3 bg-black text-white text-sm font-medium hover:bg-neutral-800 transition-colors;
 }

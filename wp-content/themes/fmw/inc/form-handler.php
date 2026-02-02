@@ -125,3 +125,70 @@ function fmw_handle_contact_form() {
 }
 add_action( 'wp_ajax_fmw_contact_form', 'fmw_handle_contact_form' );
 add_action( 'wp_ajax_nopriv_fmw_contact_form', 'fmw_handle_contact_form' );
+
+/**
+ * Handle email subscription from exit popup
+ */
+function fmw_handle_subscribe_email() {
+	// Verify nonce
+	$nonce = isset( $_POST['nonce'] ) ? $_POST['nonce'] : '';
+	if ( ! wp_verify_nonce( $nonce, 'fmw_nonce' ) ) {
+		wp_send_json_error(
+			array(
+				'message' => __( 'Security check failed. Please refresh the page and try again.', 'fmw' ),
+			)
+		);
+	}
+
+	// Sanitise email
+	$email = isset( $_POST['email'] ) ? sanitize_email( $_POST['email'] ) : '';
+
+	// Validate email
+	if ( empty( $email ) || ! is_email( $email ) ) {
+		wp_send_json_error(
+			array(
+				'message' => __( 'Please enter a valid email address.', 'fmw' ),
+			)
+		);
+	}
+
+	// Get existing subscribers
+	$subscribers = get_option( 'fmw_email_subscribers', array() );
+
+	// Check if already subscribed
+	if ( in_array( $email, $subscribers, true ) ) {
+		// Still return success - they get the code anyway
+		wp_send_json_success(
+			array(
+				'message' => __( 'You\'re already subscribed!', 'fmw' ),
+				'code'    => 'WELCOME10',
+			)
+		);
+	}
+
+	// Add new subscriber
+	$subscribers[] = $email;
+	update_option( 'fmw_email_subscribers', $subscribers );
+
+	// Optional: Send welcome email with code
+	$subject = sprintf( __( 'Your %s Discount Code', 'fmw' ), get_bloginfo( 'name' ) );
+	$message = sprintf(
+		__(
+			"Thanks for subscribing to %s!\n\nYour discount code is: WELCOME10\n\nUse this code at checkout for 10%% off your first order.\n\nHappy digging!\n%s",
+			'fmw'
+		),
+		get_bloginfo( 'name' ),
+		home_url()
+	);
+	$headers = array( 'Content-Type: text/plain; charset=UTF-8' );
+	wp_mail( $email, $subject, $message, $headers );
+
+	wp_send_json_success(
+		array(
+			'message' => __( 'Thanks for subscribing!', 'fmw' ),
+			'code'    => 'WELCOME10',
+		)
+	);
+}
+add_action( 'wp_ajax_fmw_subscribe_email', 'fmw_handle_subscribe_email' );
+add_action( 'wp_ajax_nopriv_fmw_subscribe_email', 'fmw_handle_subscribe_email' );

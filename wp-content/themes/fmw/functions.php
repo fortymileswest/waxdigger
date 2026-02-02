@@ -21,6 +21,7 @@ require_once FMW_DIR . '/inc/enqueue.php';
 require_once FMW_DIR . '/inc/acf.php';
 require_once FMW_DIR . '/inc/helpers.php';
 require_once FMW_DIR . '/inc/form-handler.php';
+require_once FMW_DIR . '/inc/cpt-policies.php';
 
 // WooCommerce support (only if WooCommerce is active)
 if ( class_exists( 'WooCommerce' ) ) {
