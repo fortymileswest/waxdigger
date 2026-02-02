@@ -188,6 +188,12 @@ Forms use AJAX with nonce verification:
 
 ## TODO
 
+- [ ] **Deploy to Staging** — Push latest changes to Cloudways staging
+  - Need Cloudways API key and email
+  - Need Server ID and App ID for staging
+  - Sync database to get new `record_label` taxonomy terms
+  - Code is committed and pushed to origin/main
+
 - [ ] **Sticky Header Hide/Show** — Fix scroll behaviour
   - Header should hide on scroll down (only after scrolling 300px+)
   - Header should show on scroll up with fade animation
@@ -214,7 +220,30 @@ ddev wp fmw fetch-covers
 ddev wp fmw fetch-covers --dry-run
 ddev wp fmw fetch-covers --limit=5
 ddev wp fmw fetch-covers --product=123
+
+# Migrate ACF labels to taxonomy (already run - for reference)
+ddev wp fmw migrate-labels --dry-run
+ddev wp fmw migrate-labels --delete-acf
 ```
+
+## Custom Taxonomies
+
+### Record Labels
+
+Products use a `record_label` taxonomy (not ACF field). Helper functions:
+
+```php
+// Get label name
+$label = fmw_get_product_label( $product_id );
+
+// Get label term object (for URLs, IDs)
+$term = fmw_get_product_label_term( $product_id );
+if ( $term ) {
+    $url = get_term_link( $term );
+}
+```
+
+Archive pages available at `/label/{slug}/`
 
 ## API Keys
 
