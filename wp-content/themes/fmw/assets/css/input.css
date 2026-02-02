@@ -454,7 +454,7 @@
     }
 
     .featured-releases-inner {
-        @apply relative;
+        @apply relative container mx-auto px-4;
     }
 
     /* Slides container */
@@ -519,11 +519,11 @@
     }
 
     .featured-releases-prev {
-        @apply left-2 md:left-4;
+        @apply left-0 md:-left-2;
     }
 
     .featured-releases-next {
-        @apply right-2 md:right-4;
+        @apply right-0 md:-right-2;
     }
 
     /* Right: album cover - on mobile appears first */

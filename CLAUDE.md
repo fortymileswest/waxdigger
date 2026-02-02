@@ -188,11 +188,16 @@ Forms use AJAX with nonce verification:
 
 ## TODO
 
-- [ ] **Deploy to Staging** — Push latest changes to Cloudways staging
-  - Need Cloudways API key and email
-  - Need Server ID and App ID for staging
-  - Sync database to get new `record_label` taxonomy terms
-  - Code is committed and pushed to origin/main
+- [x] **Deploy to Staging** — ✓ Deployed 2 Feb 2025
+  - Credentials stored in `.env` (gitignored)
+  - Theme deployed via rsync, DB synced with search-replace
+  - `record_label` taxonomy (56 terms) synced
+  - Live at https://waxdigger.com
+  - **Post-deploy checklist:**
+    - Fix file permissions: `chmod 644` for files (especially `output.css`)
+    - Clear Breeze cache: `rm -rf wp-content/cache/breeze/*`
+    - Purge Varnish via API (see Staging Deploy section below)
+    - Purge Cloudflare cache from dashboard
 
 - [ ] **Sticky Header Hide/Show** — Fix scroll behaviour
   - Header should hide on scroll down (only after scrolling 300px+)
@@ -248,6 +253,46 @@ Archive pages available at `/label/{slug}/`
 ## API Keys
 
 - **Discogs Token:** Stored in `inc/discogs-scraper.php`
+- **Cloudways:** Stored in `.env` (gitignored)
+
+## Staging Deploy
+
+Credentials in `.env`. Server: `206.189.31.119`, App ID: `6182241`, Server ID: `1583104`
+
+```bash
+# 1. Build CSS
+npm run css
+
+# 2. Deploy theme via rsync
+rsync -avz --delete \
+  --exclude='.git' --exclude='node_modules' --exclude='.DS_Store' \
+  -e "sshpass -p '\$CLOUDWAYS_SSH_PASS' ssh -o StrictHostKeyChecking=no" \
+  wp-content/themes/fmw/ \
+  wax101@206.189.31.119:public_html/wp-content/themes/fmw/
+
+# 3. Fix permissions
+ssh wax101@206.189.31.119 'find public_html/wp-content/themes/fmw -type f -exec chmod 644 {} \;'
+
+# 4. Export local DB and import to staging
+ddev export-db --file=export.sql
+scp export.sql wax101@206.189.31.119:tmp/
+ssh wax101@206.189.31.119 'cd public_html && gunzip -c ~/tmp/export.sql > ~/tmp/import.sql && wp db import ~/tmp/import.sql'
+
+# 5. Search-replace URLs
+ssh wax101@206.189.31.119 'cd public_html && wp search-replace "https://waxdigger.ddev.site" "https://waxdigger.com" --all-tables'
+
+# 6. Clear all caches
+ssh wax101@206.189.31.119 'cd public_html && wp cache flush && rm -rf wp-content/cache/breeze/*'
+
+# 7. Purge Varnish via API
+TOKEN=$(curl -s -X POST "https://api.cloudways.com/api/v1/oauth/access_token" \
+  --data-urlencode "email=$CLOUDWAYS_EMAIL" \
+  --data-urlencode "api_key=$CLOUDWAYS_API_KEY" | grep -o '"access_token":"[^"]*"' | cut -d'"' -f4)
+curl -s -X POST "https://api.cloudways.com/api/v1/service/varnish" \
+  -H "Authorization: Bearer $TOKEN" -d "server_id=1583104&action=purge"
+
+# 8. Purge Cloudflare from dashboard
+```
 
 ## New Project Setup
 
