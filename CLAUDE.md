@@ -188,16 +188,12 @@ Forms use AJAX with nonce verification:
 
 ## TODO
 
-- [x] **Deploy to Staging** — ✓ Deployed 2 Feb 2025
-  - Credentials stored in `.env` (gitignored)
-  - Theme deployed via rsync, DB synced with search-replace
-  - `record_label` taxonomy (56 terms) synced
+- [x] **Deploy to Staging (Cloudways)** — ✓ Deployed 2 Feb 2025
+- [x] **Migrate to xCloud** — ✓ Migrated 14 Feb 2026
+  - Moved from Cloudways (206.189.31.119) to xcloud-new (64.176.187.195)
+  - Theme, plugins (ACF Pro, WooCommerce, WP Grid Builder), uploads, DB all migrated
+  - SEO Framework installed, nginx-helper + redis-cache active
   - Live at https://waxdigger.com
-  - **Post-deploy checklist:**
-    - Fix file permissions: `chmod 644` for files (especially `output.css`)
-    - Clear Breeze cache: `rm -rf wp-content/cache/breeze/*`
-    - Purge Varnish via API (see Staging Deploy section below)
-    - Purge Cloudflare cache from dashboard
 
 - [ ] **Sticky Header Hide/Show** — Fix scroll behaviour
   - Header should hide on scroll down (only after scrolling 300px+)
@@ -255,43 +251,43 @@ Archive pages available at `/label/{slug}/`
 - **Discogs Token:** Stored in `inc/discogs-scraper.php`
 - **Cloudways:** Stored in `.env` (gitignored)
 
-## Staging Deploy
+## Production Deploy (xCloud)
 
-Credentials in `.env`. Server: `206.189.31.119`, App ID: `6182241`, Server ID: `1583104`
+- **Server**: xcloud-new (`64.176.187.195`)
+- **SSH alias**: `xcloud-new` (user `fortymileswest`, key `~/.ssh/id_ed25519_xcloud`)
+- **Site owner**: `u4_waxdigger`
+- **Site path**: `/var/www/waxdigger.com`
+- **PHP**: 8.3 | **WP-CLI**: 2.12
 
 ```bash
 # 1. Build CSS
 npm run css
 
-# 2. Deploy theme via rsync
+# 2. Deploy theme via rsync (as site owner)
 rsync -avz --delete \
   --exclude='.git' --exclude='node_modules' --exclude='.DS_Store' \
-  -e "sshpass -p '\$CLOUDWAYS_SSH_PASS' ssh -o StrictHostKeyChecking=no" \
+  -e "ssh -i ~/.ssh/id_ed25519_xcloud" \
   wp-content/themes/fmw/ \
-  wax101@206.189.31.119:public_html/wp-content/themes/fmw/
+  u4_waxdigger@64.176.187.195:/var/www/waxdigger.com/wp-content/themes/fmw/
 
-# 3. Fix permissions
-ssh wax101@206.189.31.119 'find public_html/wp-content/themes/fmw -type f -exec chmod 644 {} \;'
+# 3. Purge cache (CRITICAL - do after every deploy)
+ssh -i ~/.ssh/id_ed25519_xcloud u4_waxdigger@64.176.187.195 \
+  "wp cache flush --path=/var/www/waxdigger.com && wp eval 'do_action(\"rt_nginx_helper_purge_all\");' --path=/var/www/waxdigger.com"
 
-# 4. Export local DB and import to staging
-ddev export-db --file=export.sql
-scp export.sql wax101@206.189.31.119:tmp/
-ssh wax101@206.189.31.119 'cd public_html && gunzip -c ~/tmp/export.sql > ~/tmp/import.sql && wp db import ~/tmp/import.sql'
+# 4. Verify cache purge
+curl -sI https://waxdigger.com | grep x-cache
+# Should show: x-cache: MISS
+```
 
-# 5. Search-replace URLs
-ssh wax101@206.189.31.119 'cd public_html && wp search-replace "https://waxdigger.ddev.site" "https://waxdigger.com" --all-tables'
+### WP-CLI on production
 
-# 6. Clear all caches
-ssh wax101@206.189.31.119 'cd public_html && wp cache flush && rm -rf wp-content/cache/breeze/*'
+```bash
+# Run WP-CLI as site owner
+ssh -i ~/.ssh/id_ed25519_xcloud u4_waxdigger@64.176.187.195 "wp <command> --path=/var/www/waxdigger.com"
 
-# 7. Purge Varnish via API
-TOKEN=$(curl -s -X POST "https://api.cloudways.com/api/v1/oauth/access_token" \
-  --data-urlencode "email=$CLOUDWAYS_EMAIL" \
-  --data-urlencode "api_key=$CLOUDWAYS_API_KEY" | grep -o '"access_token":"[^"]*"' | cut -d'"' -f4)
-curl -s -X POST "https://api.cloudways.com/api/v1/service/varnish" \
-  -H "Authorization: Bearer $TOKEN" -d "server_id=1583104&action=purge"
-
-# 8. Purge Cloudflare from dashboard
+# Examples
+ssh -i ~/.ssh/id_ed25519_xcloud u4_waxdigger@64.176.187.195 "wp plugin list --path=/var/www/waxdigger.com"
+ssh -i ~/.ssh/id_ed25519_xcloud u4_waxdigger@64.176.187.195 "wp option get siteurl --path=/var/www/waxdigger.com"
 ```
 
 ## New Project Setup
