@@ -94,7 +94,7 @@ $bg_url = get_template_directory_uri() . '/assets/images/hero-records-in-store.w
             </div>
 
             <!-- Headline -->
-            <h1 class="font-display text-[72px] md:text-[120px] font-bold text-cream leading-[0.9] tracking-[-3px]">DIG<br>DEEPER.</h1>
+            <h1 class="font-display text-[72px] md:text-[120px] font-bold text-cream leading-[0.9] tracking-[-3px]">FOR THE<br>DIGGERS.</h1>
 
             <!-- Subtitle -->
             <p class="font-mono text-sm text-cream/50 leading-[1.7] max-w-[520px]">Curated vinyl for heads who know. Rave, jungle,<br class="hidden md:block">hip hop &amp; the sounds that shaped the underground.</p>
