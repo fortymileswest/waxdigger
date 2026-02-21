@@ -363,14 +363,36 @@ rsync -avz --delete \
   wp-content/themes/fmw/ \
   u4_waxdigger@64.176.187.195:/var/www/waxdigger.com/wp-content/themes/fmw/
 
-# 3. Purge cache (CRITICAL - do after every deploy)
+# 3. Purge ALL caches (CRITICAL - do after every deploy)
+# nginx-helper + redis-cache plugins MUST be active for this to work.
+# If CSS/HTML looks stale after deploy, check: wp plugin list --status=active
 ssh -i ~/.ssh/id_ed25519_xcloud u4_waxdigger@64.176.187.195 \
   "wp cache flush --path=/var/www/waxdigger.com && wp eval 'do_action(\"rt_nginx_helper_purge_all\");' --path=/var/www/waxdigger.com"
 
-# 4. Verify cache purge
+# 4. Purge Cloudflare cache (site is proxied through Cloudflare)
+source ~/.config/wp-dev-env/credentials.env
+ZONE_ID=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones?name=waxdigger.com" \
+  -H "X-Auth-Email: $CLOUDFLARE_EMAIL" \
+  -H "X-Auth-Key: $CLOUDFLARE_API_KEY" | python3 -c "import sys,json; print(json.load(sys.stdin)['result'][0]['id'])")
+curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/purge_cache" \
+  -H "X-Auth-Email: $CLOUDFLARE_EMAIL" \
+  -H "X-Auth-Key: $CLOUDFLARE_API_KEY" \
+  -H "Content-Type: application/json" \
+  --data '{"purge_everything":true}'
+
+# 5. Verify cache purge
 curl -sI https://waxdigger.com | grep x-cache
 # Should show: x-cache: MISS
+# Also check CSS version matches file timestamp:
+curl -s https://waxdigger.com | grep -o 'output\.css[^"]*'
 ```
+
+### Required plugins for caching (must be active)
+
+- **nginx-helper** — purges Nginx fastcgi cache via `rt_nginx_helper_purge_all` action
+- **redis-cache** — object cache for WP transients/options
+
+If these are inactive, the WP cache flush and Nginx purge commands silently do nothing, and stale HTML (with old CSS version strings) will keep being served. Always verify both are active after migrations or plugin updates.
 
 ### WP-CLI on production
 

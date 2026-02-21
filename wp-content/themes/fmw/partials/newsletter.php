@@ -18,9 +18,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
         <!-- Left — Decorative Type -->
         <div class="relative hidden lg:block flex-1 h-[480px] overflow-hidden">
-            <!-- Accent Bar -->
-            <div class="absolute top-0 left-0 w-[3px] h-full bg-accent"></div>
-
             <!-- Grid Lines -->
             <div class="absolute top-[160px] left-0 right-0 h-px bg-cream/[0.03]"></div>
             <div class="absolute top-[320px] left-0 right-0 h-px bg-cream/[0.03]"></div>
