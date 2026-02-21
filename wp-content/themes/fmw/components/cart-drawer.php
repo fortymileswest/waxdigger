@@ -18,6 +18,7 @@ defined( 'ABSPATH' ) || exit;
 	x-cloak
 	@keydown.escape.window="open = false"
 	@cart-updated.window="refreshCart(); open = true"
+	@open-cart.window="refreshCart(); open = true"
 >
 	<!-- Backdrop -->
 	<div
@@ -45,7 +46,10 @@ defined( 'ABSPATH' ) || exit;
 	>
 		<!-- Header -->
 		<div class="cart-drawer-header">
-			<h2 class="cart-drawer-title">Your Basket</h2>
+			<div class="flex items-center gap-3">
+				<?php fmw_icon( 'compass', 'w-5 h-5 text-accent' ); ?>
+				<h2 class="cart-drawer-title">Your Basket</h2>
+			</div>
 			<button
 				type="button"
 				class="cart-drawer-close"
@@ -200,6 +204,56 @@ function showToast(message) {
 			toast.remove();
 		}, 300);
 	}, 4000);
+}
+
+// Global AJAX add to cart
+function fmwAddToCart(productId, buttonEl) {
+	if (!productId) return;
+
+	var originalText = buttonEl ? buttonEl.textContent : '';
+	if (buttonEl) {
+		buttonEl.textContent = '[ ... ]';
+		buttonEl.disabled = true;
+	}
+
+	var formData = new FormData();
+	formData.append('action', 'woocommerce_ajax_add_to_cart');
+	formData.append('product_id', productId);
+	formData.append('quantity', 1);
+
+	fetch('<?php echo admin_url( 'admin-ajax.php' ); ?>', {
+		method: 'POST',
+		body: formData
+	})
+	.then(function(response) { return response.json(); })
+	.then(function(data) {
+		if (data.error) {
+			if (data.in_cart) {
+				showToast(data.message);
+			}
+			if (buttonEl) {
+				buttonEl.textContent = originalText;
+				buttonEl.disabled = false;
+			}
+			return;
+		}
+
+		if (buttonEl) {
+			buttonEl.textContent = '[ ADDED ]';
+			setTimeout(function() {
+				buttonEl.textContent = originalText;
+				buttonEl.disabled = false;
+			}, 2000);
+		}
+
+		window.dispatchEvent(new CustomEvent('cart-updated'));
+	})
+	.catch(function() {
+		if (buttonEl) {
+			buttonEl.textContent = originalText;
+			buttonEl.disabled = false;
+		}
+	});
 }
 
 // Remove cart item

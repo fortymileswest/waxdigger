@@ -82,7 +82,10 @@ $genres = get_terms( array(
 		</button>
 
 		<div class="search-modal-content">
-			<h2 class="search-modal-title">Search Store</h2>
+			<div class="flex items-center gap-3 mb-6">
+				<?php fmw_icon( 'compass', 'w-5 h-5 text-accent' ); ?>
+				<h2 class="search-modal-title" style="margin-bottom: 0;">Search Store</h2>
+			</div>
 
 			<form action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get" class="search-modal-form" autocomplete="off">
 				<input type="hidden" name="post_type" value="product">

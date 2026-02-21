@@ -42,13 +42,117 @@ function fmw_acf_options_page() {
             'menu_title' => __( 'Site Settings', 'fmw' ),
             'menu_slug'  => 'site-settings',
             'capability' => 'edit_posts',
-            'redirect'   => false,
+            'redirect'   => true,
             'icon_url'   => 'dashicons-admin-settings',
             'position'   => 2,
         )
     );
+
+    acf_add_options_sub_page(
+        array(
+            'page_title'  => __( 'Homepage', 'fmw' ),
+            'menu_title'  => __( 'Homepage', 'fmw' ),
+            'menu_slug'   => 'site-settings-homepage',
+            'parent_slug' => 'site-settings',
+        )
+    );
 }
 add_action( 'acf/init', 'fmw_acf_options_page' );
+
+/**
+ * Register Homepage field groups programmatically
+ */
+function fmw_register_homepage_fields() {
+    if ( ! function_exists( 'acf_add_local_field_group' ) ) {
+        return;
+    }
+
+    // Featured Release — Hero slider
+    acf_add_local_field_group( array(
+        'key'      => 'group_homepage_featured',
+        'title'    => 'Featured Release',
+        'fields'   => array(
+            array(
+                'key'           => 'field_featured_product',
+                'label'         => 'Featured Product',
+                'name'          => 'featured_product',
+                'type'          => 'post_object',
+                'post_type'     => array( 'product' ),
+                'return_format' => 'id',
+                'ui'            => 1,
+                'instructions'  => 'Select the product to feature in the hero slider.',
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param'    => 'options_page',
+                    'operator' => '==',
+                    'value'    => 'site-settings-homepage',
+                ),
+            ),
+        ),
+        'menu_order' => 0,
+    ) );
+
+    // Staff Picks
+    acf_add_local_field_group( array(
+        'key'      => 'group_homepage_staff_picks',
+        'title'    => 'Staff Picks',
+        'fields'   => array(
+            array(
+                'key'           => 'field_staff_pick_featured',
+                'label'         => 'Featured Pick',
+                'name'          => 'staff_pick_featured',
+                'type'          => 'post_object',
+                'post_type'     => array( 'product' ),
+                'return_format' => 'id',
+                'ui'            => 1,
+                'instructions'  => 'The large featured pick shown on the left.',
+            ),
+            array(
+                'key'          => 'field_staff_pick_description',
+                'label'        => 'Featured Pick Description',
+                'name'         => 'staff_pick_description',
+                'type'         => 'textarea',
+                'rows'         => 3,
+                'instructions' => 'Short description for the featured pick.',
+            ),
+            array(
+                'key'          => 'field_staff_picks_list',
+                'label'        => 'Picks List',
+                'name'         => 'staff_picks_list',
+                'type'         => 'repeater',
+                'min'          => 0,
+                'max'          => 5,
+                'layout'       => 'table',
+                'button_label' => 'Add Pick',
+                'sub_fields'   => array(
+                    array(
+                        'key'           => 'field_staff_pick_product',
+                        'label'         => 'Product',
+                        'name'          => 'product',
+                        'type'          => 'post_object',
+                        'post_type'     => array( 'product' ),
+                        'return_format' => 'id',
+                        'ui'            => 1,
+                    ),
+                ),
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param'    => 'options_page',
+                    'operator' => '==',
+                    'value'    => 'site-settings-homepage',
+                ),
+            ),
+        ),
+        'menu_order' => 1,
+    ) );
+}
+add_action( 'acf/init', 'fmw_register_homepage_fields' );
 
 /**
  * Get ACF field with fallback

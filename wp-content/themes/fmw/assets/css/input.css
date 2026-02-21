@@ -3,9 +3,59 @@
 @tailwind utilities;
 
 /**
+ * Font Face Declarations
+ * Self-hosted — no external CDNs
+ */
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('../fonts/JetBrainsMono-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('../fonts/JetBrainsMono-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('../fonts/JetBrainsMono-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('../fonts/JetBrainsMono-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('../fonts/JetBrainsMono-ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Space Grotesk';
+    src: url('../fonts/SpaceGrotesk-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/**
  * Base Styles
- *
- * Minimal structural styles only. No decorative design.
  */
 @layer base {
     /* Reset html/body margin */
@@ -13,6 +63,9 @@
     body {
         margin: 0 !important;
         padding: 0 !important;
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        background-color: #0d0d0d;
+        color: #f0ece4;
     }
 
     /* Smooth scrolling */
@@ -147,7 +200,6 @@
 
     /* Global Button Style - Black bg, white text */
     .btn,
-    button[type="submit"],
     input[type="submit"] {
         @apply inline-block px-6 py-3 bg-black text-white text-sm font-medium no-underline border-0 cursor-pointer hover:bg-neutral-800 transition-colors;
     }
@@ -169,8 +221,8 @@
  */
 .site-header {
     position: relative;
-    background-color: #fff;
-    border-bottom: 1px solid #e5e5e5;
+    background-color: #0d0d0d;
+    border-bottom: 1px solid rgba(240, 236, 228, 0.125);
     z-index: 100;
     margin: 0;
     padding: 0;
@@ -1501,22 +1553,30 @@
 }
 
 /**
- * Login Modal - Dark theme
+ * Login Modal — Dark brand theme
  */
 .login-modal {
     @apply fixed inset-0 z-[9999] flex items-center justify-center p-4;
 }
 
 .login-modal-backdrop {
-    @apply fixed inset-0 bg-black/80;
+    @apply fixed inset-0;
+    background-color: rgba(13, 13, 13, 0.9);
 }
 
 .login-modal-panel {
-    @apply relative w-full max-w-md bg-neutral-900 p-8 md:p-10;
+    @apply relative w-full max-w-md p-8 md:p-10;
+    background-color: #0d0d0d;
+    border: 1px solid rgba(240, 236, 228, 0.125);
 }
 
 .login-modal-close {
-    @apply absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-neutral-400 hover:text-white transition-colors bg-transparent border-0 cursor-pointer;
+    @apply absolute top-4 right-4 w-10 h-10 flex items-center justify-center transition-colors bg-transparent border-0 cursor-pointer;
+    color: rgba(240, 236, 228, 0.5);
+}
+
+.login-modal-close:hover {
+    color: #f0ece4;
 }
 
 .login-modal-close .icon {
@@ -1528,11 +1588,16 @@
 }
 
 .login-modal-title {
-    @apply text-2xl font-bold text-white mb-1;
+    @apply text-2xl font-bold mb-1;
+    font-family: 'Space Grotesk', sans-serif;
+    color: #f0ece4;
 }
 
 .login-modal-subtitle {
-    @apply text-neutral-400 mb-8;
+    @apply mb-8;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: rgba(240, 236, 228, 0.5);
 }
 
 /* Form Fields */
@@ -1545,11 +1610,30 @@
 }
 
 .login-field label {
-    @apply block text-sm font-medium text-neutral-300;
+    @apply block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(240, 236, 228, 0.5);
 }
 
 .login-field input {
-    @apply w-full px-4 py-3 text-sm text-white bg-neutral-800 border border-neutral-700 outline-none focus:border-white transition-colors placeholder-neutral-500;
+    @apply w-full px-4 py-3 outline-none transition-colors;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: #f0ece4;
+    background-color: #1a1a1a;
+    border: 1px solid rgba(240, 236, 228, 0.125);
+}
+
+.login-field input::placeholder {
+    color: rgba(240, 236, 228, 0.25);
+}
+
+.login-field input:focus {
+    border-color: #25ddb3;
 }
 
 /* Options Row */
@@ -1558,53 +1642,97 @@
 }
 
 .login-remember {
-    @apply flex items-center gap-2 text-sm text-neutral-300 cursor-pointer;
+    @apply flex items-center gap-2 cursor-pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: rgba(240, 236, 228, 0.5);
 }
 
 .login-remember input[type="checkbox"] {
-    @apply w-4 h-4 accent-white;
+    @apply w-4 h-4;
+    accent-color: #25ddb3;
 }
 
 .login-forgot {
-    @apply text-sm text-neutral-400 hover:text-white transition-colors;
+    @apply transition-colors;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: rgba(240, 236, 228, 0.5);
+}
+
+.login-forgot:hover {
+    color: #25ddb3;
 }
 
 /* Error Message */
 .login-error {
-    @apply p-3 bg-red-900/50 border border-red-800 text-red-300 text-sm;
+    @apply p-3 text-sm;
+    background-color: rgba(220, 38, 38, 0.15);
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    color: #fca5a5;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
 }
 
 /* Submit Button */
 .login-submit {
-    @apply w-full px-6 py-4 bg-white text-black text-sm font-medium border-0 cursor-pointer hover:bg-neutral-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply w-full px-6 py-4 border-0 cursor-pointer transition-colors;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background-color: #25ddb3;
+    color: #0d0d0d;
+}
+
+.login-submit:hover {
+    background-color: rgba(37, 221, 179, 0.9);
+}
+
+.login-submit:disabled {
+    @apply opacity-50 cursor-not-allowed;
 }
 
 /* Switch Login/Register */
 .login-switch {
-    @apply mt-8 pt-6 border-t border-neutral-800 text-center text-sm text-neutral-400;
+    @apply mt-8 pt-6 text-center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: rgba(240, 236, 228, 0.5);
+    border-top: 1px solid rgba(240, 236, 228, 0.125);
 }
 
 .login-switch-btn {
-    @apply text-white underline underline-offset-2 hover:no-underline bg-transparent border-0 cursor-pointer;
+    @apply underline underline-offset-2 hover:no-underline bg-transparent border-0 cursor-pointer;
+    color: #25ddb3;
 }
 
 /**
- * Search Modal - Dark theme
+ * Search Modal — Dark brand theme
  */
 .search-modal {
     @apply fixed inset-0 z-[9999] flex items-start justify-center pt-16 md:pt-24 px-4;
 }
 
 .search-modal-backdrop {
-    @apply fixed inset-0 bg-black/80;
+    @apply fixed inset-0;
+    background-color: rgba(13, 13, 13, 0.9);
 }
 
 .search-modal-panel {
-    @apply relative w-full max-w-2xl bg-neutral-900 p-6 md:p-8;
+    @apply relative w-full max-w-2xl p-6 md:p-8;
+    background-color: #0d0d0d;
+    border: 1px solid rgba(240, 236, 228, 0.125);
 }
 
 .search-modal-close {
-    @apply absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-neutral-400 hover:text-white transition-colors bg-transparent border-0 cursor-pointer;
+    @apply absolute top-4 right-4 w-10 h-10 flex items-center justify-center transition-colors bg-transparent border-0 cursor-pointer;
+    color: rgba(240, 236, 228, 0.5);
+}
+
+.search-modal-close:hover {
+    color: #f0ece4;
 }
 
 .search-modal-close .icon {
@@ -1616,7 +1744,9 @@
 }
 
 .search-modal-title {
-    @apply text-2xl font-bold text-white mb-6;
+    @apply text-2xl font-bold mb-6;
+    font-family: 'Space Grotesk', sans-serif;
+    color: #f0ece4;
 }
 
 /* Main Search Field */
@@ -1625,11 +1755,30 @@
 }
 
 .search-main-input {
-    @apply flex-1 px-4 py-4 text-base text-white bg-neutral-800 border border-neutral-700 border-r-0 outline-none focus:border-white transition-colors placeholder-neutral-500;
+    @apply flex-1 px-4 py-4 text-base outline-none transition-colors;
+    font-family: 'JetBrains Mono', monospace;
+    color: #f0ece4;
+    background-color: #1a1a1a;
+    border: 1px solid rgba(240, 236, 228, 0.125);
+    border-right: 0;
+}
+
+.search-main-input::placeholder {
+    color: rgba(240, 236, 228, 0.3);
+}
+
+.search-main-input:focus {
+    border-color: #25ddb3;
 }
 
 .search-main-submit {
-    @apply flex items-center justify-center w-14 bg-white text-black border-0 cursor-pointer hover:bg-neutral-200 transition-colors;
+    @apply flex items-center justify-center w-14 border-0 cursor-pointer transition-colors;
+    background-color: #25ddb3;
+    color: #0d0d0d;
+}
+
+.search-main-submit:hover {
+    background-color: rgba(37, 221, 179, 0.9);
 }
 
 .search-main-submit .icon {
@@ -1638,12 +1787,20 @@
 
 /* Advanced Toggle */
 .search-advanced-toggle {
-    @apply flex items-center gap-2 mt-4 text-sm text-neutral-400 hover:text-white transition-colors bg-transparent border-0 cursor-pointer;
+    @apply flex items-center gap-2 mt-4 transition-colors bg-transparent border-0 cursor-pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: rgba(240, 236, 228, 0.5);
+}
+
+.search-advanced-toggle:hover {
+    color: #25ddb3;
 }
 
 /* Advanced Filters */
 .search-advanced {
-    @apply mt-6 pt-6 border-t border-neutral-800;
+    @apply mt-6 pt-6;
+    border-top: 1px solid rgba(240, 236, 228, 0.125);
 }
 
 .search-filters-grid {
@@ -1655,21 +1812,37 @@
 }
 
 .search-field label {
-    @apply block text-xs font-medium text-neutral-400 uppercase tracking-wider;
+    @apply block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(240, 236, 228, 0.5);
 }
 
 .search-field input,
 .search-field select {
-    @apply w-full px-3 py-2.5 text-sm text-white bg-neutral-800 border border-neutral-700 outline-none focus:border-white transition-colors;
+    @apply w-full px-3 py-2.5 outline-none transition-colors;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: #f0ece4;
+    background-color: #1a1a1a;
+    border: 1px solid rgba(240, 236, 228, 0.125);
+}
+
+.search-field input:focus,
+.search-field select:focus {
+    border-color: #25ddb3;
 }
 
 .search-field input::placeholder {
-    @apply text-neutral-500;
+    color: rgba(240, 236, 228, 0.25);
 }
 
 .search-field select {
     @apply appearance-none cursor-pointer;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2325ddb3' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
     background-position: right 0.5rem center;
     background-repeat: no-repeat;
     background-size: 1.5em 1.5em;
@@ -1677,7 +1850,8 @@
 }
 
 .search-field select option {
-    @apply bg-neutral-800 text-white;
+    background-color: #1a1a1a;
+    color: #f0ece4;
 }
 
 /* Price Range */
@@ -1686,7 +1860,13 @@
 }
 
 .search-price-range label {
-    @apply block text-xs font-medium text-neutral-400 uppercase tracking-wider;
+    @apply block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(240, 236, 228, 0.5);
 }
 
 .search-price-inputs {
@@ -1694,33 +1874,65 @@
 }
 
 .search-price-inputs input {
-    @apply flex-1 px-3 py-2.5 text-sm text-white bg-neutral-800 border border-neutral-700 outline-none focus:border-white transition-colors;
+    @apply flex-1 px-3 py-2.5 outline-none transition-colors;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: #f0ece4;
+    background-color: #1a1a1a;
+    border: 1px solid rgba(240, 236, 228, 0.125);
+}
+
+.search-price-inputs input:focus {
+    border-color: #25ddb3;
 }
 
 .search-price-inputs input::placeholder {
-    @apply text-neutral-500;
+    color: rgba(240, 236, 228, 0.25);
 }
 
 .search-price-separator {
-    @apply text-neutral-500 text-sm;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: rgba(240, 236, 228, 0.5);
 }
 
 /* Submit Button */
 .search-submit-btn {
-    @apply w-full mt-6 px-6 py-4 bg-white text-black text-sm font-medium border-0 cursor-pointer hover:bg-neutral-200 transition-colors;
+    @apply w-full mt-6 px-6 py-4 border-0 cursor-pointer transition-colors;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background-color: #25ddb3;
+    color: #0d0d0d;
+}
+
+.search-submit-btn:hover {
+    background-color: rgba(37, 221, 179, 0.9);
 }
 
 /* Quick Links */
 .search-quick-links {
-    @apply mt-6 pt-6 border-t border-neutral-800 flex items-center gap-3 text-sm;
+    @apply mt-6 pt-6 flex items-center gap-3;
+    border-top: 1px solid rgba(240, 236, 228, 0.125);
 }
 
 .search-quick-label {
-    @apply text-neutral-500;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: rgba(240, 236, 228, 0.4);
 }
 
 .search-quick-links a {
-    @apply text-neutral-400 hover:text-white transition-colors;
+    @apply transition-colors;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: rgba(240, 236, 228, 0.5);
+}
+
+.search-quick-links a:hover {
+    color: #25ddb3;
 }
 
 /* Mobile Search Button in Menu */
@@ -1852,30 +2064,41 @@
 }
 
 /**
- * Cart Drawer
+ * Cart Drawer — Dark brand theme
  */
 .cart-drawer {
     @apply fixed inset-0 z-[10000];
 }
 
 .cart-drawer-backdrop {
-    @apply absolute inset-0 bg-black/60;
+    @apply absolute inset-0;
+    background-color: rgba(13, 13, 13, 0.8);
 }
 
 .cart-drawer-panel {
-    @apply absolute right-0 top-0 h-full w-full max-w-md bg-white flex flex-col shadow-xl;
+    @apply absolute right-0 top-0 h-full w-full max-w-md flex flex-col shadow-xl;
+    background-color: #0d0d0d;
+    border-left: 1px solid rgba(240, 236, 228, 0.125);
 }
 
 .cart-drawer-header {
-    @apply flex items-center justify-between px-6 py-4 border-b border-neutral-200;
+    @apply flex items-center justify-between px-6 py-5;
+    border-bottom: 1px solid rgba(240, 236, 228, 0.125);
 }
 
 .cart-drawer-title {
-    @apply text-lg font-bold text-black;
+    font-family: 'Space Grotesk', sans-serif;
+    @apply text-lg font-bold;
+    color: #f0ece4;
 }
 
 .cart-drawer-close {
-    @apply p-2 text-neutral-400 hover:text-black transition-colors bg-transparent border-0 cursor-pointer;
+    @apply p-2 transition-colors bg-transparent border-0 cursor-pointer;
+    color: rgba(240, 236, 228, 0.5);
+}
+
+.cart-drawer-close:hover {
+    color: #f0ece4;
 }
 
 .cart-drawer-content {
@@ -1883,7 +2106,9 @@
 }
 
 .cart-drawer-loading {
-    @apply flex items-center justify-center h-32 text-neutral-400;
+    @apply flex items-center justify-center h-32;
+    font-family: 'JetBrains Mono', monospace;
+    color: rgba(240, 236, 228, 0.5);
 }
 
 .cart-drawer-empty {
@@ -1891,7 +2116,24 @@
 }
 
 .cart-drawer-empty p {
-    @apply text-neutral-500 mb-6;
+    @apply mb-6;
+    font-family: 'JetBrains Mono', monospace;
+    color: rgba(240, 236, 228, 0.5);
+}
+
+.cart-drawer-btn {
+    @apply block w-full px-6 py-3 text-center no-underline transition-colors;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background-color: #25ddb3;
+    color: #0d0d0d;
+}
+
+.cart-drawer-btn:hover {
+    background-color: rgba(37, 221, 179, 0.9);
 }
 
 .cart-drawer-items {
@@ -1899,11 +2141,17 @@
 }
 
 .cart-drawer-item {
-    @apply flex gap-4 items-start;
+    @apply flex gap-4 items-start pb-4;
+    border-bottom: 1px solid rgba(240, 236, 228, 0.08);
+}
+
+.cart-drawer-item:last-child {
+    border-bottom: 0;
 }
 
 .cart-drawer-item-image {
-    @apply flex-shrink-0 w-20 h-20 bg-neutral-100;
+    @apply flex-shrink-0 w-16 h-16;
+    background-color: #1a1a1a;
 }
 
 .cart-drawer-item-image img {
@@ -1911,7 +2159,8 @@
 }
 
 .cart-drawer-item-placeholder {
-    @apply w-full h-full bg-neutral-200;
+    @apply w-full h-full;
+    background-color: #1a1a1a;
 }
 
 .cart-drawer-item-details {
@@ -1919,39 +2168,62 @@
 }
 
 .cart-drawer-item-title {
-    @apply text-sm font-medium text-black truncate;
+    @apply truncate;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    color: #f0ece4;
 }
 
 .cart-drawer-item-label {
-    @apply text-xs text-neutral-500 mt-0.5;
+    @apply mt-0.5;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: rgba(240, 236, 228, 0.4);
 }
 
 .cart-drawer-item-price {
-    @apply text-sm font-medium text-black mt-1;
+    @apply mt-1;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: #25ddb3;
 }
 
 .cart-drawer-item-remove {
-    @apply flex-shrink-0 w-6 h-6 flex items-center justify-center text-neutral-400 hover:text-black bg-transparent border-0 cursor-pointer text-xl leading-none;
+    @apply flex-shrink-0 w-6 h-6 flex items-center justify-center bg-transparent border-0 cursor-pointer text-xl leading-none;
+    color: rgba(240, 236, 228, 0.3);
+}
+
+.cart-drawer-item-remove:hover {
+    color: #f0ece4;
 }
 
 .cart-drawer-footer {
-    @apply px-6 py-4 border-t border-neutral-200 space-y-3;
+    @apply px-6 py-5 space-y-3;
+    border-top: 1px solid rgba(240, 236, 228, 0.125);
 }
 
 .cart-drawer-total {
-    @apply flex items-center justify-between text-base font-bold text-black;
-}
-
-.cart-drawer-btn {
-    @apply block w-full px-6 py-3 bg-black text-white text-sm font-medium text-center no-underline hover:bg-neutral-800 transition-colors;
+    @apply flex items-center justify-between text-base font-bold;
+    font-family: 'JetBrains Mono', monospace;
+    color: #f0ece4;
 }
 
 .cart-drawer-btn-outline {
-    @apply bg-transparent text-black border border-black hover:bg-black hover:text-white;
+    @apply bg-transparent;
+    color: #f0ece4;
+    border: 1px solid rgba(240, 236, 228, 0.5);
+}
+
+.cart-drawer-btn-outline:hover {
+    background-color: transparent;
+    color: #f0ece4;
+    border-color: #f0ece4;
 }
 
 /**
- * Toast Notification
+ * Toast Notification — Brand theme
  */
 .fmw-toast {
     @apply fixed bottom-6 left-1/2 -translate-x-1/2 z-[10001] opacity-0 translate-y-4 transition-all duration-300 pointer-events-none;
@@ -1962,7 +2234,13 @@
 }
 
 .fmw-toast-content {
-    @apply bg-black text-white text-sm px-6 py-4 rounded-lg shadow-lg max-w-sm text-center;
+    @apply px-6 py-4 shadow-lg max-w-sm text-center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    background-color: #1a1a1a;
+    color: #f0ece4;
+    border: 1px solid rgba(240, 236, 228, 0.125);
 }
 
 /**
@@ -2907,7 +3185,7 @@
 }
 
 /* ==========================================================================
-   Exit Intent Popup
+   Exit Intent Popup — Dark brand theme
    ========================================================================== */
 
 .exit-popup {
@@ -2915,15 +3193,23 @@
 }
 
 .exit-popup-backdrop {
-    @apply absolute inset-0 bg-black/60;
+    @apply absolute inset-0;
+    background-color: rgba(13, 13, 13, 0.85);
 }
 
 .exit-popup-content {
-    @apply relative bg-white w-full max-w-md p-8 md:p-10;
+    @apply relative w-full max-w-md p-8 md:p-10;
+    background-color: #0d0d0d;
+    border: 1px solid rgba(240, 236, 228, 0.125);
 }
 
 .exit-popup-close {
-    @apply absolute top-4 right-4 p-2 text-neutral-400 hover:text-black transition-colors;
+    @apply absolute top-4 right-4 p-2 transition-colors bg-transparent border-0 cursor-pointer;
+    color: rgba(240, 236, 228, 0.5);
+}
+
+.exit-popup-close:hover {
+    color: #f0ece4;
 }
 
 .exit-popup-form-wrapper {
@@ -2931,11 +3217,18 @@
 }
 
 .exit-popup-title {
-    @apply text-xl md:text-2xl font-bold text-black mb-3 tracking-tight;
+    @apply text-xl md:text-2xl font-bold mb-3;
+    font-family: 'Space Grotesk', sans-serif;
+    color: #f0ece4;
+    letter-spacing: -0.5px;
 }
 
 .exit-popup-text {
-    @apply text-sm text-neutral-600 mb-6 font-light;
+    @apply mb-6;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: rgba(240, 236, 228, 0.5);
+    line-height: 1.7;
 }
 
 .exit-popup-form {
@@ -2943,23 +3236,55 @@
 }
 
 .exit-popup-input-wrapper {
-    @apply flex border border-neutral-300 focus-within:border-black transition-colors;
+    @apply flex transition-colors;
+    border: 1px solid rgba(240, 236, 228, 0.125);
+}
+
+.exit-popup-input-wrapper:focus-within {
+    border-color: #25ddb3;
 }
 
 .exit-popup-input {
-    @apply flex-1 px-4 py-3 text-sm bg-transparent border-0 outline-none placeholder:text-neutral-400;
+    @apply flex-1 px-4 py-3 bg-transparent border-0 outline-none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: #f0ece4;
+}
+
+.exit-popup-input::placeholder {
+    color: rgba(240, 236, 228, 0.25);
 }
 
 .exit-popup-submit {
-    @apply px-5 py-3 bg-black text-white text-sm font-medium hover:bg-neutral-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply px-5 py-3 transition-colors border-0 cursor-pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background-color: #25ddb3;
+    color: #0d0d0d;
+}
+
+.exit-popup-submit:hover {
+    background-color: rgba(37, 221, 179, 0.9);
+}
+
+.exit-popup-submit:disabled {
+    @apply opacity-50 cursor-not-allowed;
 }
 
 .exit-popup-error {
-    @apply text-xs text-red-600 mt-2 text-left;
+    @apply mt-2 text-left;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #fca5a5;
 }
 
 .exit-popup-disclaimer {
-    @apply text-xs text-neutral-400 font-light;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: rgba(240, 236, 228, 0.3);
 }
 
 .exit-popup-success {
@@ -2967,9 +3292,54 @@
 }
 
 .exit-popup-code {
-    @apply inline-block px-6 py-3 bg-neutral-100 text-lg font-mono font-bold tracking-widest my-4;
+    @apply inline-block px-6 py-3 text-lg font-bold tracking-widest my-4;
+    font-family: 'JetBrains Mono', monospace;
+    background-color: #1a1a1a;
+    color: #25ddb3;
 }
 
 .exit-popup-shop-btn {
-    @apply mt-4 px-6 py-3 bg-black text-white text-sm font-medium hover:bg-neutral-800 transition-colors;
+    @apply mt-4 px-6 py-3 transition-colors border-0 cursor-pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background-color: #25ddb3;
+    color: #0d0d0d;
+}
+
+.exit-popup-shop-btn:hover {
+    background-color: rgba(37, 221, 179, 0.9);
+}
+
+/**
+ * Homepage Section Styles
+ */
+
+/* Hide scrollbar for sliders */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { scrollbar-width: none; -ms-overflow-style: none; }
+
+/* Smooth scroll with ease-in-out for sliders */
+.scroll-smooth { scroll-behavior: smooth; }
+
+/* Ticker strip infinite scroll */
+@keyframes ticker-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-33.333%); }
+}
+
+.ticker-track {
+    animation: ticker-scroll 30s linear infinite;
+    width: max-content;
+}
+
+.ticker-track:hover {
+    animation-play-state: paused;
+}
+
+/* Alpine.js x-cloak */
+[x-cloak] {
+    display: none !important;
 }

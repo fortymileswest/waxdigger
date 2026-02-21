@@ -1,6 +1,26 @@
 # CLAUDE.md - Waxdigger
 
-This file provides context for AI assistants working on this project.
+This file provides context for AI assistants working on this project. It is read by Claude Code, Cursor, Copilot, Windsurf, and other AI coding tools.
+
+## Instructions for All AI Models
+
+**Read this entire file before making changes.** Key rules:
+
+1. **Use `fmw_` prefix** for all PHP functions
+2. **British English** in all user-facing text
+3. **Always escape output**: `esc_html()`, `esc_attr()`, `esc_url()`
+4. **No external CDNs** — all assets self-hosted (fonts, icons, JS libraries)
+5. **Tailwind utility classes** for styling — custom CSS in `input.css` only when needed
+6. **Alpine.js** for interactivity (not jQuery, except WooCommerce hooks)
+7. **Compile CSS** after any input.css changes: `npx tailwindcss -i ./assets/css/input.css -o ./assets/css/output.css --minify` (run from theme directory)
+8. **Flush cache** after PHP changes: `ddev wp cache flush`
+9. **No Gutenberg** — Classic Editor only
+10. **No icon libraries** — individual SVG files in `assets/icons/`, used via `fmw_icon('name', 'classes')`
+11. **Follow the design system** below — dark underground vinyl aesthetic, NOT generic templates
+12. **Partials** go in `partials/`, reusable UI in `components/`
+13. **`filemtime()`** for all CSS/JS version strings — never static constants
+14. **Max image size**: 0.5MB, formats: jpg, jpeg, png, webp
+15. **Product name convention**: "ARTIST - Title" (split on " - " for display)
 
 ## Project Overview
 
@@ -82,21 +102,43 @@ ddev wp login create admin --launch
 - GSAP for animations
 - Form submissions via AJAX with nonce verification
 
-## Design Philosophy
+## Design System
 
-**STRUCTURAL CODE ONLY - NO DESIGN DECISIONS**
+The homepage follows a dark underground vinyl aesthetic designed in Pencil.dev.
 
-Do NOT create:
-- Gradient backgrounds
-- Pre-designed layouts
-- Colour application beyond the defined system
-- Generic SaaS/startup template aesthetics
+### Colour Palette
+| Token | Hex | Usage |
+|-------|-----|-------|
+| `dark` | `#0d0d0d` | Primary dark background |
+| `cream` | `#f0ece4` | Light backgrounds, body text on dark |
+| `accent` | `#25ddb3` | Teal accent — buttons, highlights, labels |
+| `teal-dark` | `#0a8c6a` | Dark teal — text accent on cream |
+| `card-dark` | `#1a1a1a` | Card/input backgrounds on dark |
 
-Do create:
-- Clean semantic HTML
-- Minimal Tailwind for layout (spacing, containers)
-- ACF field integration with proper escaping
-- Component/partial architecture ready for styling
+### Typography
+- **JetBrains Mono** (`font-mono`): Labels, nav, body text, form inputs, prices — weights 400-800
+- **Space Grotesk** (`font-display`): Headings, hero text — weight 700 only
+
+### Section Pattern
+Alternating `bg-dark` and `bg-cream` sections. 60px horizontal padding (`px-6 md:px-[60px]`), 80px vertical (`py-20`).
+
+### Borders
+Use `rgba(240, 236, 228, 0.125)` on dark backgrounds (cream at ~12% opacity). Use `rgba(13, 13, 13, 0.125)` on cream backgrounds.
+
+### Component Conventions
+- Section headers: numbered label (teal, `text-xs font-bold tracking-wider-2`) + heading (Space Grotesk, 32-40px) + subtitle/action
+- Buttons: JetBrains Mono 10-11px, bold, uppercase, tracking-wider-2/3
+- Primary CTA: `bg-accent text-dark` (teal bg, dark text)
+- Secondary CTA: `border border-cream/50` on dark, `border border-dark/50` on cream
+- Cards: no rounded corners, thin borders or no borders
+- Icons: SVG files in `assets/icons/`, used via `fmw_icon('name', 'classes')`
+
+### Design Philosophy
+- Underground vinyl record shop aesthetic — NOT generic SaaS/startup
+- Monospace typography throughout, geometric display headings
+- Dark-first design with cream sections for contrast
+- No rounded corners (except circular buttons/badges)
+- Minimal, structural — no decorative gradients or shadows (except hero overlay)
 
 ## ACF Patterns
 
@@ -188,27 +230,76 @@ Forms use AJAX with nonce verification:
 
 ## TODO
 
-- [x] **Deploy to Staging (Cloudways)** — ✓ Deployed 2 Feb 2025
-- [x] **Migrate to xCloud** — ✓ Migrated 14 Feb 2026
-  - Moved from Cloudways (206.189.31.119) to xcloud-new (64.176.187.195)
-  - Theme, plugins (ACF Pro, WooCommerce, WP Grid Builder), uploads, DB all migrated
-  - SEO Framework installed, nginx-helper + redis-cache active
+- [x] **Deploy to Staging (Cloudways)** — Deployed 2 Feb 2025
+- [x] **Migrate to xCloud** — Migrated 14 Feb 2026
+  - Moved from Cloudways to xcloud-new (64.176.187.195)
   - Live at https://waxdigger.com
+- [x] **Sticky Header Hide/Show** — Fixed
+- [x] **YouTube Scraper** — Done
+- [x] **Single Product Page** — Done
+- [x] **Homepage Redesign** — Implemented 21 Feb 2026 (see below)
+- [ ] **SCF Options Page** — Register "Homepage Settings" with Featured Release + Staff Picks product pickers
+- [ ] **Responsive testing** — Mobile/tablet breakpoints for all homepage sections
+- [ ] **Single product page** — Restyle to match dark brand theme
+- [ ] **DJ Mix Section** — Custom audio player page/section using wavesurfer.js for streaming DJ mixes. Options: self-hosted MP3s (full wavesurfer.js waveform), SoundCloud Widget API (limited customisation), or Mixcloud embeds (metadata only, no raw audio). Self-hosted gives best UX but needs file hosting. On hold — needs further thought on approach and hosting.
 
-- [ ] **Sticky Header Hide/Show** — Fix scroll behaviour
-  - Header should hide on scroll down (only after scrolling 300px+)
-  - Header should show on scroll up with fade animation
-  - Currently has jitter issue on initial scroll/near top of page
-  - CSS transitions are in place (input.css), logic is in header.php Alpine x-init
-  - Needs debugging to prevent flicker when first scrolling down
+## Homepage Redesign (21 Feb 2026)
 
-- [ ] **YouTube Scraper** — Build WP-CLI command to auto-fetch YouTube videos for products
-  - User needs YouTube Data API key from https://console.cloud.google.com/
-  - Enable "YouTube Data API v3", create API key under Credentials
-  - ACF repeater field `youtube_videos` already exists on products (url + title)
-  - Scraper should search "Artist - Title" and save top results
+Pixel-perfect implementation from Pencil.dev design file. All 10 sections built and functional.
 
-- [ ] **Single Product Page** — Custom template with video display
+### Implementation Status
+| Section | File | Status |
+|---------|------|--------|
+| Header | `header.php` | Done — dark bg, compass logo, nav, cart/search/account icons |
+| Hero | `partials/hero.php` | Done — featured release slider (Alpine.js fade), background image, CTAs |
+| Ticker Strip | `partials/ticker-strip.php` | Done — CSS marquee animation, teal bg |
+| New Arrivals | `partials/new-arrivals.php` | Done — 12-product horizontal slider, snap scroll, touch swipe |
+| Genre Section | `partials/genre-section.php` | Done — all genres from taxonomy, horizontal slider, AI images |
+| Staff Picks | `partials/staff-picks.php` | Done — featured pick + 5-row list, falls back to latest products |
+| About | `partials/about-section.php` | Done — hardcoded, stats grid, quote |
+| We Buy Records | `partials/we-buy-records.php` | Done — hardcoded, USP cards, testimonial |
+| Newsletter | `partials/newsletter.php` | Done — email form, decorative text |
+| Footer | `footer.php` | Done — cream bg, compass logo, 3 link columns, socials |
+
+### Components
+| Component | File | Status |
+|-----------|------|--------|
+| Cart Drawer | `components/cart-drawer.php` | Done — slide-out, AJAX, dark theme |
+| Login Modal | `components/login-modal.php` | Done — dark theme, Alpine.js |
+| Search Modal | `components/search-modal.php` | Done — dark theme, advanced filters |
+| Exit Popup | `components/exit-popup.php` | Done — dark theme, discount code |
+| Cookie Consent | `components/cookie-consent.php` | Done — dark theme, tracking script control |
+| Back to Top | `components/back-to-top.php` | Done — appears after 500px scroll |
+
+### Key Features
+- **AJAX Add to Cart**: Global `fmwAddToCart(productId, buttonEl)` function — AJAX add, opens cart drawer, shows toast on duplicate
+- **Cart Drawer**: Slides in from right, shows items/total, view basket + checkout links
+- **Sliders**: Hero (fade transition), New Arrivals (snap scroll), Genre (snap scroll) — all touch-swipeable
+- **Genre Images**: AI-generated (Flux Schnell) WebP images in `assets/images/genre-*.webp`, with taxonomy thumbnail fallback
+- **Hero Background**: AI-generated `assets/images/hero-records-in-store.webp`
+- **Cookie Consent**: Blocks tracking scripts until accepted, dispatches `cookies-accepted` event
+
+### Data Flow
+- **Dynamic**: Products from `wc_get_products()`, genres from `genre` taxonomy, labels from `record_label` taxonomy
+- **SCF Options** (when configured): `featured_product` (hero slider), `staff_pick_featured` + `staff_picks_list` (staff picks)
+- **Fallbacks**: Hero uses latest 5 products, Staff Picks uses latest 6 products
+- **Hardcoded**: About, We Buy Records, Newsletter, Ticker Strip content
+
+### Files Created
+- `partials/`: ticker-strip, new-arrivals, genre-section, staff-picks, about-section, we-buy-records, newsletter
+- `components/`: cookie-consent, back-to-top
+- `assets/fonts/`: JetBrains Mono (5 weights) + Space Grotesk (bold) woff2
+- `assets/images/`: hero-records-in-store.webp, 12 genre images (balearic, breaks, deep-house, drum-bass, electro, happy-hardcore, hip-hop, house, jungle, rave-hardcore, soul-funk, techno)
+- `assets/icons/`: arrow-right, chevron-up, pound, banknote, truck, disc, shield-check, headphones, youtube, twitter
+
+### Files Modified
+- `tailwind.config.js` — brand colours, font families, custom utilities
+- `assets/css/input.css` — @font-face, restyled all modals/drawers to dark brand theme, scrollbar-hide, ticker animation
+- `header.php` — dark bg, compass logo, Alpine.js mobile menu, cart drawer trigger
+- `footer.php` — cream bg, link columns, component includes (cart-drawer, login-modal, search-modal, exit-popup, cookie-consent, back-to-top)
+- `front-page.php` — direct partial includes (hero, ticker-strip, new-arrivals, genre-section, staff-picks, about-section, we-buy-records, newsletter)
+- `partials/hero.php` — complete rewrite with Alpine.js featured slider
+- `inc/ajax-cart.php` — AJAX add-to-cart with duplicate detection
 
 ## WP-CLI Commands
 
@@ -258,6 +349,8 @@ Archive pages available at `/label/{slug}/`
 - **Site owner**: `u4_waxdigger`
 - **Site path**: `/var/www/waxdigger.com`
 - **PHP**: 8.3 | **WP-CLI**: 2.12
+- **WP Admin**: danny@leadpath.co.uk
+- **WP Password**: Zg0K1YV3peVhzXU1IIHw
 
 ```bash
 # 1. Build CSS

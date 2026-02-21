@@ -161,7 +161,7 @@
         let ringY = 0;
 
         // Dark section selectors
-        const darkSections = '.about-hero, .about-history, [data-cursor-light]';
+        const darkSections = '.about-hero, .about-history, [data-cursor-light], .site-header';
 
         // Check if element or its parents are dark sections
         function isOverDarkSection(x, y) {

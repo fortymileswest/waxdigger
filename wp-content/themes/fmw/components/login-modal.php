@@ -61,6 +61,7 @@ if ( is_user_logged_in() ) {
 
 		<!-- Login Form -->
 		<div class="login-modal-content" x-show="!showRegister">
+			<?php fmw_icon( 'compass', 'w-6 h-6 text-accent mb-4' ); ?>
 			<h2 class="login-modal-title">Sign In</h2>
 			<p class="login-modal-subtitle">Welcome back to Waxdigger</p>
 
@@ -118,6 +119,7 @@ if ( is_user_logged_in() ) {
 		<!-- Register Form -->
 		<?php if ( get_option( 'woocommerce_enable_myaccount_registration' ) === 'yes' ) : ?>
 			<div class="login-modal-content" x-show="showRegister">
+				<?php fmw_icon( 'compass', 'w-6 h-6 text-accent mb-4' ); ?>
 				<h2 class="login-modal-title">Create Account</h2>
 				<p class="login-modal-subtitle">Join Waxdigger</p>
 

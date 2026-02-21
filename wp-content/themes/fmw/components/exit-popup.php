@@ -38,6 +38,9 @@ if ( is_user_logged_in() || isset( $_COOKIE['fmw_subscribed'] ) ) {
 
 		<!-- Email Form -->
 		<div x-show="!submitted" class="exit-popup-form-wrapper">
+			<div class="flex justify-center mb-4">
+				<?php fmw_icon( 'compass', 'w-8 h-8 text-accent' ); ?>
+			</div>
 			<h3 class="exit-popup-title">Want 10% off your first order?</h3>
 			<p class="exit-popup-text">Join our mailing list for exclusive offers and new arrivals.</p>
 
@@ -63,6 +66,9 @@ if ( is_user_logged_in() || isset( $_COOKIE['fmw_subscribed'] ) ) {
 
 		<!-- Success / Code Display -->
 		<div x-show="submitted" class="exit-popup-success">
+			<div class="flex justify-center mb-4">
+				<?php fmw_icon( 'compass', 'w-8 h-8 text-accent' ); ?>
+			</div>
 			<h3 class="exit-popup-title">Your discount code</h3>
 			<div class="exit-popup-code">WELCOME10</div>
 			<p class="exit-popup-text">Use this code at checkout for 10% off your first order.</p>
