@@ -241,7 +241,7 @@ Forms use AJAX with nonce verification:
 - [ ] **SCF Options Page** — Register "Homepage Settings" with Featured Release + Staff Picks product pickers
 - [ ] **Responsive testing** — Mobile/tablet breakpoints for all homepage sections
 - [ ] **Single product page** — Restyle to match dark brand theme
-- [ ] **DJ Mix Section** — Custom audio player page/section using wavesurfer.js for streaming DJ mixes. Options: self-hosted MP3s (full wavesurfer.js waveform), SoundCloud Widget API (limited customisation), or Mixcloud embeds (metadata only, no raw audio). Self-hosted gives best UX but needs file hosting. On hold — needs further thought on approach and hosting.
+- [ ] **DJ Mix Section** — New page/section for 1-hour DJ mixes with tracklists. Use **Mixcloud embeds** (free, blanket PRS/PPL licensing included). Style embed wrappers to match dark brand. Each mix: Mixcloud iframe + tracklist displayed alongside. No self-hosting, no wavesurfer.js, no licensing costs. Product pages keep YouTube embeds for 30-second clips (already done).
 
 ## Homepage Redesign (21 Feb 2026)
 
